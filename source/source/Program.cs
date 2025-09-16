@@ -1,4 +1,6 @@
-﻿namespace source
+﻿using source.Models;
+
+namespace source
 {
     internal static class Program
     {
