@@ -16,10 +16,12 @@ namespace source
         }
         public static void Main(string[] args) {
             adkadjka
-                sadkadmk
 
-                àkafawk
-                ss
+
+
+
+
+                Console.WriteLine("tesr");
                 }
     }
 }
