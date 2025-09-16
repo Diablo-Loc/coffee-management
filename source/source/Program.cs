@@ -12,6 +12,14 @@ namespace source
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             Application.Run(new Form1());
+            
         }
+        public static void Main(string[] args) {
+            adkadjka
+                sadkadmk
+
+                àkafawk
+                ss
+                }
     }
 }
