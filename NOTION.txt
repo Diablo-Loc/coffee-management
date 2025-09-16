@@ -1,0 +1,2 @@
+thư mục src là ể lưu code, code từ VS
+thư mục docs : UML,..
