@@ -14,14 +14,11 @@ namespace source
             Application.Run(new Form1());
             
         }
-        public static void Main(string[] args) {
-            adkadjka
-
-
-
-
-
-                Console.WriteLine("tesr");
-                }
+        public static void Main(string[] args)
+        {
+            Table t = new Table();
+            t.nhap();
+            t.xuat();
+        }
     }
 }
