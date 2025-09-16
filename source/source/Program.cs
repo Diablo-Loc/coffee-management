@@ -15,8 +15,8 @@
             
         }
         public static void Main(string[] args) {
-            adkadjkasadjawđăkdjădkwakkkwwwwwwwwwwwwwwwwwwwwwwwwww
-                
+            // tui fix cái merge để coi thử được ko nha
+
                 }
     }
 }
