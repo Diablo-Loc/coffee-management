@@ -1,4 +1,4 @@
-namespace source
+﻿namespace source
 {
     internal static class Program
     {
@@ -15,11 +15,8 @@ namespace source
             
         }
         public static void Main(string[] args) {
-            adkadjka
-                sadkadmk
-
-                �kafawk
-                ss
+            adkadjkasadjawđăkdjădkwakkkwwwwwwwwwwwwwwwwwwwwwwwwww
+                
                 }
     }
 }
