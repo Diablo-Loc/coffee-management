@@ -8,6 +8,29 @@ namespace source.Models
 {
     internal class OrderItem
     {
-        private
+        private MenuItem sItems;
+        private int sQuanity;
+
+        public MenuItem Items {  
+            get { return sItems; }
+            set { sItems = value; }      
+        }
+        public int Quanity
+        {
+            get { return sQuanity; }
+            set { sQuanity = value; }
+        }
+
+        public OrderItem()
+        {
+        }
+        public OrderItem(MenuItem item, int quanity)
+        {
+            this.sItems = item;
+            this.sQuanity = quanity;
+        }
+
+        //method...
     }
+
 }
