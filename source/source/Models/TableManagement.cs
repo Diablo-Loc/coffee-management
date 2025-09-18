@@ -6,8 +6,16 @@ using System.Threading.Tasks;
 
 namespace source.Models
 {
-    internal class TableManagement
+    internal class TablesManagement
     {
-        private
+        private List<Table> pTables;
+
+
+        public TablesManagement() { 
+        
+        }
+        public List<Table> Tables { get { return pTables; } set { pTables = value; } }
+
+
     }
 }
