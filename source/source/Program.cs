@@ -1,4 +1,7 @@
 ﻿using source.Models;
+using System;
+using System.Windows.Forms;
+using source.UI;
 
 namespace source
 {
@@ -12,17 +15,9 @@ namespace source
         { 
             https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new Form1());
+            Application.Run(new MainForm());
             
         }
-
-        public static void Main(string[] args)
-        {
-            Table t = new Table();
-            t.nhap();
-            t.xuat();
-        }
-
 
     }
 }

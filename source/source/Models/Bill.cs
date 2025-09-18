@@ -8,6 +8,6 @@ namespace source.Models
 {
     internal class Bill
     {
-        private
+        //private
     }
 }

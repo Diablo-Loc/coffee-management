@@ -9,16 +9,23 @@ namespace source.Models
     internal class OrderItem
     {
         private MenuItem sItems;
-        private int sQuanity;
+        private int sQuantity;
 
         public MenuItem Items {  
             get { return sItems; }
-            set { sItems = value; }      
+            set 
+            {
+                if (value == null) throw new ArgumentNullException(nameof(Items));
+                sItems = value; 
+            }      
         }
-        public int Quanity
+        public int Quantity
         {
-            get { return sQuanity; }
-            set { sQuanity = value; }
+            get { return sQuantity; }
+            set 
+            {
+                if (value <= 0) throw new ArgumentException("ERROR! Quantity must be > 0!");
+                sQuantity = value; }
         }
 
         public OrderItem()
@@ -27,10 +34,16 @@ namespace source.Models
         public OrderItem(MenuItem item, int quanity)
         {
             this.sItems = item;
-            this.sQuanity = quanity;
+            this.sQuantity = quanity;
         }
-
-        //method...
+        //method
+        //Tổng tiền sp order
+        public decimal TotalPrice()
+        {
+            if (sItems == null) return 0;
+            return sItems.Price * this.sQuantity;
+        }
+        //Tăng-giảm số lượng order
     }
 
 }

@@ -8,6 +8,6 @@ namespace source.Services
 {
     internal class ReportService
     {
-        private
+        //private
     }
 }
