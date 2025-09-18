@@ -8,6 +8,6 @@ namespace source.Interfaces
 {
     internal class IPrintable
     {
-        private
+        //private
     }
 }
