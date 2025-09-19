@@ -54,7 +54,7 @@
             panelMenu.Dock = DockStyle.Left;
             panelMenu.Location = new Point(0, 0);
             panelMenu.Name = "panelMenu";
-            panelMenu.Size = new Size(191, 513);
+            panelMenu.Size = new Size(261, 513);
             panelMenu.TabIndex = 1;
             panelMenu.Paint += panel1_Paint;
             // 
@@ -63,9 +63,9 @@
             buttonOrderList.Dock = DockStyle.Top;
             buttonOrderList.FlatStyle = FlatStyle.Flat;
             buttonOrderList.ForeColor = SystemColors.ButtonHighlight;
-            buttonOrderList.Location = new Point(0, 144);
+            buttonOrderList.Location = new Point(0, 156);
             buttonOrderList.Name = "buttonOrderList";
-            buttonOrderList.Size = new Size(191, 45);
+            buttonOrderList.Size = new Size(261, 45);
             buttonOrderList.TabIndex = 5;
             buttonOrderList.Text = "Order List";
             buttonOrderList.UseVisualStyleBackColor = true;
@@ -76,9 +76,9 @@
             buttonCreatOrder.Dock = DockStyle.Top;
             buttonCreatOrder.FlatStyle = FlatStyle.Flat;
             buttonCreatOrder.ForeColor = SystemColors.ButtonHighlight;
-            buttonCreatOrder.Location = new Point(0, 99);
+            buttonCreatOrder.Location = new Point(0, 111);
             buttonCreatOrder.Name = "buttonCreatOrder";
-            buttonCreatOrder.Size = new Size(191, 45);
+            buttonCreatOrder.Size = new Size(261, 45);
             buttonCreatOrder.TabIndex = 4;
             buttonCreatOrder.Text = "Create Order";
             buttonCreatOrder.UseVisualStyleBackColor = true;
@@ -91,9 +91,9 @@
             buttonMenuManagement.FlatStyle = FlatStyle.Flat;
             buttonMenuManagement.ForeColor = SystemColors.ButtonHighlight;
             buttonMenuManagement.ImageAlign = ContentAlignment.MiddleLeft;
-            buttonMenuManagement.Location = new Point(0, 54);
+            buttonMenuManagement.Location = new Point(0, 66);
             buttonMenuManagement.Name = "buttonMenuManagement";
-            buttonMenuManagement.Size = new Size(191, 45);
+            buttonMenuManagement.Size = new Size(261, 45);
             buttonMenuManagement.TabIndex = 3;
             buttonMenuManagement.Text = "Menu Management";
             buttonMenuManagement.UseVisualStyleBackColor = false;
@@ -107,16 +107,19 @@
             panelLogo.ForeColor = SystemColors.ActiveBorder;
             panelLogo.Location = new Point(0, 0);
             panelLogo.Name = "panelLogo";
-            panelLogo.Size = new Size(191, 54);
+            panelLogo.Size = new Size(261, 66);
             panelLogo.TabIndex = 2;
             panelLogo.Paint += panelLogo_Paint;
             // 
             // labelHome
             // 
+            labelHome.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
             labelHome.AutoSize = true;
             labelHome.Font = new Font("Segoe UI", 15F);
             labelHome.ForeColor = SystemColors.ButtonHighlight;
-            labelHome.Location = new Point(47, 3);
+            labelHome.ImageAlign = ContentAlignment.TopCenter;
+            labelHome.Location = new Point(73, 9);
+            labelHome.Margin = new Padding(10, 0, 3, 0);
             labelHome.Name = "labelHome";
             labelHome.Size = new Size(104, 41);
             labelHome.TabIndex = 0;
@@ -125,12 +128,14 @@
             // 
             // labelCoffeeManagement
             // 
+            labelCoffeeManagement.Anchor = AnchorStyles.Top;
             labelCoffeeManagement.AutoSize = true;
-            labelCoffeeManagement.Font = new Font("Segoe UI", 16F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            labelCoffeeManagement.Font = new Font("Segoe UI", 22F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelCoffeeManagement.ForeColor = Color.Chocolate;
-            labelCoffeeManagement.Location = new Point(168, -1);
+            labelCoffeeManagement.Location = new Point(80, 0);
+            labelCoffeeManagement.Margin = new Padding(0, 0, 6, 0);
             labelCoffeeManagement.Name = "labelCoffeeManagement";
-            labelCoffeeManagement.Size = new Size(325, 45);
+            labelCoffeeManagement.Size = new Size(448, 60);
             labelCoffeeManagement.TabIndex = 0;
             labelCoffeeManagement.Text = "Coffee Management";
             labelCoffeeManagement.TextAlign = ContentAlignment.MiddleCenter;
@@ -138,25 +143,26 @@
             // 
             // panel1
             // 
+            panel1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             panel1.BackColor = Color.Transparent;
             panel1.BackgroundImageLayout = ImageLayout.None;
             panel1.Controls.Add(button3);
             panel1.Controls.Add(button2);
             panel1.Controls.Add(button1);
             panel1.Controls.Add(labelCoffeeManagement);
-            panel1.Dock = DockStyle.Top;
-            panel1.Location = new Point(191, 0);
+            panel1.Location = new Point(258, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(711, 54);
+            panel1.Size = new Size(644, 66);
             panel1.TabIndex = 2;
             panel1.MouseDown += panelTitle_MouseDown;
             // 
             // button3
             // 
+            button3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             button3.FlatStyle = FlatStyle.Flat;
-            button3.Font = new Font("Segoe MDL2 Assets", 12F, FontStyle.Bold);
+            button3.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button3.ForeColor = SystemColors.ButtonShadow;
-            button3.Location = new Point(670, 1);
+            button3.Location = new Point(603, 1);
             button3.Name = "button3";
             button3.Size = new Size(40, 34);
             button3.TabIndex = 6;
@@ -166,25 +172,28 @@
             // 
             // button2
             // 
+            button2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             button2.BackColor = Color.Transparent;
             button2.FlatStyle = FlatStyle.Flat;
-            button2.Font = new Font("Segoe MDL2 Assets", 12F, FontStyle.Bold);
+            button2.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button2.ForeColor = SystemColors.ButtonShadow;
-            button2.Location = new Point(629, 1);
+            button2.Location = new Point(562, 1);
             button2.Margin = new Padding(0);
             button2.Name = "button2";
             button2.Size = new Size(40, 34);
             button2.TabIndex = 5;
             button2.Text = "▢";
             button2.UseVisualStyleBackColor = false;
+            button2.Click += btnMax_Click;
             // 
             // button1
             // 
+            button1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             button1.BackColor = Color.Transparent;
             button1.FlatStyle = FlatStyle.Flat;
-            button1.Font = new Font("Segoe MDL2 Assets", 12F, FontStyle.Bold);
+            button1.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button1.ForeColor = SystemColors.ButtonShadow;
-            button1.Location = new Point(589, 1);
+            button1.Location = new Point(522, 1);
             button1.Margin = new Padding(0);
             button1.Name = "button1";
             button1.Size = new Size(40, 34);
@@ -224,7 +233,6 @@
         private Panel panel1;
         private Label labelHome;
         private Label labelCoffeeManagement;
-        private Label label1;
         private Label label2;
         private Label label3;
         private Button button1;

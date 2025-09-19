@@ -87,13 +87,21 @@ namespace source.UI
         // Nút Maximize / Restore
         private void btnMax_Click(object sender, EventArgs e)
         {
-            if (this.WindowState == FormWindowState.Normal)
+            Rectangle workingArea = Screen.PrimaryScreen.WorkingArea;
+
+            if (this.Tag == null)
             {
-                this.WindowState = FormWindowState.Maximized;
+                // Phóng to theo vùng làm việc (trừ taskbar)
+                this.Location = workingArea.Location;
+                this.Size = workingArea.Size;
+                this.Tag = "Maximized";
             }
             else
             {
-                this.WindowState = FormWindowState.Normal;
+                // Quay về kích thước ban đầu
+                this.Size = new Size(1280, 720);
+                this.CenterToScreen();
+                this.Tag = null;
             }
         }
 
@@ -108,6 +116,11 @@ namespace source.UI
         }
 
         private void MainForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click_3(object sender, EventArgs e)
         {
 
         }
