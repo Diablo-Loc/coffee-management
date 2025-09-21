@@ -28,103 +28,28 @@
         /// </summary>
         private void InitializeComponent()
         {
-            panelMenu = new Panel();
-            buttonOrderList = new Button();
-            buttonCreatOrder = new Button();
-            buttonMenuManagement = new Button();
-            panelLogo = new Panel();
-            labelHome = new Label();
+            components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             labelCoffeeManagement = new Label();
             panel1 = new Panel();
             button3 = new Button();
             button2 = new Button();
             button1 = new Button();
-            panelMenu.SuspendLayout();
-            panelLogo.SuspendLayout();
+            sideBar = new FlowLayoutPanel();
+            panel3 = new Panel();
+            label1 = new Label();
+            menuButton = new PictureBox();
+            panel2 = new Panel();
+            button4 = new Button();
+            button5 = new Button();
+            button6 = new Button();
+            sidebarTimer = new System.Windows.Forms.Timer(components);
             panel1.SuspendLayout();
+            sideBar.SuspendLayout();
+            panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)menuButton).BeginInit();
+            panel2.SuspendLayout();
             SuspendLayout();
-            // 
-            // panelMenu
-            // 
-            panelMenu.BackColor = Color.Transparent;
-            panelMenu.Controls.Add(buttonOrderList);
-            panelMenu.Controls.Add(buttonCreatOrder);
-            panelMenu.Controls.Add(buttonMenuManagement);
-            panelMenu.Controls.Add(panelLogo);
-            panelMenu.Dock = DockStyle.Left;
-            panelMenu.Location = new Point(0, 0);
-            panelMenu.Name = "panelMenu";
-            panelMenu.Size = new Size(261, 513);
-            panelMenu.TabIndex = 1;
-            panelMenu.Paint += panel1_Paint;
-            // 
-            // buttonOrderList
-            // 
-            buttonOrderList.Dock = DockStyle.Top;
-            buttonOrderList.FlatStyle = FlatStyle.Flat;
-            buttonOrderList.ForeColor = SystemColors.ButtonHighlight;
-            buttonOrderList.Location = new Point(0, 156);
-            buttonOrderList.Name = "buttonOrderList";
-            buttonOrderList.Size = new Size(261, 45);
-            buttonOrderList.TabIndex = 5;
-            buttonOrderList.Text = "Order List";
-            buttonOrderList.UseVisualStyleBackColor = true;
-            buttonOrderList.Click += buttonOrderList_Click;
-            // 
-            // buttonCreatOrder
-            // 
-            buttonCreatOrder.Dock = DockStyle.Top;
-            buttonCreatOrder.FlatStyle = FlatStyle.Flat;
-            buttonCreatOrder.ForeColor = SystemColors.ButtonHighlight;
-            buttonCreatOrder.Location = new Point(0, 111);
-            buttonCreatOrder.Name = "buttonCreatOrder";
-            buttonCreatOrder.Size = new Size(261, 45);
-            buttonCreatOrder.TabIndex = 4;
-            buttonCreatOrder.Text = "Create Order";
-            buttonCreatOrder.UseVisualStyleBackColor = true;
-            buttonCreatOrder.Click += buttonCreatOrder_Click;
-            // 
-            // buttonMenuManagement
-            // 
-            buttonMenuManagement.BackColor = Color.Transparent;
-            buttonMenuManagement.Dock = DockStyle.Top;
-            buttonMenuManagement.FlatStyle = FlatStyle.Flat;
-            buttonMenuManagement.ForeColor = SystemColors.ButtonHighlight;
-            buttonMenuManagement.ImageAlign = ContentAlignment.MiddleLeft;
-            buttonMenuManagement.Location = new Point(0, 66);
-            buttonMenuManagement.Name = "buttonMenuManagement";
-            buttonMenuManagement.Size = new Size(261, 45);
-            buttonMenuManagement.TabIndex = 3;
-            buttonMenuManagement.Text = "Menu Management";
-            buttonMenuManagement.UseVisualStyleBackColor = false;
-            buttonMenuManagement.Click += buttonShowMenuForm_Click;
-            // 
-            // panelLogo
-            // 
-            panelLogo.BackColor = Color.Transparent;
-            panelLogo.Controls.Add(labelHome);
-            panelLogo.Dock = DockStyle.Top;
-            panelLogo.ForeColor = SystemColors.ActiveBorder;
-            panelLogo.Location = new Point(0, 0);
-            panelLogo.Name = "panelLogo";
-            panelLogo.Size = new Size(261, 66);
-            panelLogo.TabIndex = 2;
-            panelLogo.Paint += panelLogo_Paint;
-            // 
-            // labelHome
-            // 
-            labelHome.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
-            labelHome.AutoSize = true;
-            labelHome.Font = new Font("Segoe UI", 15F);
-            labelHome.ForeColor = SystemColors.ButtonHighlight;
-            labelHome.ImageAlign = ContentAlignment.TopCenter;
-            labelHome.Location = new Point(73, 9);
-            labelHome.Margin = new Padding(10, 0, 3, 0);
-            labelHome.Name = "labelHome";
-            labelHome.Size = new Size(104, 41);
-            labelHome.TabIndex = 0;
-            labelHome.Text = "HOME";
-            labelHome.Click += label1_Click_1;
             // 
             // labelCoffeeManagement
             // 
@@ -132,8 +57,8 @@
             labelCoffeeManagement.AutoSize = true;
             labelCoffeeManagement.Font = new Font("Segoe UI", 22F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelCoffeeManagement.ForeColor = Color.Chocolate;
-            labelCoffeeManagement.Location = new Point(80, 0);
-            labelCoffeeManagement.Margin = new Padding(0, 0, 6, 0);
+            labelCoffeeManagement.Location = new Point(794, 5);
+            labelCoffeeManagement.Margin = new Padding(0, 0, 10, 0);
             labelCoffeeManagement.Name = "labelCoffeeManagement";
             labelCoffeeManagement.Size = new Size(448, 60);
             labelCoffeeManagement.TabIndex = 0;
@@ -150,9 +75,10 @@
             panel1.Controls.Add(button2);
             panel1.Controls.Add(button1);
             panel1.Controls.Add(labelCoffeeManagement);
-            panel1.Location = new Point(258, 0);
+            panel1.Location = new Point(0, 0);
+            panel1.Margin = new Padding(5);
             panel1.Name = "panel1";
-            panel1.Size = new Size(644, 66);
+            panel1.Size = new Size(2080, 117);
             panel1.TabIndex = 2;
             panel1.MouseDown += panelTitle_MouseDown;
             // 
@@ -162,9 +88,10 @@
             button3.FlatStyle = FlatStyle.Flat;
             button3.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button3.ForeColor = SystemColors.ButtonShadow;
-            button3.Location = new Point(603, 1);
+            button3.Location = new Point(2013, 2);
+            button3.Margin = new Padding(5);
             button3.Name = "button3";
-            button3.Size = new Size(40, 34);
+            button3.Size = new Size(65, 60);
             button3.TabIndex = 6;
             button3.Text = "X";
             button3.UseVisualStyleBackColor = true;
@@ -177,10 +104,10 @@
             button2.FlatStyle = FlatStyle.Flat;
             button2.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button2.ForeColor = SystemColors.ButtonShadow;
-            button2.Location = new Point(562, 1);
+            button2.Location = new Point(1947, 2);
             button2.Margin = new Padding(0);
             button2.Name = "button2";
-            button2.Size = new Size(40, 34);
+            button2.Size = new Size(65, 60);
             button2.TabIndex = 5;
             button2.Text = "▢";
             button2.UseVisualStyleBackColor = false;
@@ -193,50 +120,158 @@
             button1.FlatStyle = FlatStyle.Flat;
             button1.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button1.ForeColor = SystemColors.ButtonShadow;
-            button1.Location = new Point(522, 1);
+            button1.Location = new Point(1881, 2);
             button1.Margin = new Padding(0);
             button1.Name = "button1";
-            button1.Size = new Size(40, 34);
+            button1.Size = new Size(65, 60);
             button1.TabIndex = 4;
             button1.Text = "-";
             button1.UseVisualStyleBackColor = false;
             button1.Click += btnMin_Click;
             // 
+            // sideBar
+            // 
+            sideBar.Controls.Add(panel3);
+            sideBar.Controls.Add(panel2);
+            sideBar.Controls.Add(button5);
+            sideBar.Controls.Add(button6);
+            sideBar.Dock = DockStyle.Left;
+            sideBar.Location = new Point(0, 0);
+            sideBar.Margin = new Padding(5);
+            sideBar.MaximumSize = new Size(583, 1280);
+            sideBar.MinimumSize = new Size(109, 1280);
+            sideBar.Name = "sideBar";
+            sideBar.Size = new Size(583, 1280);
+            sideBar.TabIndex = 3;
+            // 
+            // panel3
+            // 
+            panel3.Controls.Add(label1);
+            panel3.Controls.Add(menuButton);
+            panel3.Location = new Point(5, 5);
+            panel3.Margin = new Padding(5);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(575, 267);
+            panel3.TabIndex = 4;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(126, 80);
+            label1.Name = "label1";
+            label1.Size = new Size(77, 32);
+            label1.TabIndex = 2;
+            label1.Text = "Menu";
+            label1.Click += label1_Click_4;
+            // 
+            // menuButton
+            // 
+            menuButton.BackColor = Color.Transparent;
+            menuButton.BackgroundImageLayout = ImageLayout.Center;
+            menuButton.Cursor = Cursors.Hand;
+            menuButton.Image = (Image)resources.GetObject("menuButton.Image");
+            menuButton.Location = new Point(7, 55);
+            menuButton.Name = "menuButton";
+            menuButton.Size = new Size(82, 70);
+            menuButton.SizeMode = PictureBoxSizeMode.StretchImage;
+            menuButton.TabIndex = 1;
+            menuButton.TabStop = false;
+            menuButton.Click += menuButton_Click;
+            // 
+            // panel2
+            // 
+            panel2.Controls.Add(button4);
+            panel2.Location = new Point(5, 282);
+            panel2.Margin = new Padding(5);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(575, 113);
+            panel2.TabIndex = 0;
+            // 
+            // button4
+            // 
+            button4.ImageAlign = ContentAlignment.MiddleLeft;
+            button4.Location = new Point(0, -5);
+            button4.Margin = new Padding(5);
+            button4.Name = "button4";
+            button4.Padding = new Padding(100, 0, 0, 0);
+            button4.Size = new Size(570, 119);
+            button4.TabIndex = 0;
+            button4.Text = "Menu Management";
+            button4.TextAlign = ContentAlignment.MiddleLeft;
+            button4.UseVisualStyleBackColor = true;
+            button4.Click += buttonShowMenuForm_Click;
+            // 
+            // button5
+            // 
+            button5.Location = new Point(5, 405);
+            button5.Margin = new Padding(5);
+            button5.Name = "button5";
+            button5.Padding = new Padding(100, 0, 0, 0);
+            button5.Size = new Size(570, 119);
+            button5.TabIndex = 5;
+            button5.Text = "Create Order";
+            button5.TextAlign = ContentAlignment.MiddleLeft;
+            button5.UseVisualStyleBackColor = true;
+            button5.Click += buttonCreatOrder_Click;
+            // 
+            // button6
+            // 
+            button6.Location = new Point(5, 534);
+            button6.Margin = new Padding(5);
+            button6.Name = "button6";
+            button6.Padding = new Padding(100, 0, 0, 0);
+            button6.Size = new Size(570, 119);
+            button6.TabIndex = 6;
+            button6.Text = "List Order";
+            button6.TextAlign = ContentAlignment.MiddleLeft;
+            button6.UseVisualStyleBackColor = true;
+            // 
+            // sidebarTimer
+            // 
+            sidebarTimer.Interval = 9;
+            sidebarTimer.Tick += side;
+            // 
             // MainForm
             // 
-            AutoScaleDimensions = new SizeF(8F, 18F);
+            AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackgroundImage = Properties.Resources.MainMenuBackground;
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(902, 513);
+            ClientSize = new Size(2080, 1280);
+            Controls.Add(sideBar);
             Controls.Add(panel1);
-            Controls.Add(panelMenu);
-            Font = new Font("Segoe MDL2 Assets", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             FormBorderStyle = FormBorderStyle.None;
+            Margin = new Padding(5);
             Name = "MainForm";
             Text = "Form1";
             Load += MainForm_Load;
-            panelMenu.ResumeLayout(false);
-            panelLogo.ResumeLayout(false);
-            panelLogo.PerformLayout();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            sideBar.ResumeLayout(false);
+            panel3.ResumeLayout(false);
+            panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)menuButton).EndInit();
+            panel2.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
-        private Panel panelMenu;
-        private Button buttonMenuManagement;
-        private Panel panelLogo;
-        private Button buttonOrderList;
-        private Button buttonCreatOrder;
         private Panel panel1;
-        private Label labelHome;
         private Label labelCoffeeManagement;
         private Label label2;
         private Label label3;
         private Button button1;
         private Button button3;
         private Button button2;
+        private FlowLayoutPanel sideBar;
+        private Panel panel3;
+        private Panel panel2;
+        private Button button4;
+        private Button button5;
+        private Button button6;
+        private PictureBox menuButton;
+        private Label label1;
+        private System.Windows.Forms.Timer sidebarTimer;
     }
 }

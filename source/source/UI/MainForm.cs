@@ -13,6 +13,7 @@ namespace source.UI
 {
     public partial class MainForm : Form
     {
+        bool sideBarExpand; // Biến để theo dõi trạng thái mở rộng/thu gọn của sidebar
         [DllImport("user32.dll")]       // Code này dùng để thực hiện cầm vào thanh tiêu đề và kéo thả form
         public static extern bool ReleaseCapture();
 
@@ -123,6 +124,45 @@ namespace source.UI
         private void label1_Click_3(object sender, EventArgs e)
         {
 
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click_4(object sender, EventArgs e)
+        {
+
+        }
+
+        private void side(object sender, EventArgs e)
+        {
+            //Set max/ min of sidebar
+            if (sideBarExpand)
+            {
+                sideBar.Width -= 20;
+                if (sideBar.Width <= sideBar.MinimumSize.Width)
+                {
+                    sideBarExpand = false;
+                    sidebarTimer.Stop();
+                }
+            }
+            else
+            {
+                sideBar.Width += 10;
+                if (sideBar.Width >= sideBar.MaximumSize.Width)
+                {
+                    sideBarExpand = true;
+                    sidebarTimer.Stop();
+                }
+            }
+
+        }
+
+        private void menuButton_Click(object sender, EventArgs e)
+        {
+            sidebarTimer.Start();
         }
     }
 }
