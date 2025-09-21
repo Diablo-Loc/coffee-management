@@ -40,7 +40,7 @@ namespace source.Models
             this.pNum = num;
             this.pStatus = TableStatus.Free;
             this.pListOrders = new List<Order>();
-            this.pBill = new Bill();
+            this.pBill = null;
 
         }
         public int Number { get { return this.pNum; } set { this.pNum = value; } }
@@ -93,10 +93,10 @@ namespace source.Models
         }
 
 
-        public Bill GenerateBill()
+        public Bill GenerateBill(Order order)
         {
-            if (CurrentOrder == null) throw new InvalidOperationException("No active table");
-            this.pBill = new Bill();
+           
+            this.pBill = new Bill(order);
             this.CurrentOrder = null;
             this.Status = TableStatus.Free;
 
