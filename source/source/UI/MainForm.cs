@@ -64,7 +64,7 @@ namespace source.UI
         {
             MenuForm menuForm = new MenuForm();
             menuForm.Show();
-            this.Hide();
+  
         }
         private void panelTitle_MouseDown(object sender, MouseEventArgs e)
         {
@@ -141,7 +141,7 @@ namespace source.UI
             //Set max/ min of sidebar
             if (sideBarExpand)
             {
-                sideBar.Width -= 20;
+                sideBar.Width -= 10;
                 if (sideBar.Width <= sideBar.MinimumSize.Width)
                 {
                     sideBarExpand = false;
@@ -163,6 +163,11 @@ namespace source.UI
         private void menuButton_Click(object sender, EventArgs e)
         {
             sidebarTimer.Start();
+        }
+
+        private void sideBar_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
