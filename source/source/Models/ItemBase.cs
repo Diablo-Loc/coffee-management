@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace source.Models
 {
-    internal abstract class ItemBase
+    public abstract class ItemBase
     {
         private string sname;
         private decimal sprice;

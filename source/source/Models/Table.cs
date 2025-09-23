@@ -13,7 +13,7 @@ namespace source.Models
        Occupied,
        Reserved,
     }
-    internal class Table
+   public class Table
     {
         private int pNum;
         private TableStatus pStatus; // Free, Occupied, Reserved,(Có người/ trống )

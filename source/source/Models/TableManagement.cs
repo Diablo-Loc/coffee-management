@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace source.Models
 {
-    internal class TablesManagement {
+    public class TablesManagement {
         private List<Table> pTables;
 
         public List<Table> Tables {  get { return this.pTables; } set { this.pTables = value; } }

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using source.Models;
 
 namespace source.UI
 {
@@ -64,7 +65,14 @@ namespace source.UI
         {
             MenuForm menuForm = new MenuForm();
             menuForm.Show();
-  
+
+        }
+        private void buttonShowListOrder_Click(object sender, EventArgs e)
+        {
+            Order order = new Order();
+            Bill bill = new Bill(order);
+            BillForm billForm = new BillForm(bill); 
+            billForm.ShowDialog();
         }
         private void panelTitle_MouseDown(object sender, MouseEventArgs e)
         {
@@ -141,7 +149,7 @@ namespace source.UI
             //Set max/ min of sidebar
             if (sideBarExpand)
             {
-                sideBar.Width -= 10;
+                sideBar.Width -= 20;
                 if (sideBar.Width <= sideBar.MinimumSize.Width)
                 {
                     sideBarExpand = false;
@@ -166,6 +174,11 @@ namespace source.UI
         }
 
         private void sideBar_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void panel1_Paint_1(object sender, PaintEventArgs e)
         {
 
         }

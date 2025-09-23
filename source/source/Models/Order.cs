@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace source.Models
 {
-    internal class Order
+    public class Order
     {
         private List<OrderItem> _orderItem;
         private DateTime _createdAt; // thời điểm tạo, book món đồ. Dùng kiểu dữ liệu có sẵn trong c#

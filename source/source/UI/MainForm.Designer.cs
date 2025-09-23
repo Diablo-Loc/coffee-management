@@ -86,6 +86,7 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(1278, 117);
             panel1.TabIndex = 2;
+            panel1.Paint += panel1_Paint_1;
             panel1.MouseDown += panelTitle_MouseDown;
             // 
             // button3
@@ -274,6 +275,7 @@
             button6.TextAlign = ContentAlignment.MiddleLeft;
             button6.TextImageRelation = TextImageRelation.ImageBeforeText;
             button6.UseVisualStyleBackColor = true;
+            button6.Click += buttonShowListOrder_Click;
             // 
             // sidebarTimer
             // 

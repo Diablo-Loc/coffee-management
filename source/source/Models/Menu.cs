@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace source.Models
 {
-    internal class Menu
+    public class Menu
     {
         private List<MenuItem> _items;
 

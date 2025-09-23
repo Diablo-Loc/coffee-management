@@ -12,11 +12,11 @@ namespace source
         /// </summary>
         [STAThread]
         static void Main()
-        { 
+        {
             https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             Application.Run(new MainForm());
-            
+
         }
 
     }

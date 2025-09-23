@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace source.Models
 {
-    internal class OrderItem
+    public class OrderItem
     {
         private MenuItem sItems;
         private int sQuantity;

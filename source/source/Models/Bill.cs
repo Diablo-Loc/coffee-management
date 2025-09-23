@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace source.Models
 {
-    internal class Bill
+    public class Bill
     {
         private static int pIdCounter = 1; // auto tăng ID
         private int pID;

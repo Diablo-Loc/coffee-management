@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace source.Models
 {
-    internal class MenuItem: ItemBase
+    public class MenuItem: ItemBase
     {
         
         private string sCategory;
@@ -41,12 +41,12 @@ namespace source.Models
         //đổi mô tả
         public void ChangeDescription(string newdescrip)
         {
-
+            this.sDescription = newdescrip;
         }
         //thêm giảm giá %
         public void Applydiscount(decimal percent)
         {
-
+            this.Price = this.Price * (1 - percent / 100);
         }
         //....
     }
