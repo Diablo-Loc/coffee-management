@@ -48,9 +48,10 @@
             // 
             lblBillID.Font = new Font("Arial", 16F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblBillID.ForeColor = Color.Navy;
-            lblBillID.Location = new Point(273, 75);
+            lblBillID.Location = new Point(218, 60);
+            lblBillID.Margin = new Padding(2, 0, 2, 0);
             lblBillID.Name = "lblBillID";
-            lblBillID.Size = new Size(300, 40);
+            lblBillID.Size = new Size(240, 32);
             lblBillID.TabIndex = 1;
             lblBillID.Text = "Bill #000";
             lblBillID.TextAlign = ContentAlignment.MiddleCenter;
@@ -60,9 +61,10 @@
             // 
             lblTable.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblTable.ForeColor = Color.Black;
-            lblTable.Location = new Point(21, 170);
+            lblTable.Location = new Point(17, 136);
+            lblTable.Margin = new Padding(2, 0, 2, 0);
             lblTable.Name = "lblTable";
-            lblTable.Size = new Size(250, 30);
+            lblTable.Size = new Size(200, 24);
             lblTable.TabIndex = 2;
             lblTable.Text = "Table Number: 01";
             lblTable.Click += lblTable_Click;
@@ -71,9 +73,10 @@
             // 
             lblDate.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblDate.ForeColor = Color.Black;
-            lblDate.Location = new Point(21, 210);
+            lblDate.Location = new Point(17, 168);
+            lblDate.Margin = new Padding(2, 0, 2, 0);
             lblDate.Name = "lblDate";
-            lblDate.Size = new Size(250, 30);
+            lblDate.Size = new Size(200, 24);
             lblDate.TabIndex = 3;
             lblDate.Text = "Ngày: 23/09/2025";
             lblDate.Click += lblDate_Click;
@@ -82,9 +85,10 @@
             // 
             lblTotal.Font = new Font("Arial", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblTotal.ForeColor = Color.Red;
-            lblTotal.Location = new Point(503, 691);
+            lblTotal.Location = new Point(402, 553);
+            lblTotal.Margin = new Padding(2, 0, 2, 0);
             lblTotal.Name = "lblTotal";
-            lblTotal.Size = new Size(300, 40);
+            lblTotal.Size = new Size(240, 32);
             lblTotal.TabIndex = 4;
             lblTotal.Text = "Total: 0";
             lblTotal.TextAlign = ContentAlignment.MiddleRight;
@@ -92,9 +96,10 @@
             // listViewItem
             // 
             listViewItem.Columns.AddRange(new ColumnHeader[] { NameItem, Price, Quantity, Total });
-            listViewItem.Location = new Point(3, 259);
+            listViewItem.Location = new Point(2, 207);
+            listViewItem.Margin = new Padding(2, 2, 2, 2);
             listViewItem.Name = "listViewItem";
-            listViewItem.Size = new Size(800, 400);
+            listViewItem.Size = new Size(641, 321);
             listViewItem.TabIndex = 5;
             listViewItem.UseCompatibleStateImageBehavior = false;
             listViewItem.View = View.Details;
@@ -122,11 +127,13 @@
             // 
             // button4
             // 
+            button4.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             button4.FlatStyle = FlatStyle.Flat;
             button4.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button4.Location = new Point(547, 835);
+            button4.Location = new Point(438, 668);
+            button4.Margin = new Padding(2, 2, 2, 2);
             button4.Name = "button4";
-            button4.Size = new Size(112, 34);
+            button4.Size = new Size(90, 27);
             button4.TabIndex = 6;
             button4.Text = "Print ";
             button4.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -135,11 +142,13 @@
             // 
             // button5
             // 
+            button5.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             button5.FlatStyle = FlatStyle.Flat;
             button5.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button5.Location = new Point(683, 835);
+            button5.Location = new Point(546, 668);
+            button5.Margin = new Padding(2, 2, 2, 2);
             button5.Name = "button5";
-            button5.Size = new Size(112, 34);
+            button5.Size = new Size(90, 27);
             button5.TabIndex = 7;
             button5.Text = "Close";
             button5.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -158,9 +167,9 @@
             // 
             // BillForm
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(815, 1000);
+            ClientSize = new Size(652, 800);
             Controls.Add(button5);
             Controls.Add(button4);
             Controls.Add(listViewItem);
@@ -169,6 +178,7 @@
             Controls.Add(lblTable);
             Controls.Add(lblBillID);
             FormBorderStyle = FormBorderStyle.None;
+            Margin = new Padding(2, 2, 2, 2);
             Name = "BillForm";
             RightToLeftLayout = true;
             StartPosition = FormStartPosition.CenterScreen;
