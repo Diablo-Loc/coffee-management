@@ -28,307 +28,235 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            labelCoffeeManagement = new Label();
-            panel1 = new Panel();
-            button3 = new Button();
-            button2 = new Button();
-            button1 = new Button();
-            sideBar = new FlowLayoutPanel();
-            panel3 = new Panel();
-            label1 = new Label();
-            menuButton = new PictureBox();
-            panel2 = new Panel();
-            button4 = new Button();
-            imageList1 = new ImageList(components);
-            panel4 = new Panel();
-            button5 = new Button();
-            panel5 = new Panel();
-            button6 = new Button();
-            sidebarTimer = new System.Windows.Forms.Timer(components);
-            panel1.SuspendLayout();
-            sideBar.SuspendLayout();
-            panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)menuButton).BeginInit();
-            panel2.SuspendLayout();
-            panel4.SuspendLayout();
-            panel5.SuspendLayout();
+            Thanhbentrai = new Panel();
+            listorderbutton = new Button();
+            creatorderbutton = new Button();
+            Menubutton = new Button();
+            panelLogo = new Panel();
+            paneltitlebar = new Panel();
+            minimizebutton = new Button();
+            zoombutton = new Button();
+            exitbutton = new Button();
+            btnclosechildform = new Button();
+            namebar = new Label();
+            control = new Panel();
+            pictureBox1 = new PictureBox();
+            Thanhbentrai.SuspendLayout();
+            paneltitlebar.SuspendLayout();
+            control.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
-            // labelCoffeeManagement
+            // Thanhbentrai
             // 
-            labelCoffeeManagement.Anchor = AnchorStyles.Top;
-            labelCoffeeManagement.AutoSize = true;
-            labelCoffeeManagement.Font = new Font("Segoe UI", 22F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            labelCoffeeManagement.ForeColor = Color.FromArgb(255, 128, 0);
-            labelCoffeeManagement.Location = new Point(393, 5);
-            labelCoffeeManagement.Margin = new Padding(0, 0, 10, 0);
-            labelCoffeeManagement.Name = "labelCoffeeManagement";
-            labelCoffeeManagement.Size = new Size(375, 50);
-            labelCoffeeManagement.TabIndex = 0;
-            labelCoffeeManagement.Text = "Coffee Management";
-            labelCoffeeManagement.TextAlign = ContentAlignment.MiddleCenter;
-            labelCoffeeManagement.Click += labelCoffeeManagement_Click;
-            labelCoffeeManagement.MouseDown += panelTitle_MouseDown;
+            Thanhbentrai.BackColor = Color.White;
+            Thanhbentrai.Controls.Add(listorderbutton);
+            Thanhbentrai.Controls.Add(creatorderbutton);
+            Thanhbentrai.Controls.Add(Menubutton);
+            Thanhbentrai.Controls.Add(panelLogo);
+            Thanhbentrai.Dock = DockStyle.Left;
+            Thanhbentrai.Location = new Point(0, 0);
+            Thanhbentrai.Name = "Thanhbentrai";
+            Thanhbentrai.Size = new Size(176, 450);
+            Thanhbentrai.TabIndex = 0;
             // 
-            // panel1
+            // listorderbutton
             // 
-            panel1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            panel1.BackColor = Color.Transparent;
-            panel1.BackgroundImageLayout = ImageLayout.None;
-            panel1.Controls.Add(button3);
-            panel1.Controls.Add(button2);
-            panel1.Controls.Add(button1);
-            panel1.Controls.Add(labelCoffeeManagement);
-            panel1.Location = new Point(0, 0);
-            panel1.Margin = new Padding(5);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(1278, 117);
-            panel1.TabIndex = 2;
-            panel1.Paint += panel1_Paint_1;
-            panel1.MouseDown += panelTitle_MouseDown;
+            listorderbutton.Dock = DockStyle.Top;
+            listorderbutton.ForeColor = Color.Black;
+            listorderbutton.Image = (Image)resources.GetObject("listorderbutton.Image");
+            listorderbutton.ImageAlign = ContentAlignment.MiddleLeft;
+            listorderbutton.Location = new Point(0, 166);
+            listorderbutton.Name = "listorderbutton";
+            listorderbutton.Size = new Size(176, 50);
+            listorderbutton.TabIndex = 3;
+            listorderbutton.Text = "List Order";
+            listorderbutton.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // creatorderbutton
             // 
-            button3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            button3.FlatStyle = FlatStyle.Flat;
-            button3.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button3.ForeColor = SystemColors.ButtonShadow;
-            button3.Location = new Point(1211, 2);
-            button3.Margin = new Padding(5);
-            button3.Name = "button3";
-            button3.Size = new Size(65, 60);
-            button3.TabIndex = 6;
-            button3.Text = "X";
-            button3.UseVisualStyleBackColor = true;
-            button3.Click += btnClose_Click;
+            creatorderbutton.Dock = DockStyle.Top;
+            creatorderbutton.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            creatorderbutton.ForeColor = Color.Black;
+            creatorderbutton.Image = (Image)resources.GetObject("creatorderbutton.Image");
+            creatorderbutton.ImageAlign = ContentAlignment.MiddleLeft;
+            creatorderbutton.Location = new Point(0, 116);
+            creatorderbutton.Name = "creatorderbutton";
+            creatorderbutton.Size = new Size(176, 50);
+            creatorderbutton.TabIndex = 2;
+            creatorderbutton.Text = "Create Order";
+            creatorderbutton.UseVisualStyleBackColor = true;
+            creatorderbutton.Click += creatorder_Click;
             // 
-            // button2
+            // Menubutton
             // 
-            button2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            button2.BackColor = Color.Transparent;
-            button2.FlatStyle = FlatStyle.Flat;
-            button2.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button2.ForeColor = SystemColors.ButtonShadow;
-            button2.Location = new Point(1145, 2);
-            button2.Margin = new Padding(0);
-            button2.Name = "button2";
-            button2.Size = new Size(65, 60);
-            button2.TabIndex = 5;
-            button2.Text = "▢";
-            button2.UseVisualStyleBackColor = false;
-            button2.Click += btnMax_Click;
+            Menubutton.Dock = DockStyle.Top;
+            Menubutton.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            Menubutton.ForeColor = Color.Black;
+            Menubutton.Image = (Image)resources.GetObject("Menubutton.Image");
+            Menubutton.ImageAlign = ContentAlignment.MiddleLeft;
+            Menubutton.Location = new Point(0, 66);
+            Menubutton.Name = "Menubutton";
+            Menubutton.Size = new Size(176, 50);
+            Menubutton.TabIndex = 1;
+            Menubutton.Text = "Menu";
+            Menubutton.UseVisualStyleBackColor = true;
+            Menubutton.Click += Menubutton_Click;
             // 
-            // button1
+            // panelLogo
             // 
-            button1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            button1.BackColor = Color.Transparent;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button1.ForeColor = SystemColors.ButtonShadow;
-            button1.Location = new Point(1079, 2);
-            button1.Margin = new Padding(0);
-            button1.Name = "button1";
-            button1.Size = new Size(65, 60);
-            button1.TabIndex = 4;
-            button1.Text = "-";
-            button1.UseVisualStyleBackColor = false;
-            button1.Click += btnMin_Click;
+            panelLogo.BackColor = SystemColors.Control;
+            panelLogo.Dock = DockStyle.Top;
+            panelLogo.Location = new Point(0, 0);
+            panelLogo.Name = "panelLogo";
+            panelLogo.Size = new Size(176, 66);
+            panelLogo.TabIndex = 0;
             // 
-            // sideBar
+            // paneltitlebar
             // 
-            sideBar.Controls.Add(panel3);
-            sideBar.Controls.Add(panel2);
-            sideBar.Controls.Add(panel4);
-            sideBar.Controls.Add(panel5);
-            sideBar.Dock = DockStyle.Left;
-            sideBar.Location = new Point(0, 0);
-            sideBar.Margin = new Padding(5);
-            sideBar.MaximumSize = new Size(512, 1280);
-            sideBar.MinimumSize = new Size(109, 1280);
-            sideBar.Name = "sideBar";
-            sideBar.Size = new Size(512, 1280);
-            sideBar.TabIndex = 3;
-            sideBar.Paint += sideBar_Paint;
+            paneltitlebar.BackColor = Color.FromArgb(54, 69, 97);
+            paneltitlebar.Controls.Add(minimizebutton);
+            paneltitlebar.Controls.Add(zoombutton);
+            paneltitlebar.Controls.Add(exitbutton);
+            paneltitlebar.Controls.Add(btnclosechildform);
+            paneltitlebar.Controls.Add(namebar);
+            paneltitlebar.Dock = DockStyle.Top;
+            paneltitlebar.Location = new Point(176, 0);
+            paneltitlebar.Name = "paneltitlebar";
+            paneltitlebar.Size = new Size(624, 69);
+            paneltitlebar.TabIndex = 1;
+            paneltitlebar.MouseDown += panelTitle_MouseDown;
+            paneltitlebar.MouseMove += panelTitle_MouseMove;
+            paneltitlebar.MouseUp += panelTitle_MouseUp;
             // 
-            // panel3
+            // minimizebutton
             // 
-            panel3.BackColor = Color.FromArgb(255, 128, 0);
-            panel3.Controls.Add(label1);
-            panel3.Controls.Add(menuButton);
-            panel3.Location = new Point(5, 5);
-            panel3.Margin = new Padding(5);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(498, 158);
-            panel3.TabIndex = 4;
-            panel3.MouseDown += panelTitle_MouseDown;
+            minimizebutton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            minimizebutton.FlatAppearance.BorderSize = 0;
+            minimizebutton.FlatStyle = FlatStyle.Flat;
+            minimizebutton.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            minimizebutton.Location = new Point(544, 0);
+            minimizebutton.Name = "minimizebutton";
+            minimizebutton.Size = new Size(22, 35);
+            minimizebutton.TabIndex = 3;
+            minimizebutton.Text = "O";
+            minimizebutton.UseVisualStyleBackColor = true;
+            minimizebutton.Click += minimizebutton_Click;
             // 
-            // label1
+            // zoombutton
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(116, 59);
-            label1.Name = "label1";
-            label1.Size = new Size(62, 28);
-            label1.TabIndex = 2;
-            label1.Text = "Menu";
-            label1.Click += label1_Click_4;
+            zoombutton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            zoombutton.FlatAppearance.BorderSize = 0;
+            zoombutton.FlatStyle = FlatStyle.Flat;
+            zoombutton.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            zoombutton.Location = new Point(572, 0);
+            zoombutton.Name = "zoombutton";
+            zoombutton.Size = new Size(23, 35);
+            zoombutton.TabIndex = 4;
+            zoombutton.Text = "O";
+            zoombutton.UseVisualStyleBackColor = true;
+            zoombutton.Click += zoombutton_Click;
             // 
-            // menuButton
+            // exitbutton
             // 
-            menuButton.BackColor = Color.Transparent;
-            menuButton.BackgroundImageLayout = ImageLayout.Center;
-            menuButton.Cursor = Cursors.Hand;
-            menuButton.Image = (Image)resources.GetObject("menuButton.Image");
-            menuButton.Location = new Point(19, 39);
-            menuButton.Name = "menuButton";
-            menuButton.Size = new Size(82, 70);
-            menuButton.SizeMode = PictureBoxSizeMode.StretchImage;
-            menuButton.TabIndex = 1;
-            menuButton.TabStop = false;
-            menuButton.Click += menuButton_Click;
+            exitbutton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            exitbutton.FlatAppearance.BorderSize = 0;
+            exitbutton.FlatStyle = FlatStyle.Flat;
+            exitbutton.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            exitbutton.Location = new Point(601, 0);
+            exitbutton.Name = "exitbutton";
+            exitbutton.Size = new Size(23, 35);
+            exitbutton.TabIndex = 2;
+            exitbutton.Text = "O";
+            exitbutton.UseVisualStyleBackColor = true;
+            exitbutton.Click += exitbutton_Click;
             // 
-            // panel2
+            // btnclosechildform
             // 
-            panel2.Controls.Add(button4);
-            panel2.Location = new Point(5, 173);
-            panel2.Margin = new Padding(5);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(498, 113);
-            panel2.TabIndex = 0;
+            btnclosechildform.Dock = DockStyle.Left;
+            btnclosechildform.FlatAppearance.BorderSize = 0;
+            btnclosechildform.FlatStyle = FlatStyle.Flat;
+            btnclosechildform.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnclosechildform.ForeColor = Color.LightCoral;
+            btnclosechildform.Location = new Point(0, 0);
+            btnclosechildform.Name = "btnclosechildform";
+            btnclosechildform.Size = new Size(53, 69);
+            btnclosechildform.TabIndex = 1;
+            btnclosechildform.Text = "X";
+            btnclosechildform.UseVisualStyleBackColor = true;
+            btnclosechildform.Click += btnclosechildform_Click;
             // 
-            // button4
+            // namebar
             // 
-            button4.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button4.ForeColor = SystemColors.ControlText;
-            button4.ImageAlign = ContentAlignment.MiddleLeft;
-            button4.ImageIndex = 3;
-            button4.ImageList = imageList1;
-            button4.Location = new Point(-93, 0);
-            button4.Margin = new Padding(5);
-            button4.Name = "button4";
-            button4.Padding = new Padding(110, 0, 0, 0);
-            button4.Size = new Size(591, 119);
-            button4.TabIndex = 0;
-            button4.Text = "    Menu Management";
-            button4.TextAlign = ContentAlignment.MiddleLeft;
-            button4.TextImageRelation = TextImageRelation.ImageBeforeText;
-            button4.UseVisualStyleBackColor = true;
-            button4.Click += buttonShowMenuForm_Click;
+            namebar.Anchor = AnchorStyles.Top;
+            namebar.AutoSize = true;
+            namebar.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            namebar.ForeColor = Color.FromArgb(180, 255, 105, 180);
+            namebar.Location = new Point(136, 9);
+            namebar.Name = "namebar";
+            namebar.Size = new Size(360, 38);
+            namebar.TabIndex = 0;
+            namebar.Text = "Coffee Shop management";
+            namebar.TextAlign = ContentAlignment.MiddleRight;
             // 
-            // imageList1
+            // control
             // 
-            imageList1.ColorDepth = ColorDepth.Depth32Bit;
-            imageList1.ImageStream = (ImageListStreamer)resources.GetObject("imageList1.ImageStream");
-            imageList1.TransparentColor = Color.Transparent;
-            imageList1.Images.SetKeyName(0, "CreateOrderIcon.png");
-            imageList1.Images.SetKeyName(1, "HomeIcon.png");
-            imageList1.Images.SetKeyName(2, "ListOrderIcon.png");
-            imageList1.Images.SetKeyName(3, "MenuManagementIcon.png");
+            control.BackgroundImageLayout = ImageLayout.Stretch;
+            control.Controls.Add(pictureBox1);
+            control.Dock = DockStyle.Fill;
+            control.ForeColor = Color.Black;
+            control.Location = new Point(176, 69);
+            control.Name = "control";
+            control.Size = new Size(624, 381);
+            control.TabIndex = 2;
             // 
-            // panel4
+            // pictureBox1
             // 
-            panel4.Controls.Add(button5);
-            panel4.Location = new Point(5, 296);
-            panel4.Margin = new Padding(5);
-            panel4.Name = "panel4";
-            panel4.Size = new Size(498, 113);
-            panel4.TabIndex = 5;
-            // 
-            // button5
-            // 
-            button5.ImageAlign = ContentAlignment.MiddleLeft;
-            button5.ImageIndex = 0;
-            button5.ImageList = imageList1;
-            button5.Location = new Point(-86, 0);
-            button5.Margin = new Padding(5);
-            button5.Name = "button5";
-            button5.Padding = new Padding(110, 0, 0, 0);
-            button5.Size = new Size(584, 119);
-            button5.TabIndex = 5;
-            button5.Text = "   Create Order";
-            button5.TextAlign = ContentAlignment.MiddleLeft;
-            button5.TextImageRelation = TextImageRelation.ImageBeforeText;
-            button5.UseVisualStyleBackColor = true;
-            button5.Click += buttonCreatOrder_Click;
-            // 
-            // panel5
-            // 
-            panel5.Controls.Add(button6);
-            panel5.Location = new Point(5, 419);
-            panel5.Margin = new Padding(5);
-            panel5.Name = "panel5";
-            panel5.Size = new Size(498, 113);
-            panel5.TabIndex = 6;
-            // 
-            // button6
-            // 
-            button6.ImageIndex = 2;
-            button6.ImageList = imageList1;
-            button6.Location = new Point(-184, -6);
-            button6.Margin = new Padding(5);
-            button6.Name = "button6";
-            button6.Padding = new Padding(110, 0, 0, 0);
-            button6.Size = new Size(682, 119);
-            button6.TabIndex = 6;
-            button6.Text = "    List Order";
-            button6.TextAlign = ContentAlignment.MiddleLeft;
-            button6.TextImageRelation = TextImageRelation.ImageBeforeText;
-            button6.UseVisualStyleBackColor = true;
-            button6.Click += buttonShowListOrder_Click;
-            // 
-            // sidebarTimer
-            // 
-            sidebarTimer.Interval = 15;
-            sidebarTimer.Tick += side;
+            pictureBox1.BackgroundImage = (Image)resources.GetObject("pictureBox1.BackgroundImage");
+            pictureBox1.BackgroundImageLayout = ImageLayout.Stretch;
+            pictureBox1.Dock = DockStyle.Fill;
+            pictureBox1.Location = new Point(0, 0);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(624, 381);
+            pictureBox1.TabIndex = 0;
+            pictureBox1.TabStop = false;
             // 
             // MainForm
             // 
-            AutoScaleDimensions = new SizeF(11F, 28F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(1280, 720);
-            Controls.Add(sideBar);
-            Controls.Add(panel1);
-            Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ClientSize = new Size(800, 450);
+            Controls.Add(control);
+            Controls.Add(paneltitlebar);
+            Controls.Add(Thanhbentrai);
+            ForeColor = Color.Cornsilk;
             FormBorderStyle = FormBorderStyle.None;
-            Margin = new Padding(5);
             Name = "MainForm";
-            Text = "Form1";
-            Load += MainForm_Load;
-            MouseDown += panelTitle_MouseDown;
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
-            sideBar.ResumeLayout(false);
-            panel3.ResumeLayout(false);
-            panel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)menuButton).EndInit();
-            panel2.ResumeLayout(false);
-            panel4.ResumeLayout(false);
-            panel5.ResumeLayout(false);
+            Text = "Sample";
+            Thanhbentrai.ResumeLayout(false);
+            paneltitlebar.ResumeLayout(false);
+            paneltitlebar.PerformLayout();
+            control.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
-        private Panel panel1;
-        private Label labelCoffeeManagement;
-        private Label label2;
-        private Label label3;
-        private Button button1;
-        private Button button3;
-        private Button button2;
-        private FlowLayoutPanel sideBar;
-        private Panel panel3;
-        private Panel panel2;
-        private Button button4;
-        private Button button6;
-        private PictureBox menuButton;
-        private Label label1;
-        private System.Windows.Forms.Timer sidebarTimer;
-        private ImageList imageList1;
-        private Button button5;
-        private Panel panel4;
-        private Panel panel5;
+
+        private Panel Thanhbentrai;
+        private Button Menubutton;
+        private Panel panelLogo;
+        private Panel paneltitlebar;
+        private Button listorderbutton;
+        private Button creatorderbutton;
+        private Label namebar;
+        private Panel control;
+        private Button btnclosechildform;
+        private PictureBox pictureBox1;
+        private Button exitbutton;
+        private Button minimizebutton;
+        private Button zoombutton;
     }
 }

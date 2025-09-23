@@ -46,8 +46,14 @@ namespace source.Models
         //thêm giảm giá %
         public void Applydiscount(decimal percent)
         {
+            if (percent < 0 || percent > 100)
+                throw new ArgumentException("The discount percentage must be between 0 and 100.");
             this.Price = this.Price * (1 - percent / 100);
         }
-        //....
+        //hiển thị để debug
+        public override string ToString()
+        {
+            return $"{Name} ({Category}) - {Price:N0} ₫";
+        }
     }
 }

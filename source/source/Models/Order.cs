@@ -9,7 +9,7 @@ namespace source.Models
 {
     public class Order
     {
-        private List<OrderItem> _orderItem;
+        private List<OrderItem> _orderItems;
         private DateTime _createdAt; // thời điểm tạo, book món đồ. Dùng kiểu dữ liệu có sẵn trong c#
         private int _tableNumber;
         private bool _isPaid; //trạng thái(đã trả chưa kiểu vậy)
@@ -33,12 +33,12 @@ namespace source.Models
         }
          public List<OrderItem> OrderItem
         {
-            get { return _orderItem; }
-            set { _orderItem = value; }
+            get { return _orderItems; }
+            set { _orderItems = value; }
         }
         public Order()
         {
-            this._orderItem = new List<OrderItem>();
+            this._orderItems = new List<OrderItem>();
             _isPaid = false;
             _createdAt = DateTime.MinValue;
         }
@@ -46,7 +46,7 @@ namespace source.Models
         {
             _tableNumber = tableNumber;
             _createdAt = DateTime.Now;
-            _orderItem = new List<OrderItem>();
+            _orderItems = new List<OrderItem>();
             _isPaid = false;
         }
         ~Order()
@@ -55,16 +55,39 @@ namespace source.Models
         }
         //method
         //Thêm món trong order
-        public void AddItem(MenuItem item) { }
+        public void AddItem(MenuItem item, MenuItem quantity)
+        {
+            if (item == null)
+                throw new ArgumentNullException(nameof(item));
+
+            //var orderItem = new OrderItem(item,quantity);
+            //_orderItems.Add(orderItem);
+        }
         //Xóa bớt món
-        public void RemoveItem(MenuItem item) { }
+        public void RemoveItem(MenuItem item)
+        {
+            if (item == null)
+                throw new ArgumentNullException(nameof(item));
+
+            var itemToRemove = _orderItems.FirstOrDefault(o => o.Item.Name == item.Name);
+            if (itemToRemove != null)
+                _orderItems.Remove(itemToRemove);
+        }
         //cập nhật món
-        public void UpdateItem(MenuItem item) { }
+        public void UpdateItem(MenuItem updatedItem)
+        {
+            if (updatedItem == null)
+                throw new ArgumentNullException(nameof(updatedItem));
+
+            var itemToUpdate = _orderItems.FirstOrDefault(o => o.Item.Name == updatedItem.Name);
+            if (itemToUpdate != null)
+                itemToUpdate.Item = updatedItem;
+        }
         //Tổng tiền
         public decimal Total()
         {
             decimal total = 0;
-            foreach (var i in _orderItem)
+            foreach (var i in _orderItems)
             {
                 total += i.TotalPrice();
             }

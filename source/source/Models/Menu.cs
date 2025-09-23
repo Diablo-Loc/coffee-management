@@ -31,7 +31,10 @@ namespace source.Models
             this._items.Add(item);
         }
         //xóa sản phẩm
-        public static void RemoveItem(MenuItem item) { }
-        //
+        public void RemoveItem(MenuItem item) 
+        {
+            if (item == null || !_items.Remove(item))
+            throw new Exception("Cannot delete item: data is invalid or does not exist.");
+        }
     }
 }

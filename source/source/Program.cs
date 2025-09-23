@@ -15,7 +15,7 @@ namespace source
         {
             https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new Sample());
+            Application.Run(new MainForm());
 
         }
 

@@ -8,15 +8,15 @@ namespace source.Models
 {
     public class OrderItem
     {
-        private MenuItem sItems;
+        private MenuItem sItem;
         private int sQuantity;
 
-        public MenuItem Items {  
-            get { return sItems; }
+        public MenuItem Item {  
+            get { return sItem; }
             set 
             {
-                if (value == null) throw new ArgumentNullException(nameof(Items));
-                sItems = value; 
+                if (value == null) throw new ArgumentNullException(nameof(Item));
+                sItem = value; 
             }      
         }
         public int Quantity
@@ -34,15 +34,15 @@ namespace source.Models
         }
         public OrderItem(MenuItem item, int quanity)
         {
-            this.sItems = item;
+            this.sItem = item;
             this.sQuantity = quanity;
         }
         //method
         //Tổng tiền sp order
         public decimal TotalPrice()
         {
-            if (sItems == null) return 0;
-            return sItems.Price * this.sQuantity;
+            if (sItem == null) return 0;
+            return sItem.Price * this.sQuantity;
         }
         //Tăng-giảm số lượng order
     }

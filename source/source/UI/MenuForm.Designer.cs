@@ -28,18 +28,161 @@
         /// </summary>
         private void InitializeComponent()
         {
+            txtsearch = new TextBox();
+            btnsearch = new Button();
+            comboBox = new ComboBox();
+            dgvMenu = new DataGridView();
+            panel1 = new Panel();
+            btnadd = new Button();
+            btnedit = new Button();
+            btndelete = new Button();
+            colname1 = new DataGridViewTextBoxColumn();
+            colname2 = new DataGridViewTextBoxColumn();
+            colname3 = new DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)dgvMenu).BeginInit();
+            panel1.SuspendLayout();
             SuspendLayout();
+            // 
+            // txtsearch
+            // 
+            txtsearch.Location = new Point(29, 31);
+            txtsearch.Margin = new Padding(5);
+            txtsearch.Name = "txtsearch";
+            txtsearch.Size = new Size(202, 27);
+            txtsearch.TabIndex = 0;
+            // 
+            // btnsearch
+            // 
+            btnsearch.AutoSize = true;
+            btnsearch.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnsearch.Location = new Point(255, 25);
+            btnsearch.Name = "btnsearch";
+            btnsearch.Size = new Size(76, 36);
+            btnsearch.TabIndex = 1;
+            btnsearch.Text = "Search";
+            btnsearch.UseVisualStyleBackColor = true;
+            // 
+            // comboBox
+            // 
+            comboBox.FlatStyle = FlatStyle.Flat;
+            comboBox.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            comboBox.FormattingEnabled = true;
+            comboBox.Location = new Point(377, 28);
+            comboBox.Name = "comboBox";
+            comboBox.Size = new Size(142, 31);
+            comboBox.TabIndex = 2;
+            comboBox.Text = "All";
+            // 
+            // dgvMenu
+            // 
+            dgvMenu.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvMenu.Columns.AddRange(new DataGridViewColumn[] { colname1, colname2, colname3 });
+            dgvMenu.Dock = DockStyle.Fill;
+            dgvMenu.Location = new Point(0, 0);
+            dgvMenu.Name = "dgvMenu";
+            dgvMenu.RowHeadersWidth = 51;
+            dgvMenu.Size = new Size(792, 375);
+            dgvMenu.TabIndex = 3;
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(dgvMenu);
+            panel1.Location = new Point(29, 72);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(792, 375);
+            panel1.TabIndex = 4;
+            // 
+            // btnadd
+            // 
+            btnadd.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnadd.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnadd.Location = new Point(92, 471);
+            btnadd.Name = "btnadd";
+            btnadd.Size = new Size(72, 38);
+            btnadd.TabIndex = 5;
+            btnadd.Text = "Add";
+            btnadd.UseVisualStyleBackColor = true;
+            // 
+            // btnedit
+            // 
+            btnedit.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnedit.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnedit.Location = new Point(216, 471);
+            btnedit.Name = "btnedit";
+            btnedit.Size = new Size(72, 38);
+            btnedit.TabIndex = 6;
+            btnedit.Text = "Edit";
+            btnedit.UseVisualStyleBackColor = true;
+            // 
+            // btndelete
+            // 
+            btndelete.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btndelete.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btndelete.Location = new Point(333, 471);
+            btndelete.Name = "btndelete";
+            btndelete.Size = new Size(72, 38);
+            btndelete.TabIndex = 7;
+            btndelete.Text = "Delete";
+            btndelete.UseVisualStyleBackColor = true;
+            // 
+            // colname1
+            // 
+            colname1.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            colname1.HeaderText = "Tên món";
+            colname1.MinimumWidth = 6;
+            colname1.Name = "colname1";
+            colname1.ReadOnly = true;
+            // 
+            // colname2
+            // 
+            colname2.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            colname2.HeaderText = "Giá";
+            colname2.MinimumWidth = 6;
+            colname2.Name = "colname2";
+            colname2.ReadOnly = true;
+            // 
+            // colname3
+            // 
+            colname3.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            colname3.HeaderText = "Mô tả";
+            colname3.MinimumWidth = 6;
+            colname3.Name = "colname3";
+            colname3.ReadOnly = true;
+            colname3.SortMode = DataGridViewColumnSortMode.NotSortable;
             // 
             // MenuForm
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1058, 664);
+            ClientSize = new Size(846, 531);
+            Controls.Add(btndelete);
+            Controls.Add(btnedit);
+            Controls.Add(btnadd);
+            Controls.Add(panel1);
+            Controls.Add(comboBox);
+            Controls.Add(btnsearch);
+            Controls.Add(txtsearch);
+            Margin = new Padding(2);
             Name = "MenuForm";
             Text = "MenuForm";
+            ((System.ComponentModel.ISupportInitialize)dgvMenu).EndInit();
+            panel1.ResumeLayout(false);
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
+
+        private TextBox txtsearch;
+        private Button btnsearch;
+        private ComboBox comboBox;
+        private DataGridView dgvMenu;
+        private Panel panel1;
+        private Button btnadd;
+        private Button btnedit;
+        private Button btndelete;
+        private DataGridViewTextBoxColumn colname1;
+        private DataGridViewTextBoxColumn colname2;
+        private DataGridViewTextBoxColumn colname3;
     }
 }

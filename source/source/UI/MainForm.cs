@@ -1,186 +1,175 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Runtime.InteropServices;
 using source.Models;
+
 
 namespace source.UI
 {
     public partial class MainForm : Form
     {
-        bool sideBarExpand; // Biến để theo dõi trạng thái mở rộng/thu gọn của sidebar
-        [DllImport("user32.dll")]       // Code này dùng để thực hiện cầm vào thanh tiêu đề và kéo thả form
-        public static extern bool ReleaseCapture();
-
-        [DllImport("user32.dll")]
-        public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
-
+        private Button currentButton;    
+        private Random random;           
+        private int tempIndex;           
+        private Form activeForm;        
+        private bool isDragging = false;
+        private Point dragStartPoint = Point.Empty;
         public MainForm()
         {
             InitializeComponent();
-        }
+            random = new Random();
+            btnclosechildform.Visible = false;
+            this.MaximizedBounds = Screen.FromHandle(this.Handle).WorkingArea;
+            int w = (int)(Screen.PrimaryScreen.WorkingArea.Width * 0.8);
+            int h = (int)(Screen.PrimaryScreen.WorkingArea.Height * 0.8);
+            this.Size = new Size(w, h);
+            this.StartPosition = FormStartPosition.CenterParent;
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void panelLogo_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void label1_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void buttonOrderList_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void labelCoffeeManagement_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void buttonCreatOrder_Click(object sender, EventArgs e)
-        {
-            OrderForm orderForm = new OrderForm();
-            orderForm.Show();
-        }
-        private void buttonShowMenuForm_Click(object sender, EventArgs e)
-        {
-            MenuForm menuForm = new MenuForm();
-            menuForm.Show();
-
-        }
-        private void buttonShowListOrder_Click(object sender, EventArgs e)
-        {
-            Order order = new Order();
-            Bill bill = new Bill(order);
-            BillForm billForm = new BillForm(bill); 
-            billForm.ShowDialog();
         }
         private void panelTitle_MouseDown(object sender, MouseEventArgs e)
         {
-            ReleaseCapture();
-            SendMessage(this.Handle, 0x112, 0xf012, 0);
+            if (e.Button == MouseButtons.Left)
+            {
+                isDragging = true;
+                dragStartPoint = new Point(e.X, e.Y);
+            }
         }
-        // Giả sử label bạn đặt tên là lblToggle
 
-        // Nút Close
-        private void btnClose_Click(object sender, EventArgs e)
+        private void panelTitle_MouseMove(object sender, MouseEventArgs e)
         {
-            this.Close(); // Đóng ứng dụng
+            if (isDragging)
+            {
+                Point currentScreenPos = PointToScreen(e.Location);
+                this.Location = new Point(currentScreenPos.X - dragStartPoint.X, currentScreenPos.Y - dragStartPoint.Y);
+            }
         }
 
-        // Nút Minimize
-        private void btnMin_Click(object sender, EventArgs e)
+        private void panelTitle_MouseUp(object sender, MouseEventArgs e)
+        {
+            isDragging = false;
+        }
+        // ===== Chọn màu ngẫu nhiên =====
+        private Color SelectThemeColor()
+        {
+            int index = random.Next(ThemeColor.ColorList.Count);
+            while (tempIndex == index)
+            {
+                index = random.Next(ThemeColor.ColorList.Count);
+            }
+            tempIndex = index;
+            string color = ThemeColor.ColorList[index];
+            return ColorTranslator.FromHtml(color);
+        }
+
+        // ===== Reset màu nút menu =====
+        private void DisableButton()
+        {
+            foreach (Control ctrl in Thanhbentrai.Controls)   // panel menu bên trái
+            {
+                if (ctrl is Button btn)
+                {
+                    btn.BackColor = Color.FromArgb(51, 51, 76);
+                    btn.ForeColor = Color.Gainsboro;
+                    btn.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
+                }
+            }
+        }
+
+        // ===== Đổi màu nút được chọn =====
+        private void ActiveButton(object btnSender)
+        {
+            if (btnSender != null)
+            {
+                if (currentButton != (Button)btnSender)
+                {
+                    DisableButton();
+                    Color color = SelectThemeColor();
+                    currentButton = (Button)btnSender;
+                    currentButton.BackColor = color;
+                    currentButton.ForeColor = Color.White;
+                    currentButton.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point);
+                    paneltitlebar.BackColor = color;
+                    panelLogo.BackColor = ThemeColor.ChangeColorBrightness(color, -0.3);// chỉnh chỗ logo
+                    ThemeColor.PrimaryColor = color;
+                    ThemeColor.SecondaryColor = ThemeColor.ChangeColorBrightness(color, -0.3);
+                    //btnCloseChildForm.Visible = true;*/
+                    btnclosechildform.Visible = true;
+                }
+            }
+        }
+
+        // ===== Mở Form con trong panelDesktop =====
+        private void OpenChildForm(Form childForm, object btnSender)
+        {
+            if (activeForm != null) activeForm.Close();
+
+            ActiveButton(btnSender);
+            activeForm = childForm;
+            childForm.TopLevel = false;
+            childForm.FormBorderStyle = FormBorderStyle.None;
+            childForm.Dock = DockStyle.Fill;
+            this.control.Controls.Add(childForm);
+            this.control.Tag = childForm;
+            childForm.BringToFront();
+            childForm.Show();
+            namebar.Text = childForm.Text;   // hiển thị tiêu đề
+
+        }
+
+        // Sự kiện click nút Menu
+        private void Menubutton_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new MenuForm(), sender);
+        }
+        private void creatorder_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new OrderForm(), sender);
+        }
+
+        /*private void listorderbutton_Click(object sender, EventArgs e)
+        {
+            Order order = new Order();
+            Bill bill = new Bill(order);
+            OpenChildForm(new (), sender);
+        }*/
+
+
+
+
+
+        //nút tương tác
+        private void btnclosechildform_Click(object sender, EventArgs e)
+        {
+            if (activeForm != null)
+                activeForm.Close();
+            Reset();
+        }
+        private void Reset()
+        {
+            DisableButton();
+            namebar.Text = "Coffee shop Management";
+            paneltitlebar.BackColor = Color.FromArgb(54,69,79);
+            panelLogo.BackColor = Color.FromArgb(254, 104, 123);
+            currentButton = null;
+            btnclosechildform.Visible = false;
+        }
+        private void exitbutton_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+        private void zoombutton_Click(object sender, EventArgs e)
+        {
+            if (WindowState == FormWindowState.Normal)
+                this.WindowState = FormWindowState.Maximized;
+            else
+                this.WindowState = FormWindowState.Normal;
+        }
+        private void minimizebutton_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
         }
 
-        // Nút Maximize / Restore
-        private void btnMax_Click(object sender, EventArgs e)
-        {
-            Rectangle workingArea = Screen.PrimaryScreen.WorkingArea;
-
-            if (this.Tag == null)
-            {
-                // Phóng to theo vùng làm việc (trừ taskbar)
-                this.Location = workingArea.Location;
-                this.Size = workingArea.Size;
-                this.Tag = "Maximized";
-            }
-            else
-            {
-                // Quay về kích thước ban đầu
-                this.Size = new Size(1280, 720);
-                this.CenterToScreen();
-                this.Tag = null;
-            }
-        }
-
-        private void label1_Click_2(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click_3(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click_4(object sender, EventArgs e)
-        {
-
-        }
-
-        private void side(object sender, EventArgs e)
-        {
-            //Set max/ min of sidebar
-            if (sideBarExpand)
-            {
-                sideBar.Width -= 20;
-                if (sideBar.Width <= sideBar.MinimumSize.Width)
-                {
-                    sideBarExpand = false;
-                    sidebarTimer.Stop();
-                }
-            }
-            else
-            {
-                sideBar.Width += 10;
-                if (sideBar.Width >= sideBar.MaximumSize.Width)
-                {
-                    sideBarExpand = true;
-                    sidebarTimer.Stop();
-                }
-            }
-
-        }
-
-        private void menuButton_Click(object sender, EventArgs e)
-        {
-            sidebarTimer.Start();
-        }
-
-        private void sideBar_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void panel1_Paint_1(object sender, PaintEventArgs e)
-        {
-
-        }
+        
     }
+
 }

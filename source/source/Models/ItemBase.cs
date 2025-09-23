@@ -17,7 +17,7 @@ namespace source.Models
             get { return sprice; } 
             set 
             {
-                if (sprice < 0) throw new ArgumentException("Price must be >= 0!");
+                if (value < 0) throw new ArgumentException("Price must be >= 0!");
                 sprice = value; 
             } 
         }
