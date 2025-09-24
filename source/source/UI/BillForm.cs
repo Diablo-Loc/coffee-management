@@ -47,9 +47,9 @@ namespace source.UI
             // add item từ bill.Items
             foreach (var item in currentBill.Items)
             {
-                var row = new ListViewItem(item.Items.Name); // cột 1: Tên món
+                var row = new ListViewItem(item.Item.Name); // cột 1: Tên món
                 row.SubItems.Add(item.Quantity.ToString());  // cột 2: Số lượng
-                row.SubItems.Add(item.Items.Price.ToString()); // cột 3: Đơn giá
+                row.SubItems.Add(item.Item.Price.ToString()); // cột 3: Đơn giá
                 row.SubItems.Add(item.TotalPrice().ToString()); // cột 4: Thành tiền
 
                 listViewItem.Items.Add(row);

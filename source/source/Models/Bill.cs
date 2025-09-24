@@ -41,7 +41,7 @@ namespace source.Models
 
             foreach (var item in pItems)
             {
-                Console.WriteLine($"{item.Items.Name} x{item.Quantity} = {item.TotalPrice()}");
+                Console.WriteLine($"{item.Item.Name} x{item.Quantity} = {item.TotalPrice()}");
             }
 
             Console.WriteLine("----------------------------");
