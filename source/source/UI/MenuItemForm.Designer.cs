@@ -128,6 +128,7 @@
             btncancel.TabIndex = 9;
             btncancel.Text = "Cancel";
             btncancel.UseVisualStyleBackColor = true;
+            btncancel.Click += btncancel_Click_1;
             // 
             // comboBoxcategory
             // 

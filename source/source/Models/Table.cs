@@ -62,7 +62,7 @@ namespace source.Models
             this.pTempOrder = new Order(pNum);
         }
         // Them / confirm -> send order / cancel order hien tai  / Tui ket noi voi order qua class menu item 
-        public void AddItemToTempOrder(MenuItem item,MenuItem quantity)
+        public void AddItemToTempOrder(MenuItem item,int quantity)
         {
             if (this.pTempOrder == null)
                 throw new InvalidOperationException("Create order before");

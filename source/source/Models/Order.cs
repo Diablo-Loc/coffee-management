@@ -13,7 +13,7 @@ namespace source.Models
         private DateTime _createdAt; // thời điểm tạo, book món đồ. Dùng kiểu dữ liệu có sẵn trong c#
         private int _tableNumber;
         private bool _isPaid; //trạng thái(đã trả chưa kiểu vậy)
-        
+
         public int TableNumber 
         { 
             get { return _tableNumber; } 
@@ -21,6 +21,8 @@ namespace source.Models
                 if (value <= 0) throw new ArgumentException("ERROR! Table number must be > 0!");
                 _tableNumber = value; } 
         }
+        public int GuestCount { get; set; }
+
         public DateTime CreatedAt
         {
             get { return _createdAt; }
@@ -36,6 +38,7 @@ namespace source.Models
             get { return _orderItems; }
             set { _orderItems = value; }
         }
+        public int OrderId { get; set; } // Add this property
         public Order()
         {
             this._orderItems = new List<OrderItem>();
@@ -48,6 +51,7 @@ namespace source.Models
             _createdAt = DateTime.Now;
             _orderItems = new List<OrderItem>();
             _isPaid = false;
+            GuestCount = 0;
         }
         ~Order()
         {
@@ -55,23 +59,20 @@ namespace source.Models
         }
         //method
         //Thêm món trong order
-        public void AddItem(MenuItem item, MenuItem quantity)
+        public void AddItem(MenuItem item, int quantity)
         {
             if (item == null)
                 throw new ArgumentNullException(nameof(item));
 
-            //var orderItem = new OrderItem(item,quantity);
-            //_orderItems.Add(orderItem);
+            var orderItem = new OrderItem(item,quantity);
+            _orderItems.Add(orderItem);
         }
         //Xóa bớt món
-        public void RemoveItem(MenuItem item)
+        public void RemoveItem(string itemName)
         {
-            if (item == null)
-                throw new ArgumentNullException(nameof(item));
+            if (string.IsNullOrWhiteSpace(itemName)) return;
 
-            var itemToRemove = _orderItems.FirstOrDefault(o => o.Item.Name == item.Name);
-            if (itemToRemove != null)
-                _orderItems.Remove(itemToRemove);
+            OrderItem.RemoveAll(i => i.Item.Name == itemName);
         }
         //cập nhật món
         public void UpdateItem(MenuItem updatedItem)

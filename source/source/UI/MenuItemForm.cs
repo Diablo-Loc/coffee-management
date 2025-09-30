@@ -64,5 +64,11 @@ namespace source.UI
             txtdescription.Text = itemToEdit.Description;
             comboBoxcategory.SelectedItem = itemToEdit.Category;
         }
+
+        private void btncancel_Click_1(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
+        }
     }
 }

@@ -24,7 +24,7 @@ namespace source.Data
                 cmd.ExecuteNonQuery();
             }
         }
-
+        
         public void Add(MenuItem item)
         {
             using (var conn = new SQLiteConnection(connectionString))
@@ -112,5 +112,6 @@ namespace source.Data
             }
             return list;
         }
+        
     }
 }
