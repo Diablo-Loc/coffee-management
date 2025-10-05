@@ -326,5 +326,57 @@ namespace source.UI
             this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
+
+
+
+
+        private void DeleteOrder(int orderId)           // Xóa đơn hàng khỏi database
+        {
+            using (var conn = new SQLiteConnection("Data Source=order.db;Version=3;"))
+            {
+                conn.Open();
+
+                string deleteItems = "DELETE FROM OrderItems WHERE OrderId = @id";
+                string deleteOrder = "DELETE FROM Orders WHERE Id = @id";
+
+                var cmd1 = new SQLiteCommand(deleteItems, conn);
+                cmd1.Parameters.AddWithValue("@id", orderId);
+                cmd1.ExecuteNonQuery();
+
+                var cmd2 = new SQLiteCommand(deleteOrder, conn);
+                cmd2.Parameters.AddWithValue("@id", orderId);
+                cmd2.ExecuteNonQuery();
+            }
+        }
+
+        private void btnPrintBill_DeleteOrder() // In hóa đơn và xóa đơn hàng
+        {
+            if (selectedTable == null || selectedTable.CurrentOrder == null)
+            {
+                MessageBox.Show("Không có đơn hàng để in.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Tạo hóa đơn từ đơn hàng
+            Bill bill = new Bill(selectedTable.CurrentOrder);
+
+            // Hiển thị hóa đơn trong form
+            BillForm billForm = new BillForm(bill);
+            billForm.ShowDialog();
+
+            // Xóa đơn hàng khỏi database
+            DeleteOrder(selectedTable.CurrentOrder.OrderId);
+
+            // Đổi màu bàn trong giao diện
+            selectedTable.Status = TableStatus.Free;
+            GenerateTables();
+        }
+        private void btnprint_Click(object sender, EventArgs e) // Sự kiện in hóa đơn và xóa đơn hàng
+        {
+            btnPrintBill_DeleteOrder();
+        }
+
+
+
     }
 }

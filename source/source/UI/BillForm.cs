@@ -26,6 +26,7 @@ namespace source.UI
         {
             InitializeComponent();
             currentBill = bill; // giữ lại bill truyền từ ngoài vào
+            LoadBillData();
         }
 
         private void BillForm_Load(object sender, EventArgs e)
@@ -69,7 +70,7 @@ namespace source.UI
         {
 
         }
-        private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)  // Sự kiện in
         {
             // Lấy graphics từ e
             Graphics g = e.Graphics;
@@ -101,14 +102,14 @@ namespace source.UI
             y += 20;
             g.DrawString(lblTotal.Text, new Font("Arial", 16, FontStyle.Bold), Brushes.Red, x, y);
         }
-        private void btnPrint_Click(object sender, EventArgs e)
+        private void btnPrint_Click(object sender, EventArgs e) // Sự kiện nút in
         {
             printDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(printDocument1_PrintPage);
             printPreviewDialog1.Document = printDocument1;
             printPreviewDialog1.ShowDialog();
         }
         // Cầm panel kéo thả form
-        private void panelTitle_MouseDown(object sender, MouseEventArgs e)
+        private void panelTitle_MouseDown(object sender, MouseEventArgs e) 
         {
             ReleaseCapture();
             SendMessage(this.Handle, 0x112, 0xf012, 0);
@@ -127,6 +128,24 @@ namespace source.UI
         {
 
         }
+        private void LoadBillData()
+        {
+            lblBillID.Text = $"Bill #{currentBill.ID}";
+            lblTable.Text = $"Table Number: {currentBill.TableNumber}";
+            lblDate.Text = $"Date: {currentBill.CreatedAt:dd/MM/yyyy HH:mm}";
+            lblTotal.Text = $"Total: {currentBill.TotalAmount:N0} VND";
+
+            listViewItem.Items.Clear();
+            foreach (var item in currentBill.Items)
+            {
+                var row = new ListViewItem(item.Item.Name);
+                row.SubItems.Add(item.Item.Price.ToString("N0") + " VND");
+                row.SubItems.Add(item.Quantity.ToString());
+                row.SubItems.Add(item.TotalPrice().ToString("N0") + " VND");
+                listViewItem.Items.Add(row);
+            }
+        }
+
     }
 
 
