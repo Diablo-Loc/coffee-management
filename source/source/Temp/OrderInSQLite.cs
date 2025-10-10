@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace source.Data
+namespace source.Temp
 {
     internal class OrderInSQLite
     {
@@ -40,7 +40,7 @@ namespace source.Data
                 new SQLiteCommand(createOrderItems, conn).ExecuteNonQuery();
             }
         }
-        public void SaveOrderToDatabase(Order order)
+        public void SaveOrderToDatabase(Order1 order)
         {
             using (var conn = new SQLiteConnection(connectionString))
             {
@@ -163,7 +163,7 @@ namespace source.Data
     }
     return items;
 }
-        public Order? GetFullOrderByTable(int tableNumber)
+        public Order1? GetFullOrderByTable(int tableNumber)
         {
             using (var conn = new SQLiteConnection(connectionString))
             {
@@ -182,7 +182,7 @@ namespace source.Data
                     int guest = reader.GetInt32(2);
                     decimal total = reader.GetDecimal(3);
 
-                    var order = new Order(tableNumber)
+                    var order = new Order1(tableNumber)
                     {
                         GuestCount = guest,
                         CreatedAt = DateTime.Parse(date),

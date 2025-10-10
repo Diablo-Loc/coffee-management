@@ -12,79 +12,93 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using source.Models.Catalog;
+using source.Models.PersonModel;
+using source.Models.OrderModel;
 
 
 namespace source.UI
 {
     public partial class OrderForm : Form
     {
-        private TablesManagement tablesManager;
-        private Table selectedTable;
-        private MenuItemInSQLite menurepo = new MenuItemInSQLite();
-        private OrderInSQLite orderrepo = new OrderInSQLite();
-        private List<MenuItem> menuList = new List<MenuItem>();
-
+        private List<Product> menuList = new List<Product>();
+        private Order currentOrder = new Order();
+        private ProductRepository productRepo = new ProductRepository();
+        private OrderRepository orderRepo = new OrderRepository();
+        private List<(int Number, string Status, int GuestCount, decimal Total)> tableData = new();
         public OrderForm()
         {
             InitializeComponent();
             TaoBan();
             LaytuDataBase();
-            RestoreTrangThaiDaLuu();
+            RefreshAllTables();
             GenerateTables();
-            LoadTableComboBox();
-            LoadMenu();
-            
+            LoadMenu();   
         }
+
         private void TaoBan()
         {
-            tablesManager = new TablesManagement(20);
+            cbtablenumber.Items.Clear();
+            tableData = new List<(int Number, string Status, int GuestCount, decimal Total)>();
+
+            for (int i = 1; i <= 20; i++)
+            {
+                tableData.Add((i, "Free", 0, 0));
+                cbtablenumber.Items.Add($"Table {i}");
+
+            }
+
             pnlTableTemplate.Visible = false;
             GenerateTables();
         }
+        
         private void LaytuDataBase()
         {
-            if (!File.Exists("menu.db"))
-                menurepo.CreateTable();
+            if (!File.Exists("Menu.db"))
+                productRepo.CreateTable();
 
-            orderrepo.CreateOrderTables();
+            orderRepo.CreateTables();
         }
-        private void RestoreTrangThaiDaLuu()
+        private void RefreshAllTables()
         {
-            foreach (var table in tablesManager.Tables)
+            // Reset tất cả bàn về trạng thái Free
+            for (int i = 0; i < tableData.Count; i++)
             {
-                var order = orderrepo.GetFullOrderByTable(table.Number);
-                if (order != null)
+                tableData[i] = (tableData[i].Number, "Free", 0, 0);
+            }
+
+            // Lấy tất cả đơn từ DB
+            var orders = orderRepo.GetAllActiveOrders();
+
+            foreach (var order in orders)
+            {
+                int index = tableData.FindIndex(t => t.Number == order.TableNumber);
+                if (index >= 0)
                 {
-                    table.CurrentOrder = order;
-                    table.Status = TableStatus.Occupied;
-                }
-                else
-                {
-                    table.CurrentOrder = null;
-                    table.Status = TableStatus.Free;
+                    tableData[index] = (
+                        order.TableNumber,
+                        "Occupied",
+                        order.GuestCount,
+                        order.Total()
+                    );
                 }
             }
+            
+            GenerateTables(); // render lại bàn
         }
         
-        private void LoadTableComboBox()
-        {
-            cbtablenumber.Items.Clear();
-            foreach (Table t in tablesManager.Tables)
-            {
-                cbtablenumber.Items.Add($"Table {t.Number}");
-            }
-        }
+        
         private void LoadMenu()
         {
-            menuList = menurepo.GetAll() ?? new List<MenuItem>();
+            var rawMenu = productRepo.GetAllRaw(); // trả về List<(string, decimal, string)>
+            menuList = productRepo.GetAllProducts() ?? new List<Product>();
             LoadMenuToGrid(menuList);
         }
-
         private void GenerateTables()
         {
             flpTables.Controls.Clear();
 
-            foreach (Table table in tablesManager.Tables)
+            foreach (var table in tableData)
             {
                 Panel newTable = new Panel
                 {
@@ -96,7 +110,7 @@ namespace source.UI
 
                 foreach (Control ctrl in pnlTableTemplate.Controls)
                 {
-                    Label copy = new Label
+                    Label label = new Label
                     {
                         Size = ctrl.Size,
                         Location = ctrl.Location,
@@ -104,157 +118,116 @@ namespace source.UI
                         TextAlign = ContentAlignment.MiddleCenter
                     };
 
-                    if (ctrl.Name == "lblTableName")
-                        copy.Text = $"Table {table.Number}";
-                    else if (ctrl.Name == "lblStatus")
-                        copy.Text = table.Status == TableStatus.Occupied ? "Serving" : "Empty";
-                    else if (ctrl.Name == "lblGuest")
-                        copy.Text = $"Guest: {(table.CurrentOrder?.GuestCount ?? 0)}";
-                    else if (ctrl.Name == "lblTotal")
-                        copy.Text = $"Total: {(table.CurrentOrder != null ? table.CurrentOrder.Total().ToString("N0") : "0")} VND";
+                    switch (ctrl.Name)
+                    {
+                        case "lblTableName":
+                            label.Text = $"Table {table.Number}";
+                            break;
+                        case "lblStatus":
+                            label.Text = table.Status == "Occupied" ? "Serving" : "Empty";
+                            break;
+                        case "lblGuest":
+                            label.Text = $"Guest: {table.GuestCount}";
+                            break;
+                        case "lblTotal":
+                            label.Text = $"Total: {table.Total:N0} VND";
+                            break;
+                    }
 
-                    copy.Click += Table_Click;
-                    newTable.Controls.Add(copy);
+                    label.Click += Table_Click;
+                    newTable.Controls.Add(label);
                 }
-
 
                 newTable.Click += Table_Click;
                 flpTables.Controls.Add(newTable);
             }
         }
-
-        private Color GetColorByStatus(TableStatus status)
+        private Color GetColorByStatus(string status)
         {
-            return status switch
-            {
-                TableStatus.Free => Color.LightGreen,
-                TableStatus.Occupied => Color.Orange,
-                TableStatus.Reserved => Color.LightBlue,
-                _ => Color.Gray
-            };
+            return status == "Occupied" ? Color.LightSalmon : Color.LightGreen;
         }
 
         private void Table_Click(object sender, EventArgs e)
         {
             Control clicked = sender as Control;
-            Panel panel = clicked is Panel ? (Panel)clicked : (Panel)clicked.Parent;
+            Panel panel = clicked is Panel ? (Panel)clicked : (Panel)clicked?.Parent;
             if (panel == null) return;
 
             int tableNumber = (int)panel.Tag;
-            selectedTable = tablesManager.GetTableByNumber(tableNumber);
-            if (selectedTable == null) return;
 
-            // Khôi phục đơn hàng đầy đủ từ database
-            var restoredOrder = orderrepo.GetFullOrderByTable(tableNumber);
-            selectedTable.CurrentOrder = restoredOrder;
+            // Khôi phục đơn hàng từ database
+            currentOrder = orderRepo.GetFullOrderByTable(tableNumber);
 
             lblTableName.Text = $"Table {tableNumber}";
-            cbtablenumber.SelectedItem = $"Table {tableNumber}";
-
-            if (restoredOrder != null)
+            if (tableNumber - 1 >= 0 && tableNumber - 1 < cbtablenumber.Items.Count)
             {
-                lblOrderDate.Text = $"Date: {restoredOrder.CreatedAt:dd/MM/yyyy HH:mm}";
-                numericUpDownguest.Value = restoredOrder.GuestCount;
-                selectedTable.Status = TableStatus.Occupied;
+                cbtablenumber.SelectedIndex = tableNumber - 1;
+            }
+            else
+            {
+                cbtablenumber.SelectedIndex = -1; // hoặc không gán gì cả
+            }
+
+            if (currentOrder != null)
+            {
+                lblOrderDate.Text = $"Date: {currentOrder.CreatedAt:dd/MM/yyyy HH:mm}";
+                numericUpDownguest.Value = currentOrder.GuestCount;
             }
             else
             {
                 lblOrderDate.Text = "Date: ---";
                 numericUpDownguest.Value = 0;
-                selectedTable.Status = TableStatus.Free;
-                selectedTable.CurrentOrder = new Order(tableNumber); // tạo đơn mới nếu chưa có
+                currentOrder = new Order
+                {
+                    TableNumber = tableNumber,
+                    CreatedAt = DateTime.Now,
+                    GuestCount = 0
+                };
             }
 
-            LoadOrder(selectedTable);
-            GenerateTables();
+            LoadOrder(); // cập nhật dgvOrder
         }
 
-        private void LoadOrder(Table table)
+        private void LoadOrder()
         {
             dgvorder.Rows.Clear();
-            if (table.CurrentOrder != null)
+
+            if (currentOrder != null)
             {
-                foreach (var item in table.CurrentOrder.OrderItem)
+                foreach (var item in currentOrder.Items)
                 {
                     string itemName = item.Item.Name;
                     int quantity = item.Quantity;
-                    float price = (float)item.Item.Price;
-                    float itemTotal = quantity * price;
+                    decimal price = item.Item.Price;
+                    decimal itemTotal = item.TotalPrice();
 
-
-                    dgvorder.Rows.Add(itemName, quantity, price.ToString("N0") + "VND", itemTotal.ToString("N0")+"VND");
+                    dgvorder.Rows.Add(
+                        itemName,
+                        quantity,
+                        price.ToString("N0") + " VND",
+                        itemTotal.ToString("N0") + " VND"
+                    );
                 }
-            }
-            decimal totalPrice = table.CurrentOrder.Total();
-            lblTotal.Text = $"Total: {totalPrice:N0} VND";
-            lblOrderTotal.Text = $"Total: {totalPrice:N0} VND";
-        }
 
-        private void LoadMenuToGrid(List<MenuItem> items)
+                decimal totalPrice = currentOrder.Total();
+                lblTotal.Text = $"Total: {totalPrice:N0} VND";
+                lblOrderTotal.Text = $"Total: {totalPrice:N0} VND";
+            }
+            else
+            {
+                lblTotal.Text = "Total: 0 VND";
+                lblOrderTotal.Text = "Total: 0 VND";
+            }
+        }
+        private void LoadMenuToGrid(List<Product> items)
         {
             dgvmenu.Rows.Clear();
             foreach (var item in items)
             {
-                dgvmenu.Rows.Add(item.Category, item.Name, item.Price.ToString("N0") + "VND");
+                dgvmenu.Rows.Add(item.Category, item.Name, item.Price.ToString("N0") + " VND");
             }
         }
-        
-        private void dgvmenu_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (selectedTable == null)
-            {
-                MessageBox.Show("Vui lòng chọn bàn trước.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
 
-            if ((int)numericUpDownguest.Value < 1)
-            {
-                MessageBox.Show("Vui lòng nhập số khách trước khi chọn món.", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-            if (e.RowIndex < 0) return;
-
-            try
-            {
-                DataGridViewRow row = dgvmenu.Rows[e.RowIndex];
-                //lấy dữ liệu
-                string category = row.Cells[0].Value?.ToString() ?? "";
-                string name = row.Cells[1].Value?.ToString() ?? "";
-                string rawPrice = row.Cells[2].Value?.ToString() ?? "";
-
-                //làm sạch dữ liệu
-                decimal price = ChangeIntoRawMoney.Clean(rawPrice);
-                QuantityForm qtyForm = new QuantityForm();
-                if (qtyForm.ShowDialog() != DialogResult.OK)
-                    return;
-
-                int quantity = qtyForm.SelectedQuantity;
-                // Kiểm tra bàn đã được chọn chưa
-                if (selectedTable == null)
-                {
-                    MessageBox.Show("Vui lòng chọn bàn trước khi thêm món.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
-                // Tạo món và thêm vào đơn hàng
-                MenuItem item = new MenuItem(name, price, category, "");
-
-
-                if (selectedTable.CurrentOrder == null)
-                {
-                    selectedTable.CurrentOrder = new Order(selectedTable.Number);
-                    selectedTable.CurrentOrder.GuestCount = (int)numericUpDownguest.Value;
-                }
-
-
-                selectedTable.CurrentOrder.AddItem(item, quantity);
-                LoadOrder(selectedTable);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi khi thêm món vào đơn: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
         //method định dạng tiền, để lấy dữ liệu mà tính toán
         public static class ChangeIntoRawMoney
         {
@@ -273,15 +246,69 @@ namespace source.UI
                 return decimal.TryParse(cleaned, out decimal result) ? result : 0;
             }
         }
-
-        private void btncreate_Click(object sender, EventArgs e)
+        
+        private void dgvmenu_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (selectedTable == null || selectedTable.CurrentOrder == null)
+            if ((int)numericUpDownguest.Value < 1)
             {
-                MessageBox.Show("Vui lòng chọn bàn và thêm món trước khi xác nhận đơn.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Vui lòng nhập số khách trước khi chọn món.", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            if (selectedTable.CurrentOrder.OrderId > 0)
+
+            if (e.RowIndex < 0) return;
+
+            try
+            {
+                DataGridViewRow row = dgvmenu.Rows[e.RowIndex];
+
+                string category = row.Cells[0].Value?.ToString() ?? "";
+                string name = row.Cells[1].Value?.ToString() ?? "";
+                string rawPrice = row.Cells[2].Value?.ToString() ?? "";
+
+                decimal price = ChangeIntoRawMoney.Clean(rawPrice);
+
+                QuantityForm qtyForm = new QuantityForm();
+                if (qtyForm.ShowDialog() != DialogResult.OK)
+                    return;
+
+                int quantity = qtyForm.SelectedQuantity;
+
+                Product product = category switch
+                {
+                    "Drink" => new Drink("Vừa", false, name, price, ""),
+                    "Food" => new Food(true," ",name, price, ""),
+                    "Dessert" => new Dessert(true,"","",name, price, ""),
+                    _ => throw new Exception("Loại món không hợp lệ")
+                };
+
+                if (currentOrder == null)
+                {
+                    currentOrder = new Order
+                    {
+                        GuestCount = (int)numericUpDownguest.Value,
+                        TableNumber = cbtablenumber.SelectedIndex + 1,
+                        CreatedAt = DateTime.Now
+                    };
+                }
+
+                currentOrder.AddItem(product, quantity);
+                LoadOrder();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi thêm món vào đơn: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+   
+        private void btncreate_Click(object sender, EventArgs e)
+        {
+            if (currentOrder == null || !currentOrder.Items.Any())
+            {
+                MessageBox.Show("Vui lòng thêm món trước khi xác nhận đơn.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (currentOrder.Id > 0)
             {
                 var result = MessageBox.Show(
                     "Đơn hàng đã tồn tại. Bạn có muốn cập nhật đơn này không?",
@@ -296,14 +323,27 @@ namespace source.UI
                     return;
                 }
             }
-            selectedTable.CurrentOrder.GuestCount = (int)numericUpDownguest.Value;
-            orderrepo.SaveOrderToDatabase(selectedTable.CurrentOrder);
-            selectedTable.Status = TableStatus.Occupied;
 
+            currentOrder.GuestCount = (int)numericUpDownguest.Value;
+            orderRepo.Save(currentOrder);
+            int index = tableData.FindIndex(t => t.Number == currentOrder.TableNumber);
+            if (index >= 0)
+            {
+                tableData[index] = (
+                    currentOrder.TableNumber,
+                    "Occupied",
+                    currentOrder.GuestCount,
+                    currentOrder.Total()
+                );
+            }
+            
             MessageBox.Show("Đơn hàng đã được lưu!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            GenerateTables();
 
+
+            LoadOrder();
+            GenerateTables();
         }
+
         private void btndelete_Click(object sender, EventArgs e)
         {
             if (dgvorder.SelectedRows.Count == 0)
@@ -318,21 +358,25 @@ namespace source.UI
             string itemName = dgvorder.SelectedRows[0].Cells[0].Value?.ToString();
             if (string.IsNullOrEmpty(itemName)) return;
 
-            selectedTable.CurrentOrder.RemoveItem(itemName);
-            LoadOrder(selectedTable);
+            var itemToRemove = currentOrder.Items.FirstOrDefault(i => i.Item.Name == itemName);
+            if (itemToRemove != null)
+            {
+                currentOrder.RemoveItem(itemToRemove);
+                LoadOrder();
+            }
         }
         private void btncancel_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
-
+       
 
 
 
         private void DeleteOrder(int orderId)           // Xóa đơn hàng khỏi database
         {
-            using (var conn = new SQLiteConnection("Data Source=order.db;Version=3;"))
+            using (var conn = new SQLiteConnection("Data Source=Order.db;Version=3;"))
             {
                 conn.Open();
 
@@ -349,34 +393,54 @@ namespace source.UI
             }
         }
 
-        private void btnPrintBill_DeleteOrder() // In hóa đơn và xóa đơn hàng
+        private void btnPrintBill_DeleteOrder()
         {
-            if (selectedTable == null || selectedTable.CurrentOrder == null)
+            // 1. Kiểm tra đơn hàng hợp lệ
+            if (currentOrder == null || !currentOrder.Items.Any() || currentOrder.Id <= 0)
             {
-                MessageBox.Show("Không có đơn hàng để in.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Không có đơn hàng hoạt động để in và thanh toán.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // Tạo hóa đơn từ đơn hàng
-            Bill bill = new Bill(selectedTable.CurrentOrder);
-
-            // Hiển thị hóa đơn trong form
-            BillForm billForm = new BillForm(bill);
+            // 2. Hiển thị hóa đơn
+            var bill = new Bill(currentOrder);
+            var billForm = new BillForm(bill);
             billForm.ShowDialog();
 
-            // Xóa đơn hàng khỏi database
-            DeleteOrder(selectedTable.CurrentOrder.OrderId);
+            // 3. Xóa đơn khỏi database
+            int tableNumber = currentOrder.TableNumber;
+            orderRepo.Delete(currentOrder.Id);
 
-            // Đổi màu bàn trong giao diện
-            selectedTable.Status = TableStatus.Free;
-            GenerateTables();
+            // 4. Cập nhật trạng thái bàn thành Free
+            int index = tableData.FindIndex(t => t.Number == tableNumber);
+            if (index >= 0)
+            {
+                tableData[index] = (tableNumber, "Free", 0, 0);
+            }
+
+            RefreshAllTables();
+
+            // 5. Reset đơn hàng và giao diện
+            currentOrder = new Order
+            {
+                TableNumber = tableNumber,
+                CreatedAt = DateTime.Now,
+                GuestCount = 0
+            };
+
+            lblTableName.Text = $"Table ---";
+            lblOrderDate.Text = "Date: ---";
+            numericUpDownguest.Value = 0;
+            cbtablenumber.SelectedIndex = -1;
+
+            LoadOrder(); // 👉 xóa món khỏi bảng
+            MessageBox.Show($"Thanh toán và xóa đơn hàng bàn {tableNumber} thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
         private void btnprint_Click(object sender, EventArgs e) // Sự kiện in hóa đơn và xóa đơn hàng
         {
             btnPrintBill_DeleteOrder();
         }
-
-
-
+        
     }
 }

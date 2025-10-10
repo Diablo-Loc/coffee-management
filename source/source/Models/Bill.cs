@@ -1,4 +1,5 @@
-﻿using System;
+﻿using source.Models.OrderModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,7 +28,7 @@ namespace source.Models
             pID = pIdCounter++;
             pTableNumber = order.TableNumber;
             pCreatedAt = DateTime.Now;
-            pItems = new List<OrderItem>(order.OrderItem);
+            pItems = new List<OrderItem>(order.Items);
             pTotalAmount = order.Total();
         }
 

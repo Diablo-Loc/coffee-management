@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using source.Models;
+using source.Temp;
 
 namespace source.UI
 {
@@ -67,13 +68,13 @@ namespace source.UI
             menuForm.Show();
 
         }
-        private void buttonShowListOrder_Click(object sender, EventArgs e)
+        /*private void buttonShowListOrder_Click(object sender, EventArgs e)
         {
-            Order order = new Order();
+            Order1 order = new Order1();
             Bill bill = new Bill(order);
             BillForm billForm = new BillForm(bill); 
             billForm.ShowDialog();
-        }
+        }*/
         private void panelTitle_MouseDown(object sender, MouseEventArgs e)
         {
             ReleaseCapture();

@@ -1,5 +1,7 @@
 ﻿using source.Data;
 using source.Models;
+using source.Models.Catalog;
+using source.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,48 +17,44 @@ namespace source.UI
 {
     public partial class MenuForm : Form
     {
-        private List<MenuItem> menuList = new List<MenuItem>();
-        private MenuItemInSQLite repo = new MenuItemInSQLite();
+        private ProductService service = new ProductService();
+        private List<Product> currentList = new List<Product>();
 
         public MenuForm()
         {
             InitializeComponent();
 
-            // Khởi tạo database
-            repo.CreateTable();
-            menuList = repo.GetAll();
+            // Khởi tạo danh mục
             comboBox.Items.Clear();
             comboBox.Items.Add("All");
-
-            var categories = menuList.Select(item => item.Category).Distinct();
-            foreach (var category in categories)
+            foreach (var category in service.GetCategories())
             {
                 comboBox.Items.Add(category);
             }
-
             comboBox.SelectedIndex = 0;
-            // Hiển thị dữ liệu ban đầu
-            LoadMenuToGrid(menuList);
 
-            // Sự kiện tìm kiếm
+            // Hiển thị danh sách ban đầu
+            LoadMenuToGrid(service.GetAll());
+
+            // Tìm kiếm
             btnsearch.Click += (s, e) =>
             {
                 string keyword = txtsearch.Text.ToLower();
-                var filtered = repo.Search(keyword);
+                var filtered = service.Search(keyword);
                 LoadMenuToGrid(filtered);
             };
 
-            // Sự kiện lọc theo danh mục
+            // Lọc theo danh mục
             comboBox.SelectedIndexChanged += (s, e) =>
             {
                 string selected = comboBox.SelectedItem?.ToString();
                 if (string.IsNullOrEmpty(selected) || selected == "All")
                 {
-                    LoadMenuToGrid(menuList);
+                    LoadMenuToGrid(service.GetAll());
                 }
                 else
                 {
-                    var filtered = menuList.FindAll(item => item.Category == selected);
+                    var filtered = service.GetAll().FindAll(p => p.Category == selected);
                     LoadMenuToGrid(filtered);
                 }
             };
@@ -64,12 +62,11 @@ namespace source.UI
             // Thêm món
             btnadd.Click += (s, e) =>
             {
-                var form = new MenuItemForm();
+                var form = new ProductForm(); // Form mới dùng Product
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    repo.Add(form.NewItem);
-                    menuList.Add(form.NewItem);
-                    LoadMenuToGrid(menuList);
+                    service.Add(form.NewProduct);
+                    LoadMenuToGrid(service.GetAll());
                 }
             };
 
@@ -79,49 +76,122 @@ namespace source.UI
                 if (dgvMenu.SelectedRows.Count > 0)
                 {
                     int index = dgvMenu.SelectedRows[0].Index;
-                    MenuItem selected = menuList[index];
-                    var form = new MenuItemForm(selected);
+                    Product selected = currentList[index];
+                    var form = new ProductForm(selected);
                     if (form.ShowDialog() == DialogResult.OK)
                     {
-                        repo.Update(selected, form.NewItem);
-                        menuList[index] = form.NewItem;
-                        LoadMenuToGrid(menuList);
+                        service.Update(selected, form.NewProduct);
+                        LoadMenuToGrid(service.GetAll());
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Please select an item to edit.");
+                    MessageBox.Show("Vui lòng chọn món để sửa.");
                 }
             };
 
-            // Xóa món(cần cải tiến do bị lỗi khi xóa dòng trắng cuối cùng)
+            // Xóa món
             btndelete.Click += (s, e) =>
             {
                 if (dgvMenu.SelectedRows.Count > 0)
                 {
                     int index = dgvMenu.SelectedRows[0].Index;
-                    var result = MessageBox.Show("Are you sure???", "Confirm", MessageBoxButtons.YesNo);
+                    Product selected = currentList[index];
+                    var result = MessageBox.Show("Bạn có chắc muốn xóa?", "Xác nhận", MessageBoxButtons.YesNo);
                     if (result == DialogResult.Yes)
                     {
-                        repo.Delete(menuList[index]);
-                        menuList.RemoveAt(index);
-                        LoadMenuToGrid(menuList);
+                        service.Delete(selected);
+                        LoadMenuToGrid(service.GetAll());
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Please select an item to delete.");
+                    MessageBox.Show("Vui lòng chọn món để xóa.");
                 }
             };
         }
 
-        private void LoadMenuToGrid(List<MenuItem> items)
+        private void LoadMenuToGrid(List<Product> items)
         {
+            currentList = items;
             dgvMenu.Rows.Clear();
+            dgvMenu.Columns.Clear();
+
+            // Tạo cột
+            dgvMenu.Columns.Add("Name", "Tên món");
+            dgvMenu.Columns.Add("Price", "Giá");
+            dgvMenu.Columns.Add("Category", "Loại");
+            dgvMenu.Columns.Add("Description", "Mô tả");
+            dgvMenu.Columns.Add("Size", "Size");
+            dgvMenu.Columns.Add("IsHot", "Nóng?");
+            dgvMenu.Columns.Add("IsVegetarian", "Chay?");
+            dgvMenu.Columns.Add("Topping", "Topping");
+            dgvMenu.Columns.Add("IsCold", "Lạnh?");
+            dgvMenu.Columns.Add("Flavor", "Hương vị");
+            dgvMenu.Columns.Add("Decoration", "Trang trí");
+
             foreach (var item in items)
             {
-                dgvMenu.Rows.Add(item.Name, item.Price.ToString("N0") + "VND", item.Description);
+                var vm = ToViewModel(item);
+                dgvMenu.Rows.Add(
+                    vm.Name,
+                    vm.Price.ToString("N0") + " VND",
+                    vm.Category,
+                    vm.Description,
+                    vm.Size,
+                    vm.IsHot?.ToString(),
+                    vm.IsVegetarian?.ToString(),
+                    vm.Topping,
+                    vm.IsCold?.ToString(),
+                    vm.Flavor,
+                    vm.Decoration
+                );
             }
+        }
+        public class ProductViewModel
+        {
+            public string Name { get; set; }
+            public decimal Price { get; set; }
+            public string Category { get; set; }
+            public string Description { get; set; }
+
+            public string Size { get; set; }
+            public bool? IsHot { get; set; }
+            public bool? IsVegetarian { get; set; }
+            public string Topping { get; set; }
+            public bool? IsCold { get; set; }
+            public string Flavor { get; set; }
+            public string Decoration { get; set; }
+        }
+        private ProductViewModel ToViewModel(Product p)
+        {
+            var vm = new ProductViewModel
+            {
+                Name = p.Name,
+                Price = p.Price,
+                Category = p.Category,
+                Description = p.Description
+            };
+
+            if (p is Drink d)
+            {
+                vm.Size = d.Size;
+                vm.IsHot = d.IsHot;
+            }
+            else if (p is Food f)
+            {
+                vm.IsVegetarian = f.IsVegetarian;
+                vm.Topping = f.Topping;
+            }
+            else if (p is Dessert ds)
+            {
+                vm.IsCold = ds.IsCold;
+                vm.Flavor = ds.Flavor;
+                vm.Decoration = ds.Decoration;
+            }
+
+            return vm;
         }
     }
 }
+

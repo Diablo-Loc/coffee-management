@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace source.Models
+namespace source.Temp
 {
     public abstract class ItemBase
     {
@@ -29,8 +29,8 @@ namespace source.Models
 
         public ItemBase(string name,decimal price)
         {
-            this.sname = name;
-            this.sprice = price;
+            sname = name;
+            sprice = price;
         }
 
         ~ItemBase()
@@ -41,13 +41,13 @@ namespace source.Models
         //hiện thị tất cả mô tả về tên, giá hiện trong UI
         public virtual string DisplayInfo()
         {
-            return this.sname+" - "+this.sprice;
+            return sname+" - "+sprice;
         }
         //thay đổi giá
         public virtual void ChangePrice(decimal price)
         {
             if (price < 0) throw new ArgumentException("ERROR! Price must be >=0!");
-            this.sprice = price;
+            sprice = price;
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace source.Models
+namespace source.Temp
 {
     public class Menu
     {
@@ -21,14 +21,14 @@ namespace source.Models
         }
         public Menu(List<MenuItem> items)
         {
-            this.Items =items;
+            Items =items;
         }
         //method
         //thêm sản phẩm
         public void AddItem(MenuItem item) 
         {
             if(item == null) {  throw new ArgumentNullException("item"); }
-            this._items.Add(item);
+            _items.Add(item);
         }
         //xóa sản phẩm
         public void RemoveItem(MenuItem item) 

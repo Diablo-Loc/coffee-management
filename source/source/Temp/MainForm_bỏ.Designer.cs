@@ -275,7 +275,6 @@
             button6.TextAlign = ContentAlignment.MiddleLeft;
             button6.TextImageRelation = TextImageRelation.ImageBeforeText;
             button6.UseVisualStyleBackColor = true;
-            button6.Click += buttonShowListOrder_Click;
             // 
             // sidebarTimer
             // 

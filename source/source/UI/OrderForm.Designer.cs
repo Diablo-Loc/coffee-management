@@ -38,6 +38,7 @@
             lblTableName = new Label();
             lbltablemana = new Label();
             panelright = new Panel();
+            btnprint = new Button();
             lblDeleteItem = new Label();
             numericUpDownguest = new NumericUpDown();
             btncancel = new Button();
@@ -58,7 +59,6 @@
             Column2 = new DataGridViewTextBoxColumn();
             txtsearch = new TextBox();
             lblmenu = new Label();
-            btnprint = new Button();
             panelleft.SuspendLayout();
             flpTables.SuspendLayout();
             pnlTableTemplate.SuspendLayout();
@@ -75,18 +75,16 @@
             panelleft.Controls.Add(lbltablemana);
             panelleft.Dock = DockStyle.Left;
             panelleft.Location = new Point(0, 0);
-            panelleft.Margin = new Padding(4, 4, 4, 4);
             panelleft.Name = "panelleft";
-            panelleft.Size = new Size(876, 776);
+            panelleft.Size = new Size(701, 621);
             panelleft.TabIndex = 0;
             // 
             // lblOrderDate
             // 
             lblOrderDate.AutoSize = true;
-            lblOrderDate.Location = new Point(15, 26);
-            lblOrderDate.Margin = new Padding(4, 0, 4, 0);
+            lblOrderDate.Location = new Point(12, 21);
             lblOrderDate.Name = "lblOrderDate";
-            lblOrderDate.Size = new Size(79, 25);
+            lblOrderDate.Size = new Size(66, 20);
             lblOrderDate.TabIndex = 2;
             lblOrderDate.Text = "Date: ---";
             // 
@@ -96,10 +94,9 @@
             flpTables.AutoScroll = true;
             flpTables.Controls.Add(pnlTableTemplate);
             flpTables.Font = new Font("Segoe UI", 10.2F);
-            flpTables.Location = new Point(4, 66);
-            flpTables.Margin = new Padding(4, 4, 4, 4);
+            flpTables.Location = new Point(3, 53);
             flpTables.Name = "flpTables";
-            flpTables.Size = new Size(862, 706);
+            flpTables.Size = new Size(690, 565);
             flpTables.TabIndex = 1;
             // 
             // pnlTableTemplate
@@ -110,20 +107,18 @@
             pnlTableTemplate.Controls.Add(lblStatus);
             pnlTableTemplate.Controls.Add(lblTableName);
             pnlTableTemplate.Font = new Font("Segoe UI", 10.2F);
-            pnlTableTemplate.Location = new Point(4, 4);
-            pnlTableTemplate.Margin = new Padding(4, 4, 4, 4);
+            pnlTableTemplate.Location = new Point(3, 3);
             pnlTableTemplate.Name = "pnlTableTemplate";
-            pnlTableTemplate.Size = new Size(281, 169);
+            pnlTableTemplate.Size = new Size(225, 135);
             pnlTableTemplate.TabIndex = 0;
             pnlTableTemplate.Visible = false;
             // 
             // lblTotal
             // 
             lblTotal.Font = new Font("Segoe UI", 10.2F);
-            lblTotal.Location = new Point(8, 108);
-            lblTotal.Margin = new Padding(4, 0, 4, 0);
+            lblTotal.Location = new Point(6, 86);
             lblTotal.Name = "lblTotal";
-            lblTotal.Size = new Size(270, 29);
+            lblTotal.Size = new Size(216, 23);
             lblTotal.TabIndex = 3;
             lblTotal.Text = "Total: 0";
             lblTotal.TextAlign = ContentAlignment.MiddleCenter;
@@ -131,10 +126,9 @@
             // lblGuest
             // 
             lblGuest.Font = new Font("Segoe UI", 10.2F);
-            lblGuest.Location = new Point(24, 79);
-            lblGuest.Margin = new Padding(4, 0, 4, 0);
+            lblGuest.Location = new Point(19, 63);
             lblGuest.Name = "lblGuest";
-            lblGuest.Size = new Size(235, 29);
+            lblGuest.Size = new Size(188, 23);
             lblGuest.TabIndex = 2;
             lblGuest.Text = "Guests: 0";
             lblGuest.TextAlign = ContentAlignment.MiddleCenter;
@@ -142,10 +136,9 @@
             // lblStatus
             // 
             lblStatus.Font = new Font("Segoe UI", 10.2F);
-            lblStatus.Location = new Point(24, 50);
-            lblStatus.Margin = new Padding(4, 0, 4, 0);
+            lblStatus.Location = new Point(19, 40);
             lblStatus.Name = "lblStatus";
-            lblStatus.Size = new Size(235, 29);
+            lblStatus.Size = new Size(188, 23);
             lblStatus.TabIndex = 1;
             lblStatus.Text = "Empty";
             lblStatus.TextAlign = ContentAlignment.MiddleCenter;
@@ -153,10 +146,9 @@
             // lblTableName
             // 
             lblTableName.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblTableName.Location = new Point(34, 15);
-            lblTableName.Margin = new Padding(4, 0, 4, 0);
+            lblTableName.Location = new Point(27, 12);
             lblTableName.Name = "lblTableName";
-            lblTableName.Size = new Size(225, 35);
+            lblTableName.Size = new Size(180, 28);
             lblTableName.TabIndex = 0;
             lblTableName.Text = "Table 1";
             lblTableName.TextAlign = ContentAlignment.MiddleCenter;
@@ -165,10 +157,9 @@
             // 
             lbltablemana.AutoSize = true;
             lbltablemana.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lbltablemana.Location = new Point(258, 11);
-            lbltablemana.Margin = new Padding(4, 0, 4, 0);
+            lbltablemana.Location = new Point(206, 9);
             lbltablemana.Name = "lbltablemana";
-            lbltablemana.Size = new Size(351, 48);
+            lbltablemana.Size = new Size(296, 41);
             lbltablemana.TabIndex = 0;
             lbltablemana.Text = "Table Management ";
             // 
@@ -189,49 +180,53 @@
             panelright.Controls.Add(dgvmenu);
             panelright.Controls.Add(txtsearch);
             panelright.Controls.Add(lblmenu);
-            panelright.Location = new Point(874, 0);
-            panelright.Margin = new Padding(4, 4, 4, 4);
+            panelright.Location = new Point(699, 0);
             panelright.Name = "panelright";
-            panelright.Size = new Size(519, 772);
+            panelright.Size = new Size(415, 618);
             panelright.TabIndex = 1;
+            // 
+            // btnprint
+            // 
+            btnprint.Location = new Point(278, 574);
+            btnprint.Name = "btnprint";
+            btnprint.Size = new Size(109, 36);
+            btnprint.TabIndex = 15;
+            btnprint.Text = "Print";
+            btnprint.UseVisualStyleBackColor = true;
+            btnprint.Click += btnprint_Click;
             // 
             // lblDeleteItem
             // 
             lblDeleteItem.AutoSize = true;
             lblDeleteItem.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblDeleteItem.Location = new Point(235, 364);
-            lblDeleteItem.Margin = new Padding(4, 0, 4, 0);
+            lblDeleteItem.Location = new Point(188, 291);
             lblDeleteItem.Name = "lblDeleteItem";
-            lblDeleteItem.Size = new Size(121, 30);
+            lblDeleteItem.Size = new Size(99, 23);
             lblDeleteItem.TabIndex = 14;
             lblDeleteItem.Text = "Delete Item";
             // 
             // numericUpDownguest
             // 
-            numericUpDownguest.Location = new Point(85, 364);
-            numericUpDownguest.Margin = new Padding(4, 4, 4, 4);
+            numericUpDownguest.Location = new Point(68, 291);
             numericUpDownguest.Maximum = new decimal(new int[] { 20, 0, 0, 0 });
             numericUpDownguest.Name = "numericUpDownguest";
-            numericUpDownguest.Size = new Size(76, 31);
+            numericUpDownguest.Size = new Size(61, 27);
             numericUpDownguest.TabIndex = 13;
             // 
             // btncancel
             // 
-            btncancel.Location = new Point(197, 718);
-            btncancel.Margin = new Padding(4, 4, 4, 4);
+            btncancel.Location = new Point(158, 574);
             btncancel.Name = "btncancel";
-            btncancel.Size = new Size(136, 45);
+            btncancel.Size = new Size(109, 36);
             btncancel.TabIndex = 12;
             btncancel.Text = "Cancel";
             btncancel.UseVisualStyleBackColor = true;
-            btncancel.Click += btncancel_Click;
             // 
             // btncreate
             // 
-            btncreate.Location = new Point(41, 718);
-            btncreate.Margin = new Padding(4, 4, 4, 4);
+            btncreate.Location = new Point(33, 574);
             btncreate.Name = "btncreate";
-            btncreate.Size = new Size(136, 45);
+            btncreate.Size = new Size(109, 36);
             btncreate.TabIndex = 11;
             btncreate.Text = "Create";
             btncreate.UseVisualStyleBackColor = true;
@@ -239,10 +234,9 @@
             // 
             // btndelete
             // 
-            btndelete.Location = new Point(366, 361);
-            btndelete.Margin = new Padding(4, 4, 4, 4);
+            btndelete.Location = new Point(293, 289);
             btndelete.Name = "btndelete";
-            btndelete.Size = new Size(118, 36);
+            btndelete.Size = new Size(94, 29);
             btndelete.TabIndex = 10;
             btndelete.Text = "Delete";
             btndelete.UseVisualStyleBackColor = true;
@@ -252,10 +246,9 @@
             // 
             lblOrderTotal.AutoSize = true;
             lblOrderTotal.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblOrderTotal.Location = new Point(41, 671);
-            lblOrderTotal.Margin = new Padding(4, 0, 4, 0);
+            lblOrderTotal.Location = new Point(33, 537);
             lblOrderTotal.Name = "lblOrderTotal";
-            lblOrderTotal.Size = new Size(121, 30);
+            lblOrderTotal.Size = new Size(99, 23);
             lblOrderTotal.TabIndex = 7;
             lblOrderTotal.Text = "Order Total:";
             // 
@@ -264,14 +257,13 @@
             dgvorder.AllowUserToAddRows = false;
             dgvorder.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvorder.Columns.AddRange(new DataGridViewColumn[] { col1, col2, col3, col4 });
-            dgvorder.Location = new Point(26, 470);
-            dgvorder.Margin = new Padding(4, 4, 4, 4);
+            dgvorder.Location = new Point(21, 376);
             dgvorder.Name = "dgvorder";
             dgvorder.ReadOnly = true;
             dgvorder.RowHeadersVisible = false;
             dgvorder.RowHeadersWidth = 51;
             dgvorder.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvorder.Size = new Size(474, 185);
+            dgvorder.Size = new Size(379, 148);
             dgvorder.TabIndex = 6;
             // 
             // col1
@@ -310,20 +302,18 @@
             // 
             cbtablenumber.DropDownStyle = ComboBoxStyle.DropDownList;
             cbtablenumber.FormattingEnabled = true;
-            cbtablenumber.Location = new Point(158, 415);
-            cbtablenumber.Margin = new Padding(4, 4, 4, 4);
+            cbtablenumber.Location = new Point(126, 332);
             cbtablenumber.Name = "cbtablenumber";
-            cbtablenumber.Size = new Size(286, 33);
+            cbtablenumber.Size = new Size(230, 28);
             cbtablenumber.TabIndex = 5;
             // 
             // lbltable
             // 
             lbltable.AutoSize = true;
             lbltable.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lbltable.Location = new Point(26, 415);
-            lbltable.Margin = new Padding(4, 0, 4, 0);
+            lbltable.Location = new Point(21, 332);
             lbltable.Name = "lbltable";
-            lbltable.Size = new Size(66, 30);
+            lbltable.Size = new Size(53, 23);
             lbltable.TabIndex = 4;
             lbltable.Text = "Table:";
             // 
@@ -331,10 +321,9 @@
             // 
             lbguest.AutoSize = true;
             lbguest.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lbguest.Location = new Point(10, 366);
-            lbguest.Margin = new Padding(4, 0, 4, 0);
+            lbguest.Location = new Point(8, 293);
             lbguest.Name = "lbguest";
-            lbguest.Size = new Size(66, 30);
+            lbguest.Size = new Size(54, 23);
             lbguest.TabIndex = 3;
             lbguest.Text = "Guest";
             // 
@@ -342,13 +331,12 @@
             // 
             dgvmenu.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvmenu.Columns.AddRange(new DataGridViewColumn[] { Column3, Column1, Column2 });
-            dgvmenu.Location = new Point(26, 120);
-            dgvmenu.Margin = new Padding(4, 4, 4, 4);
+            dgvmenu.Location = new Point(21, 96);
             dgvmenu.Name = "dgvmenu";
             dgvmenu.ReadOnly = true;
             dgvmenu.RowHeadersVisible = false;
             dgvmenu.RowHeadersWidth = 51;
-            dgvmenu.Size = new Size(474, 229);
+            dgvmenu.Size = new Size(379, 183);
             dgvmenu.TabIndex = 2;
             dgvmenu.CellClick += dgvmenu_CellClick;
             // 
@@ -379,10 +367,9 @@
             // txtsearch
             // 
             txtsearch.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtsearch.Location = new Point(41, 64);
-            txtsearch.Margin = new Padding(4, 4, 4, 4);
+            txtsearch.Location = new Point(33, 51);
             txtsearch.Name = "txtsearch";
-            txtsearch.Size = new Size(343, 35);
+            txtsearch.Size = new Size(275, 30);
             txtsearch.TabIndex = 1;
             txtsearch.Text = "Search...";
             // 
@@ -391,32 +378,19 @@
             lblmenu.AutoSize = true;
             lblmenu.FlatStyle = FlatStyle.Flat;
             lblmenu.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblmenu.Location = new Point(41, 18);
-            lblmenu.Margin = new Padding(4, 0, 4, 0);
+            lblmenu.Location = new Point(33, 14);
             lblmenu.Name = "lblmenu";
-            lblmenu.Size = new Size(77, 32);
+            lblmenu.Size = new Size(62, 28);
             lblmenu.TabIndex = 0;
             lblmenu.Text = "Menu";
             // 
-            // btnprint
-            // 
-            btnprint.Location = new Point(348, 718);
-            btnprint.Margin = new Padding(4);
-            btnprint.Name = "btnprint";
-            btnprint.Size = new Size(136, 45);
-            btnprint.TabIndex = 15;
-            btnprint.Text = "Print";
-            btnprint.UseVisualStyleBackColor = true;
-            btnprint.Click += btnprint_Click;
-            // 
             // OrderForm
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1392, 776);
+            ClientSize = new Size(1114, 621);
             Controls.Add(panelright);
             Controls.Add(panelleft);
-            Margin = new Padding(4, 4, 4, 4);
             Name = "OrderForm";
             Text = "OrderForm";
             panelleft.ResumeLayout(false);

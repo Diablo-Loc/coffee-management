@@ -5,12 +5,12 @@ using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace source.Models
+namespace source.Temp
 {
     public class TablesManagement {
         private List<Table> pTables;
 
-        public List<Table> Tables {  get { return this.pTables; } set { this.pTables = value; } }
+        public List<Table> Tables {  get { return pTables; } set { pTables = value; } }
         public TablesManagement(int NumberOfTable)
         {
             if (NumberOfTable <= 0) throw new ArgumentException("Number of tables must be > 0");

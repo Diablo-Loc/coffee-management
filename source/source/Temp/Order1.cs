@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace source.Models
+namespace source.Temp
 {
-    public class Order
+    public class Order1
     {
         private List<OrderItem> _orderItems;
         private DateTime _createdAt; // thời điểm tạo, book món đồ. Dùng kiểu dữ liệu có sẵn trong c#
@@ -39,13 +39,13 @@ namespace source.Models
             set { _orderItems = value; }
         }
         public int OrderId { get; set; } // Add this property
-        public Order()
+        public Order1()
         {
-            this._orderItems = new List<OrderItem>();
+            _orderItems = new List<OrderItem>();
             _isPaid = false;
             _createdAt = DateTime.MinValue;
         }
-        public Order(int tableNumber)
+        public Order1(int tableNumber)
         {
             _tableNumber = tableNumber;
             _createdAt = DateTime.Now;
@@ -53,7 +53,7 @@ namespace source.Models
             _isPaid = false;
             GuestCount = 0;
         }
-        ~Order()
+        ~Order1()
         {
 
         }

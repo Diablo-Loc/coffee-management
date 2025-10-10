@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace source.Models
+namespace source.Temp
 {
     public class MenuItem: ItemBase
     {
@@ -28,27 +28,27 @@ namespace source.Models
         }
         public MenuItem(string name, decimal price, string category,string description): base(name,price)
         {
-            this.sCategory = category;
-            this.sDescription = description;
+            sCategory = category;
+            sDescription = description;
 
         }
         //method
         //hiển thị ra UI
         public override string DisplayInfo()
         {
-            return this.Name + " - " + this.Price +"|"+this.sCategory+"|"+this.sDescription ;
+            return Name + " - " + Price +"|"+sCategory+"|"+sDescription ;
         }
         //đổi mô tả
         public void ChangeDescription(string newdescrip)
         {
-            this.sDescription = newdescrip;
+            sDescription = newdescrip;
         }
         //thêm giảm giá %
         public void Applydiscount(decimal percent)
         {
             if (percent < 0 || percent > 100)
                 throw new ArgumentException("The discount percentage must be between 0 and 100.");
-            this.Price = this.Price * (1 - percent / 100);
+            Price = Price * (1 - percent / 100);
         }
         //hiển thị để debug
         public override string ToString()

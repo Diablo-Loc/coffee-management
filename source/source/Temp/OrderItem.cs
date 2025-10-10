@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace source.Models
+namespace source.Temp
 {
     public class OrderItem
     {
@@ -34,15 +34,15 @@ namespace source.Models
         }
         public OrderItem(MenuItem item, int quanity)
         {
-            this.sItem = item;
-            this.sQuantity = quanity;
+            sItem = item;
+            sQuantity = quanity;
         }
         //method
         //Tổng tiền sp order
         public decimal TotalPrice()
         {
             if (sItem == null) return 0;
-            return sItem.Price * this.sQuantity;
+            return sItem.Price * sQuantity;
         }
         //Tăng-giảm số lượng order
     }
