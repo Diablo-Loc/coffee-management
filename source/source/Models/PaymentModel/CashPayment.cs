@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace source.Models.Payment
+namespace source.Models.PaymentModel
 {
-    internal class CardPayment
+    internal class CashPayment
     {
     }
 }
