@@ -6,17 +6,23 @@ using System.Threading.Tasks;
 
 namespace source.Models.PersonModel
 {
-    internal class Administrator : Person
+    public class Administrator : Employee
     {
-        private string _Username;
-        private string _Password;
-        public string Username { get { return _Username; } set { _Username = value; } }
-        public string Password { get { return _Password; } set { _Password = value; } }    
         public Administrator(): base(){ }
-        public Administrator (string fullName, string email, string phone, string username, string password) : base(fullName, email, phone)
+        public Administrator (string fullName, string email, string phone,Role role,string username, string password) : base(fullName, "","",0,Role.Admin,username,password)
         {
-            this._Username = username;
-            this._Password = password;
+            
         }
+        public void AddEmployee(List<Employee> employees, Employee newE)
+        {
+            employees.Add(newE);
+        }
+        public void RemoveEmployee(List<Employee> employees, string username)
+        {
+            employees.RemoveAll(e => e.Username == username);
+            Touch();
+        }
+
+
     }
 }

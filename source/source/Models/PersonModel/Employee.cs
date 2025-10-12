@@ -9,25 +9,41 @@ namespace source.Models.PersonModel
     public class Employee : Person
     {
         private decimal _BaseSalary;
-        private string _Role;
+        private string _Username;
+        private string _Password;
         public decimal BaseSalary { get { return _BaseSalary; } set { _BaseSalary = value; } }
-        public string Role { get { return _Role; } set { _Role = value; } }
+        public string Username { get { return _Username; } set { _Username = value; } }
+        public string Password { get { return _Password; } set { _Password = value; } }
+        public enum Role
+        {
+            Admin,
+            Manager,
+            Cashier
+        }
+        public Role _Role { get; set; }
         public Employee() : base() { }
-        public Employee(string fullName, string email, string phone, decimal baseSalary, string role) : base(fullName, email, phone)
+        public Employee(string fullName, string email, string phone, decimal baseSalary, Role role,string username,string password) : base(fullName, email, phone)
         {
             _BaseSalary=baseSalary;
             _Role=role;
+            _Username=username;
+            _Password=password;
         }
         public virtual decimal CalculateSalary()
         {
             return BaseSalary;
         }
-        public override void PrintInfo()
+        public override void Xuat()
         {
-            base.PrintInfo();
-            Console.WriteLine($"Role: {Role}, BaseSalary: {BaseSalary}");
+            base.Xuat();
+            Console.WriteLine($"Role: {_Role}, BaseSalary: {BaseSalary}");
         }
 
         ~Employee() { }
+        public static void AddEmployee(List<Employee> list, Employee emp)
+        {
+            list.Add(emp);
+        }
+
     }
 }

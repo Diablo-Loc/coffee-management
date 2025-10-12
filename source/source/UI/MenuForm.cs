@@ -12,6 +12,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static source.UI.Controls.Smooth;
 
 namespace source.UI
 {
@@ -23,7 +24,7 @@ namespace source.UI
         public MenuForm()
         {
             InitializeComponent();
-
+            panel1 = new DoubleBufferedPanel();
             // Khởi tạo danh mục
             comboBox.Items.Clear();
             comboBox.Items.Add("All");

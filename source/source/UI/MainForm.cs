@@ -1,104 +1,81 @@
-﻿using System;
+﻿using source.Models.PersonModel;
+using source.UI.Controls;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Diagnostics;
 using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
-using source.Models;
+using static source.UI.Controls.FormDragger;
+using static source.UI.Controls.Smooth;
 
 
 namespace source.UI
 {
     public partial class MainForm : Form
     {
-        private Button currentButton;    
-        private Random random;           
-        private int tempIndex;           
-        private Form activeForm;        
+        private Button currentButton;
+        private Form activeForm;
         private bool isDragging = false;
         private Point dragStartPoint = Point.Empty;
-        public MainForm()
+        private HomeForm homeForm;
+        private MenuForm menuForm;
+        private OrderForm orderForm;
+        private Panel pnlManualPopup;
+        private RichTextBox rtbManual;
+        private System.Windows.Forms.Timer manualHideTimer;
+        private string currentLanguage = "en";
+        private Stopwatch manualHideStopwatch;
+        private bool isMouseOutside = false;
+        private bool isResizing = false;
+        private Point resizeStartPoint;
+        private Employee currentUser;
+        private AdminManage employeeForm;
+
+        public MainForm(Employee user)
         {
             InitializeComponent();
-            random = new Random();
-            btnclosechildform.Visible = false;
-            this.MaximizedBounds = Screen.FromHandle(this.Handle).WorkingArea;
-            int w = (int)(Screen.PrimaryScreen.WorkingArea.Width * 0.8);
-            int h = (int)(Screen.PrimaryScreen.WorkingArea.Height * 0.8);
-            this.Size = new Size(w, h);
-            this.StartPosition = FormStartPosition.CenterParent;
+            this.Padding = new Padding(1);
+            FormDragger dragger = new FormDragger(pnltopbar, this, pnltopbar);
+            btnHome.BackColor = Color.AntiqueWhite;
+            btnMenu.BackColor = Color.AntiqueWhite;
+            btnCreatOrder.BackColor = Color.AntiqueWhite;
+            this.StartPosition = FormStartPosition.CenterScreen;
 
-        }
-        private void panelTitle_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
+            pictureBox1 = new DoubleBufferedPictureBox();
+            this.Resize += (s, e) =>
             {
-                isDragging = true;
-                dragStartPoint = new Point(e.X, e.Y);
-            }
+                if (this.WindowState == FormWindowState.Normal)
+                    UIHelper.ApplyRoundedCorners(this, 30);
+                else
+                    this.Region = null;
+            };
+            this.Load += MainForm_Load;
+            currentUser = user;
+            ApplyRolePermissions();
+            lblUserInfo.Text = $"👤 Đăng nhập: {user.Name} ({user._Role})";
+
+
         }
 
-        private void panelTitle_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (isDragging)
-            {
-                Point currentScreenPos = PointToScreen(e.Location);
-                this.Location = new Point(currentScreenPos.X - dragStartPoint.X, currentScreenPos.Y - dragStartPoint.Y);
-            }
-        }
-
-        private void panelTitle_MouseUp(object sender, MouseEventArgs e)
-        {
-            isDragging = false;
-        }
-        // ===== Chọn màu ngẫu nhiên =====
-        private Color SelectThemeColor()
-        {
-            int index = random.Next(ThemeColor.ColorList.Count);
-            while (tempIndex == index)
-            {
-                index = random.Next(ThemeColor.ColorList.Count);
-            }
-            tempIndex = index;
-            string color = ThemeColor.ColorList[index];
-            return ColorTranslator.FromHtml(color);
-        }
-
-        // ===== Reset màu nút menu =====
-        private void DisableButton()
-        {
-            foreach (Control ctrl in Thanhbentrai.Controls)   // panel menu bên trái
-            {
-                if (ctrl is Button btn)
-                {
-                    btn.BackColor = Color.FromArgb(51, 51, 76);
-                    btn.ForeColor = Color.Gainsboro;
-                    btn.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-                }
-            }
-        }
-
-        // ===== Đổi màu nút được chọn =====
         private void ActiveButton(object btnSender)
         {
             if (btnSender != null)
             {
                 if (currentButton != (Button)btnSender)
                 {
-                    DisableButton();
-                    Color color = SelectThemeColor();
+                    Color color = BackColor;
                     currentButton = (Button)btnSender;
                     currentButton.BackColor = color;
-                    currentButton.ForeColor = Color.White;
+                    currentButton.ForeColor = Color.Black;
                     currentButton.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point);
-                    paneltitlebar.BackColor = color;
-                    panelLogo.BackColor = ThemeColor.ChangeColorBrightness(color, -0.3);// chỉnh chỗ logo
-                    ThemeColor.PrimaryColor = color;
-                    ThemeColor.SecondaryColor = ThemeColor.ChangeColorBrightness(color, -0.3);
-                    //btnCloseChildForm.Visible = true;*/
-                    btnclosechildform.Visible = true;
                 }
             }
         }
-
-        // ===== Mở Form con trong panelDesktop =====
         private void OpenChildForm(Form childForm, object btnSender)
         {
             if (activeForm != null) activeForm.Close();
@@ -108,68 +85,238 @@ namespace source.UI
             childForm.TopLevel = false;
             childForm.FormBorderStyle = FormBorderStyle.None;
             childForm.Dock = DockStyle.Fill;
-            this.control.Controls.Add(childForm);
-            this.control.Tag = childForm;
+            this.pnlHienThi.Controls.Add(childForm);
+            this.pnlHienThi.Tag = childForm;
             childForm.BringToFront();
             childForm.Show();
-            namebar.Text = childForm.Text;   // hiển thị tiêu đề
+            namebar.Text = childForm.Text;
+            namebar.Anchor = AnchorStyles.Top;
 
         }
-
-        // Sự kiện click nút Menu
-        private void Menubutton_Click(object sender, EventArgs e)
+        //Mở form mới
+        private void btnHome_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new MenuForm(), sender);
+            homeForm = new HomeForm();
+            OpenChildForm(homeForm, sender);
+            //homeForm.ApplyLanguage();
+            btnHome.BackColor = Color.NavajoWhite;
+            btnMenu.BackColor = Color.AntiqueWhite;
+            btnCreatOrder.BackColor = Color.AntiqueWhite;
         }
-        private void creatorder_Click(object sender, EventArgs e)
+        
+        private void btnMenuForm_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new OrderForm(), sender);
+            menuForm = new MenuForm();
+            OpenChildForm(menuForm, sender);
+            //menuForm.ApplyLanguage();
+            btnMenu.BackColor = Color.NavajoWhite;
+            btnHome.BackColor = Color.AntiqueWhite;
+            btnCreatOrder.BackColor = Color.AntiqueWhite;
         }
 
-        /*private void listorderbutton_Click(object sender, EventArgs e)
+        private void btnOrderForm_Click(object sender, EventArgs e)
         {
-            Order order = new Order();
-            Bill bill = new Bill(order);
-            OpenChildForm(new (), sender);
+            orderForm = new OrderForm();
+            OpenChildForm(orderForm, sender);
+            //orderForm.ApplyLanguage();
+            btnCreatOrder.BackColor = Color.NavajoWhite;
+            btnMenu.BackColor = Color.AntiqueWhite;
+            btnHome.BackColor = Color.AntiqueWhite;
+        }
+
+        private void btnEmployee_Click(object sender, EventArgs e)
+        {
+            employeeForm = new AdminManage(currentUser);
+            OpenChildForm(employeeForm, sender);
+
+        }
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            if (this.WindowState == FormWindowState.Normal)
+                UIHelper.ApplyRoundedCorners(this, 30);
+            //LanguageManager.SetLanguage("en");
+            //ApplyLanguage();
+            cmbLanguage.SelectedItem = "English";
+        }
+        /*private void cmbLanguage_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string lang = cmbLanguage.SelectedItem.ToString();
+            if (lang == "English")
+            {
+                LanguageManager.SetLanguage("en");
+                currentLanguage = "en";
+            }
+            else if (lang == "Tiếng Việt")
+            {
+                LanguageManager.SetLanguage("vi");
+                currentLanguage = "vi";
+            }
+            ApplyLanguage();
+
+            if (homeForm != null && !homeForm.IsDisposed)
+                homeForm.ApplyLanguage();
+
+            if (calculaterForm != null && !calculaterForm.IsDisposed)
+                calculaterForm.ApplyLanguage();
+
+            if (graphForm != null && !graphForm.IsDisposed)
+                graphForm.ApplyLanguage();
         }*/
-
-
-
-
-
-        //nút tương tác
-        private void btnclosechildform_Click(object sender, EventArgs e)
+        /*private void ApplyLanguage()
         {
-            if (activeForm != null)
-                activeForm.Close();
-            Reset();
-        }
-        private void Reset()
-        {
-            DisableButton();
-            namebar.Text = "Coffee shop Management";
-            paneltitlebar.BackColor = Color.FromArgb(54,69,79);
-            panelLogo.BackColor = Color.FromArgb(254, 104, 123);
-            currentButton = null;
-            btnclosechildform.Visible = false;
-        }
-        private void exitbutton_Click(object sender, EventArgs e)
+            btnCreatOrder.Text = LanguageManager.Get("NavMaxFlowSimulator");
+            btnMenu.Text = LanguageManager.Get("NavTransportation");
+            btnHome.Text = LanguageManager.Get("NavHome");
+            lblmain.Text = LanguageManager.Get("TitleGroup11");
+            lblLanguage.Text = LanguageManager.Get("LabelLanguage");
+        }*/
+        //Nút tương tác
+        private void btnExit_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
-        private void zoombutton_Click(object sender, EventArgs e)
+
+        private void btnMaximize_Click(object sender, EventArgs e)
         {
             if (WindowState == FormWindowState.Normal)
                 this.WindowState = FormWindowState.Maximized;
             else
                 this.WindowState = FormWindowState.Normal;
+
         }
-        private void minimizebutton_Click(object sender, EventArgs e)
+
+        private void btnMinimize_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
+
+
+        }
+        private void btn_MouseEnter(object sender, EventArgs e)
+        {
+            Button btn = sender as Button;
+            if (btn == btnExit)
+                btn.BackColor = Color.Red;
+            else if (btn == btnMaximize)
+                btn.BackColor = Color.Orange;
+            else if (btn == btnMinimize)
+                btn.BackColor = Color.Gold;
         }
 
-        
-    }
+        private void btn_MouseLeave(object sender, EventArgs e)
+        {
+            Button btn = sender as Button;
+            btn.BackColor = Color.Transparent; // hoặc màu gốc của bạn
+        }
+        protected override void WndProc(ref Message m)
+        {
+            const int WM_NCHITTEST = 0x84;
+            const int HTLEFT = 10, HTRIGHT = 11, HTTOP = 12, HTTOPLEFT = 13, HTTOPRIGHT = 14;
+            const int HTBOTTOM = 15, HTBOTTOMLEFT = 16, HTBOTTOMRIGHT = 17;
+            const int RESIZE_HANDLE_SIZE = 10;
 
+            if (m.Msg == WM_NCHITTEST)
+            {
+                base.WndProc(ref m);
+                Point cursor = PointToClient(new Point(m.LParam.ToInt32()));
+
+                if (cursor.X <= RESIZE_HANDLE_SIZE && cursor.Y <= RESIZE_HANDLE_SIZE)
+                    m.Result = (IntPtr)HTTOPLEFT;
+                else if (cursor.X >= ClientSize.Width - RESIZE_HANDLE_SIZE && cursor.Y <= RESIZE_HANDLE_SIZE)
+                    m.Result = (IntPtr)HTTOPRIGHT;
+                else if (cursor.X <= RESIZE_HANDLE_SIZE && cursor.Y >= ClientSize.Height - RESIZE_HANDLE_SIZE)
+                    m.Result = (IntPtr)HTBOTTOMLEFT;
+                else if (cursor.X >= ClientSize.Width - RESIZE_HANDLE_SIZE && cursor.Y >= ClientSize.Height - RESIZE_HANDLE_SIZE)
+                    m.Result = (IntPtr)HTBOTTOMRIGHT;
+                else if (cursor.X <= RESIZE_HANDLE_SIZE)
+                    m.Result = (IntPtr)HTLEFT;
+                else if (cursor.X >= ClientSize.Width - RESIZE_HANDLE_SIZE)
+                    m.Result = (IntPtr)HTRIGHT;
+                else if (cursor.Y <= RESIZE_HANDLE_SIZE)
+                    m.Result = (IntPtr)HTTOP;
+                else if (cursor.Y >= ClientSize.Height - RESIZE_HANDLE_SIZE)
+                    m.Result = (IntPtr)HTBOTTOM;
+                return;
+            }
+
+            base.WndProc(ref m);
+        }
+        private void pnlTopBar_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left &&
+                e.Location.X >= pnltopbar.Width - 10 &&
+                e.Location.Y >= pnltopbar.Height - 10)
+            {
+                isResizing = true;
+                resizeStartPoint = e.Location;
+            }
+        }
+
+        private void pnlTopBar_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (isResizing)
+            {
+                int dx = e.Location.X - resizeStartPoint.X;
+                int dy = e.Location.Y - resizeStartPoint.Y;
+                this.Size = new Size(this.Width + dx, this.Height + dy);
+                resizeStartPoint = e.Location;
+            }
+            else
+            {
+                // Đổi con trỏ chuột khi rê vào góc resize
+                if (e.Location.X >= pnltopbar.Width - 10 &&
+                    e.Location.Y >= pnltopbar.Height - 10)
+                {
+                    pnltopbar.Cursor = Cursors.SizeNWSE;
+                }
+                else
+                {
+                    pnltopbar.Cursor = Cursors.Default;
+                }
+            }
+        }
+
+        private void pnlTopBar_MouseUp(object sender, MouseEventArgs e)
+        {
+            isResizing = false;
+        }
+        //Login
+        private void ApplyRolePermissions()
+        {
+            switch (currentUser._Role)
+            {
+                case Employee.Role.Admin:
+                    btnMenu.Visible = true;
+                    btnEmployee.Visible = true;
+                    btnCreatOrder.Visible=false;
+                    btnMenu.Enabled = true;
+                    //btnViewReports.Enabled = true;
+                    btnEmployee.Enabled = true;
+                    btnCreatOrder.Enabled = false;
+                    break;
+
+                case Employee.Role.Manager:
+                    btnMenu.Enabled = false;
+                    btnMenu.Visible=false;
+                    btnEmployee.Visible=false;
+                    btnCreatOrder.Visible = false;
+                    //btnViewReports.Enabled = true;
+                    btnEmployee.Enabled= false;
+                    btnCreatOrder.Enabled = false;
+                    //tạo thêm form mới
+                    break;
+
+                case Employee.Role.Cashier:
+                    btnMenu.Enabled = false;
+                    btnMenu.Visible=false;
+                    btnEmployee.Visible=false;
+                    btnCreatOrder.Enabled = true;
+                    //btnViewReports.Enabled = false;
+                    btnEmployee.Enabled = false;
+                    btnCreatOrder.Enabled = true;
+                    break;
+            }
+        }
+
+
+    }
 }

@@ -70,10 +70,10 @@
             // 
             // panelleft
             // 
+            panelleft.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             panelleft.Controls.Add(lblOrderDate);
             panelleft.Controls.Add(flpTables);
             panelleft.Controls.Add(lbltablemana);
-            panelleft.Dock = DockStyle.Left;
             panelleft.Location = new Point(0, 0);
             panelleft.Name = "panelleft";
             panelleft.Size = new Size(701, 621);
@@ -155,6 +155,7 @@
             // 
             // lbltablemana
             // 
+            lbltablemana.Anchor = AnchorStyles.Top;
             lbltablemana.AutoSize = true;
             lbltablemana.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbltablemana.Location = new Point(206, 9);
@@ -162,10 +163,11 @@
             lbltablemana.Size = new Size(296, 41);
             lbltablemana.TabIndex = 0;
             lbltablemana.Text = "Table Management ";
+            lbltablemana.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // panelright
             // 
-            panelright.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelright.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             panelright.Controls.Add(btnprint);
             panelright.Controls.Add(lblDeleteItem);
             panelright.Controls.Add(numericUpDownguest);

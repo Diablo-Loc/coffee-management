@@ -12,7 +12,7 @@ namespace source.Models.DiscountModel
         private TimeSpan _StartTime;
         private TimeSpan _EndTime;
         public TimeSpan StartTime { get { return _StartTime; } set { _StartTime = value; } }
-        public TimeSpan EndTime { get { return _EndTime; } set { _EndTime = value; } }
+        public TimeSpan EndTime { get { return _EndTime; } set { _EndTime = value; } }  
         public TimeDiscount():base() {
             Type = "Time";
         }

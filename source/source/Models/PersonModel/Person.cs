@@ -10,6 +10,7 @@ namespace source.Models.PersonModel
     public abstract class Person:EntityBase
     {
         private string _Name;
+        private string _Password;
         private string _Email;
         private string _Phone;
         public string Name { get { return _Name; } set { _Name = value; } }
@@ -30,7 +31,7 @@ namespace source.Models.PersonModel
             Phone = phone;
             Touch();
         }
-        public virtual void PrintInfo()
+        public virtual void Xuat()
         {
             Console.WriteLine($"{Name} | {Email} | {Phone}");
         }

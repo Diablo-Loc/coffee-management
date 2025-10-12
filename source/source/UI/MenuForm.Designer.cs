@@ -83,15 +83,15 @@
             // dgvMenu
             // 
             dgvMenu.AllowUserToAddRows = false;
-            dgvMenu.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             dgvMenu.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvMenu.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvMenu.Columns.AddRange(new DataGridViewColumn[] { colname1, colname3, colname2, IsHot, Size, IsVegetarian, Topping, IsCold, Flavor, Decoration });
+            dgvMenu.Dock = DockStyle.Fill;
             dgvMenu.Location = new Point(0, 0);
             dgvMenu.Name = "dgvMenu";
             dgvMenu.ReadOnly = true;
             dgvMenu.RowHeadersWidth = 51;
-            dgvMenu.Size = new Size(1022, 479);
+            dgvMenu.Size = new Size(1025, 487);
             dgvMenu.TabIndex = 3;
             // 
             // colname1
@@ -170,7 +170,7 @@
             // 
             // panel1
             // 
-            panel1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            panel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             panel1.AutoSize = true;
             panel1.Controls.Add(dgvMenu);
             panel1.Location = new Point(29, 72);

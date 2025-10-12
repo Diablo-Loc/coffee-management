@@ -13,7 +13,7 @@ namespace source.UI
         public ProductForm()
         {
             InitializeComponent();
-
+            this.StartPosition = FormStartPosition.CenterScreen;
             // Khởi tạo danh mục
             comboBoxcategory.Items.AddRange(new string[] { "Choose category", "Drink", "Food", "Dessert" });
             comboBoxcategory.SelectedIndex = 0;

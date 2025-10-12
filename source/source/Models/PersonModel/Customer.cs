@@ -29,9 +29,9 @@ namespace source.Models.PersonModel
             Touch();
             return true;
         }
-        public override void PrintInfo()
+        public override void Xuat()
         {
-            base.PrintInfo();
+            base.Xuat();
             Console.WriteLine($"LoyaltyPoints: {LoyalPoints}");
         }
     }

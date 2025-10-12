@@ -29,187 +29,243 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            Thanhbentrai = new Panel();
-            listorderbutton = new Button();
-            creatorderbutton = new Button();
-            Menubutton = new Button();
-            panelLogo = new Panel();
-            paneltitlebar = new Panel();
-            minimizebutton = new Button();
-            zoombutton = new Button();
-            exitbutton = new Button();
-            btnclosechildform = new Button();
+            pnltopbar = new Panel();
+            btnMinimize = new Button();
+            btnMaximize = new Button();
+            btnExit = new Button();
+            pnlMenu = new Panel();
+            btnEmployee = new Button();
+            cmbLanguage = new ComboBox();
+            lblLanguage = new Label();
+            btnCreatOrder = new Button();
+            btnMenu = new Button();
+            btnHome = new Button();
+            pnlNameGroup = new Panel();
+            lblmain = new Label();
+            panel2 = new Panel();
             namebar = new Label();
-            control = new Panel();
+            pnlHienThi = new Panel();
             pictureBox1 = new PictureBox();
-            Thanhbentrai.SuspendLayout();
-            paneltitlebar.SuspendLayout();
-            control.SuspendLayout();
+            lblUserInfo = new Label();
+            pnltopbar.SuspendLayout();
+            pnlMenu.SuspendLayout();
+            pnlNameGroup.SuspendLayout();
+            panel2.SuspendLayout();
+            pnlHienThi.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
-            // Thanhbentrai
+            // pnltopbar
             // 
-            Thanhbentrai.BackColor = Color.White;
-            Thanhbentrai.Controls.Add(listorderbutton);
-            Thanhbentrai.Controls.Add(creatorderbutton);
-            Thanhbentrai.Controls.Add(Menubutton);
-            Thanhbentrai.Controls.Add(panelLogo);
-            Thanhbentrai.Dock = DockStyle.Left;
-            Thanhbentrai.Location = new Point(0, 0);
-            Thanhbentrai.Name = "Thanhbentrai";
-            Thanhbentrai.Size = new Size(176, 450);
-            Thanhbentrai.TabIndex = 0;
+            pnltopbar.BackColor = Color.FromArgb(64, 64, 64);
+            pnltopbar.Controls.Add(btnMinimize);
+            pnltopbar.Controls.Add(btnMaximize);
+            pnltopbar.Controls.Add(btnExit);
+            pnltopbar.Dock = DockStyle.Top;
+            pnltopbar.Location = new Point(0, 0);
+            pnltopbar.Margin = new Padding(1);
+            pnltopbar.Name = "pnltopbar";
+            pnltopbar.Size = new Size(1197, 33);
+            pnltopbar.TabIndex = 0;
+            pnltopbar.MouseDown += pnlTopBar_MouseDown;
+            pnltopbar.MouseMove += pnlTopBar_MouseDown;
+            pnltopbar.MouseUp += pnlTopBar_MouseDown;
             // 
-            // listorderbutton
+            // btnMinimize
             // 
-            listorderbutton.Dock = DockStyle.Top;
-            listorderbutton.ForeColor = Color.Black;
-            listorderbutton.Image = (Image)resources.GetObject("listorderbutton.Image");
-            listorderbutton.ImageAlign = ContentAlignment.MiddleLeft;
-            listorderbutton.Location = new Point(0, 166);
-            listorderbutton.Name = "listorderbutton";
-            listorderbutton.Size = new Size(176, 50);
-            listorderbutton.TabIndex = 3;
-            listorderbutton.Text = "List Order";
-            listorderbutton.UseVisualStyleBackColor = true;
+            btnMinimize.BackColor = Color.Transparent;
+            btnMinimize.BackgroundImage = (Image)resources.GetObject("btnMinimize.BackgroundImage");
+            btnMinimize.BackgroundImageLayout = ImageLayout.Stretch;
+            btnMinimize.Dock = DockStyle.Right;
+            btnMinimize.FlatAppearance.BorderSize = 0;
+            btnMinimize.FlatStyle = FlatStyle.Flat;
+            btnMinimize.Location = new Point(1098, 0);
+            btnMinimize.Name = "btnMinimize";
+            btnMinimize.Size = new Size(33, 33);
+            btnMinimize.TabIndex = 2;
+            btnMinimize.Text = "--";
+            btnMinimize.UseVisualStyleBackColor = false;
+            btnMinimize.Click += btnMinimize_Click;
+            btnMinimize.MouseEnter += btn_MouseEnter;
+            btnMinimize.MouseLeave += btn_MouseLeave;
             // 
-            // creatorderbutton
+            // btnMaximize
             // 
-            creatorderbutton.Dock = DockStyle.Top;
-            creatorderbutton.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            creatorderbutton.ForeColor = Color.Black;
-            creatorderbutton.Image = (Image)resources.GetObject("creatorderbutton.Image");
-            creatorderbutton.ImageAlign = ContentAlignment.MiddleLeft;
-            creatorderbutton.Location = new Point(0, 116);
-            creatorderbutton.Name = "creatorderbutton";
-            creatorderbutton.Size = new Size(176, 50);
-            creatorderbutton.TabIndex = 2;
-            creatorderbutton.Text = "Create Order";
-            creatorderbutton.UseVisualStyleBackColor = true;
-            creatorderbutton.Click += creatorder_Click;
+            btnMaximize.BackColor = Color.Transparent;
+            btnMaximize.BackgroundImage = (Image)resources.GetObject("btnMaximize.BackgroundImage");
+            btnMaximize.BackgroundImageLayout = ImageLayout.Stretch;
+            btnMaximize.Dock = DockStyle.Right;
+            btnMaximize.FlatAppearance.BorderSize = 0;
+            btnMaximize.FlatStyle = FlatStyle.Flat;
+            btnMaximize.Location = new Point(1131, 0);
+            btnMaximize.Name = "btnMaximize";
+            btnMaximize.Size = new Size(33, 33);
+            btnMaximize.TabIndex = 1;
+            btnMaximize.UseVisualStyleBackColor = false;
+            btnMaximize.Click += btnMaximize_Click;
+            btnMaximize.MouseEnter += btn_MouseEnter;
+            btnMaximize.MouseLeave += btn_MouseLeave;
             // 
-            // Menubutton
+            // btnExit
             // 
-            Menubutton.Dock = DockStyle.Top;
-            Menubutton.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            Menubutton.ForeColor = Color.Black;
-            Menubutton.Image = (Image)resources.GetObject("Menubutton.Image");
-            Menubutton.ImageAlign = ContentAlignment.MiddleLeft;
-            Menubutton.Location = new Point(0, 66);
-            Menubutton.Name = "Menubutton";
-            Menubutton.Size = new Size(176, 50);
-            Menubutton.TabIndex = 1;
-            Menubutton.Text = "Menu";
-            Menubutton.UseVisualStyleBackColor = true;
-            Menubutton.Click += Menubutton_Click;
+            btnExit.BackColor = Color.Transparent;
+            btnExit.BackgroundImage = (Image)resources.GetObject("btnExit.BackgroundImage");
+            btnExit.BackgroundImageLayout = ImageLayout.Stretch;
+            btnExit.Dock = DockStyle.Right;
+            btnExit.FlatAppearance.BorderSize = 0;
+            btnExit.FlatStyle = FlatStyle.Flat;
+            btnExit.ForeColor = SystemColors.ActiveCaptionText;
+            btnExit.Location = new Point(1164, 0);
+            btnExit.Name = "btnExit";
+            btnExit.Size = new Size(33, 33);
+            btnExit.TabIndex = 0;
+            btnExit.UseVisualStyleBackColor = false;
+            btnExit.Click += btnExit_Click;
+            btnExit.MouseEnter += btn_MouseEnter;
+            btnExit.MouseLeave += btn_MouseLeave;
             // 
-            // panelLogo
+            // pnlMenu
             // 
-            panelLogo.BackColor = SystemColors.Control;
-            panelLogo.Dock = DockStyle.Top;
-            panelLogo.Location = new Point(0, 0);
-            panelLogo.Name = "panelLogo";
-            panelLogo.Size = new Size(176, 66);
-            panelLogo.TabIndex = 0;
+            pnlMenu.BackColor = Color.DimGray;
+            pnlMenu.Controls.Add(btnEmployee);
+            pnlMenu.Controls.Add(cmbLanguage);
+            pnlMenu.Controls.Add(lblLanguage);
+            pnlMenu.Controls.Add(btnCreatOrder);
+            pnlMenu.Controls.Add(btnMenu);
+            pnlMenu.Controls.Add(btnHome);
+            pnlMenu.Controls.Add(pnlNameGroup);
+            pnlMenu.Dock = DockStyle.Left;
+            pnlMenu.Location = new Point(0, 33);
+            pnlMenu.Name = "pnlMenu";
+            pnlMenu.Size = new Size(200, 759);
+            pnlMenu.TabIndex = 1;
             // 
-            // paneltitlebar
+            // btnEmployee
             // 
-            paneltitlebar.BackColor = Color.FromArgb(54, 69, 97);
-            paneltitlebar.Controls.Add(minimizebutton);
-            paneltitlebar.Controls.Add(zoombutton);
-            paneltitlebar.Controls.Add(exitbutton);
-            paneltitlebar.Controls.Add(btnclosechildform);
-            paneltitlebar.Controls.Add(namebar);
-            paneltitlebar.Dock = DockStyle.Top;
-            paneltitlebar.Location = new Point(176, 0);
-            paneltitlebar.Name = "paneltitlebar";
-            paneltitlebar.Size = new Size(624, 69);
-            paneltitlebar.TabIndex = 1;
-            paneltitlebar.MouseDown += panelTitle_MouseDown;
-            paneltitlebar.MouseMove += panelTitle_MouseMove;
-            paneltitlebar.MouseUp += panelTitle_MouseUp;
+            btnEmployee.Dock = DockStyle.Top;
+            btnEmployee.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnEmployee.Location = new Point(0, 337);
+            btnEmployee.Name = "btnEmployee";
+            btnEmployee.Size = new Size(200, 75);
+            btnEmployee.TabIndex = 6;
+            btnEmployee.Text = "Employee";
+            btnEmployee.UseVisualStyleBackColor = true;
+            btnEmployee.Click += btnEmployee_Click;
             // 
-            // minimizebutton
+            // cmbLanguage
             // 
-            minimizebutton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            minimizebutton.FlatAppearance.BorderSize = 0;
-            minimizebutton.FlatStyle = FlatStyle.Flat;
-            minimizebutton.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            minimizebutton.Location = new Point(544, 0);
-            minimizebutton.Name = "minimizebutton";
-            minimizebutton.Size = new Size(22, 35);
-            minimizebutton.TabIndex = 3;
-            minimizebutton.Text = "O";
-            minimizebutton.UseVisualStyleBackColor = true;
-            minimizebutton.Click += minimizebutton_Click;
+            cmbLanguage.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            cmbLanguage.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbLanguage.FormattingEnabled = true;
+            cmbLanguage.Items.AddRange(new object[] { "English", "Tiếng Việt" });
+            cmbLanguage.Location = new Point(28, 634);
+            cmbLanguage.Name = "cmbLanguage";
+            cmbLanguage.Size = new Size(151, 28);
+            cmbLanguage.TabIndex = 5;
             // 
-            // zoombutton
+            // lblLanguage
             // 
-            zoombutton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            zoombutton.FlatAppearance.BorderSize = 0;
-            zoombutton.FlatStyle = FlatStyle.Flat;
-            zoombutton.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            zoombutton.Location = new Point(572, 0);
-            zoombutton.Name = "zoombutton";
-            zoombutton.Size = new Size(23, 35);
-            zoombutton.TabIndex = 4;
-            zoombutton.Text = "O";
-            zoombutton.UseVisualStyleBackColor = true;
-            zoombutton.Click += zoombutton_Click;
+            lblLanguage.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            lblLanguage.AutoSize = true;
+            lblLanguage.ForeColor = Color.White;
+            lblLanguage.Location = new Point(28, 611);
+            lblLanguage.Name = "lblLanguage";
+            lblLanguage.Size = new Size(74, 20);
+            lblLanguage.TabIndex = 4;
+            lblLanguage.Text = "Language";
             // 
-            // exitbutton
+            // btnCreatOrder
             // 
-            exitbutton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            exitbutton.FlatAppearance.BorderSize = 0;
-            exitbutton.FlatStyle = FlatStyle.Flat;
-            exitbutton.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            exitbutton.Location = new Point(601, 0);
-            exitbutton.Name = "exitbutton";
-            exitbutton.Size = new Size(23, 35);
-            exitbutton.TabIndex = 2;
-            exitbutton.Text = "O";
-            exitbutton.UseVisualStyleBackColor = true;
-            exitbutton.Click += exitbutton_Click;
+            btnCreatOrder.Dock = DockStyle.Top;
+            btnCreatOrder.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnCreatOrder.Location = new Point(0, 262);
+            btnCreatOrder.Name = "btnCreatOrder";
+            btnCreatOrder.Size = new Size(200, 75);
+            btnCreatOrder.TabIndex = 1;
+            btnCreatOrder.Text = "Create Order";
+            btnCreatOrder.UseVisualStyleBackColor = true;
+            btnCreatOrder.Click += btnOrderForm_Click;
             // 
-            // btnclosechildform
+            // btnMenu
             // 
-            btnclosechildform.Dock = DockStyle.Left;
-            btnclosechildform.FlatAppearance.BorderSize = 0;
-            btnclosechildform.FlatStyle = FlatStyle.Flat;
-            btnclosechildform.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnclosechildform.ForeColor = Color.LightCoral;
-            btnclosechildform.Location = new Point(0, 0);
-            btnclosechildform.Name = "btnclosechildform";
-            btnclosechildform.Size = new Size(53, 69);
-            btnclosechildform.TabIndex = 1;
-            btnclosechildform.Text = "X";
-            btnclosechildform.UseVisualStyleBackColor = true;
-            btnclosechildform.Click += btnclosechildform_Click;
+            btnMenu.Dock = DockStyle.Top;
+            btnMenu.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnMenu.Location = new Point(0, 187);
+            btnMenu.Name = "btnMenu";
+            btnMenu.Size = new Size(200, 75);
+            btnMenu.TabIndex = 3;
+            btnMenu.Text = "Menu";
+            btnMenu.UseVisualStyleBackColor = true;
+            btnMenu.Click += btnMenuForm_Click;
+            // 
+            // btnHome
+            // 
+            btnHome.Dock = DockStyle.Top;
+            btnHome.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnHome.Location = new Point(0, 112);
+            btnHome.Name = "btnHome";
+            btnHome.Size = new Size(200, 75);
+            btnHome.TabIndex = 2;
+            btnHome.Text = "Home";
+            btnHome.UseVisualStyleBackColor = true;
+            btnHome.Click += btnHome_Click;
+            // 
+            // pnlNameGroup
+            // 
+            pnlNameGroup.BackColor = Color.DarkGray;
+            pnlNameGroup.Controls.Add(lblmain);
+            pnlNameGroup.Dock = DockStyle.Top;
+            pnlNameGroup.Location = new Point(0, 0);
+            pnlNameGroup.Name = "pnlNameGroup";
+            pnlNameGroup.Size = new Size(200, 112);
+            pnlNameGroup.TabIndex = 0;
+            // 
+            // lblmain
+            // 
+            lblmain.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            lblmain.Font = new Font("Showcard Gothic", 18F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            lblmain.ForeColor = Color.Cyan;
+            lblmain.Location = new Point(12, 24);
+            lblmain.Name = "lblmain";
+            lblmain.Size = new Size(167, 50);
+            lblmain.TabIndex = 0;
+            lblmain.Text = "GROUP 3";
+            lblmain.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // panel2
+            // 
+            panel2.BackColor = Color.Gray;
+            panel2.Controls.Add(lblUserInfo);
+            panel2.Controls.Add(namebar);
+            panel2.Dock = DockStyle.Top;
+            panel2.Location = new Point(200, 33);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(997, 88);
+            panel2.TabIndex = 2;
             // 
             // namebar
             // 
             namebar.Anchor = AnchorStyles.Top;
             namebar.AutoSize = true;
             namebar.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            namebar.ForeColor = Color.FromArgb(180, 255, 105, 180);
-            namebar.Location = new Point(136, 9);
+            namebar.ForeColor = Color.Red;
+            namebar.Location = new Point(318, 25);
             namebar.Name = "namebar";
             namebar.Size = new Size(360, 38);
-            namebar.TabIndex = 0;
+            namebar.TabIndex = 2;
             namebar.Text = "Coffee Shop management";
-            namebar.TextAlign = ContentAlignment.MiddleRight;
+            namebar.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // control
+            // pnlHienThi
             // 
-            control.BackgroundImageLayout = ImageLayout.Stretch;
-            control.Controls.Add(pictureBox1);
-            control.Dock = DockStyle.Fill;
-            control.ForeColor = Color.Black;
-            control.Location = new Point(176, 69);
-            control.Name = "control";
-            control.Size = new Size(624, 381);
-            control.TabIndex = 2;
+            pnlHienThi.BackgroundImageLayout = ImageLayout.Stretch;
+            pnlHienThi.BorderStyle = BorderStyle.FixedSingle;
+            pnlHienThi.Controls.Add(pictureBox1);
+            pnlHienThi.Dock = DockStyle.Fill;
+            pnlHienThi.Location = new Point(200, 121);
+            pnlHienThi.Name = "pnlHienThi";
+            pnlHienThi.Size = new Size(997, 671);
+            pnlHienThi.TabIndex = 3;
             // 
             // pictureBox1
             // 
@@ -218,45 +274,64 @@
             pictureBox1.Dock = DockStyle.Fill;
             pictureBox1.Location = new Point(0, 0);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(624, 381);
+            pictureBox1.Size = new Size(995, 669);
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
+            // 
+            // lblUserInfo
+            // 
+            lblUserInfo.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            lblUserInfo.AutoSize = true;
+            lblUserInfo.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblUserInfo.Location = new Point(889, 46);
+            lblUserInfo.Name = "lblUserInfo";
+            lblUserInfo.Size = new Size(96, 28);
+            lblUserInfo.TabIndex = 3;
+            lblUserInfo.Text = "User Info";
+            lblUserInfo.TextAlign = ContentAlignment.MiddleRight;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(800, 450);
-            Controls.Add(control);
-            Controls.Add(paneltitlebar);
-            Controls.Add(Thanhbentrai);
-            ForeColor = Color.Cornsilk;
+            ClientSize = new Size(1197, 792);
+            Controls.Add(pnlHienThi);
+            Controls.Add(panel2);
+            Controls.Add(pnlMenu);
+            Controls.Add(pnltopbar);
             FormBorderStyle = FormBorderStyle.None;
             Name = "MainForm";
-            Text = "Sample";
-            Thanhbentrai.ResumeLayout(false);
-            paneltitlebar.ResumeLayout(false);
-            paneltitlebar.PerformLayout();
-            control.ResumeLayout(false);
+            Text = "MainForm";
+            pnltopbar.ResumeLayout(false);
+            pnlMenu.ResumeLayout(false);
+            pnlMenu.PerformLayout();
+            pnlNameGroup.ResumeLayout(false);
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
+            pnlHienThi.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
-        private Panel Thanhbentrai;
-        private Button Menubutton;
-        private Panel panelLogo;
-        private Panel paneltitlebar;
-        private Button listorderbutton;
-        private Button creatorderbutton;
-        private Label namebar;
-        private Panel control;
-        private Button btnclosechildform;
+        private Panel pnltopbar;
+        private Panel pnlMenu;
+        private Button btnHome;
+        private Panel pnlNameGroup;
+        private Panel panel2;
+        private Button btnMenu;
+        private Label lblmain;
+        private Panel pnlHienThi;
         private PictureBox pictureBox1;
-        private Button exitbutton;
-        private Button minimizebutton;
-        private Button zoombutton;
+        private Button btnExit;
+        private Button btnMinimize;
+        private Button btnMaximize;
+        private Button btnCreatOrder;
+        private ComboBox cmbLanguage;
+        private Label lblLanguage;
+        private Label namebar;
+        private Button btnEmployee;
+        private Label lblUserInfo;
     }
 }

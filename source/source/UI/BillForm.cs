@@ -27,6 +27,7 @@ namespace source.UI
             InitializeComponent();
             currentBill = bill; // giữ lại bill truyền từ ngoài vào
             LoadBillData();
+            this.StartPosition = FormStartPosition.CenterScreen;
         }
 
         private void BillForm_Load(object sender, EventArgs e)
