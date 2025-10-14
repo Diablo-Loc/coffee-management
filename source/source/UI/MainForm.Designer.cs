@@ -34,6 +34,8 @@
             btnMaximize = new Button();
             btnExit = new Button();
             pnlMenu = new Panel();
+            btnMenuForManager = new Button();
+            btnManageCashier = new Button();
             btnEmployee = new Button();
             cmbLanguage = new ComboBox();
             lblLanguage = new Label();
@@ -43,10 +45,10 @@
             pnlNameGroup = new Panel();
             lblmain = new Label();
             panel2 = new Panel();
+            lblUserInfo = new Label();
             namebar = new Label();
             pnlHienThi = new Panel();
             pictureBox1 = new PictureBox();
-            lblUserInfo = new Label();
             pnltopbar.SuspendLayout();
             pnlMenu.SuspendLayout();
             pnlNameGroup.SuspendLayout();
@@ -127,6 +129,8 @@
             // pnlMenu
             // 
             pnlMenu.BackColor = Color.DimGray;
+            pnlMenu.Controls.Add(btnMenuForManager);
+            pnlMenu.Controls.Add(btnManageCashier);
             pnlMenu.Controls.Add(btnEmployee);
             pnlMenu.Controls.Add(cmbLanguage);
             pnlMenu.Controls.Add(lblLanguage);
@@ -139,6 +143,30 @@
             pnlMenu.Name = "pnlMenu";
             pnlMenu.Size = new Size(200, 759);
             pnlMenu.TabIndex = 1;
+            // 
+            // btnMenuForManager
+            // 
+            btnMenuForManager.Dock = DockStyle.Top;
+            btnMenuForManager.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnMenuForManager.Location = new Point(0, 487);
+            btnMenuForManager.Name = "btnMenuForManager";
+            btnMenuForManager.Size = new Size(200, 75);
+            btnMenuForManager.TabIndex = 8;
+            btnMenuForManager.Text = "Menu";
+            btnMenuForManager.UseVisualStyleBackColor = true;
+            btnMenuForManager.Click += btnMenuForManager_Click;
+            // 
+            // btnManageCashier
+            // 
+            btnManageCashier.Dock = DockStyle.Top;
+            btnManageCashier.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnManageCashier.Location = new Point(0, 412);
+            btnManageCashier.Name = "btnManageCashier";
+            btnManageCashier.Size = new Size(200, 75);
+            btnManageCashier.TabIndex = 7;
+            btnManageCashier.Text = "Manage Cashier";
+            btnManageCashier.UseVisualStyleBackColor = true;
+            btnManageCashier.Click += btnManageCashier_Click;
             // 
             // btnEmployee
             // 
@@ -243,6 +271,18 @@
             panel2.Size = new Size(997, 88);
             panel2.TabIndex = 2;
             // 
+            // lblUserInfo
+            // 
+            lblUserInfo.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            lblUserInfo.AutoSize = true;
+            lblUserInfo.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblUserInfo.Location = new Point(889, 46);
+            lblUserInfo.Name = "lblUserInfo";
+            lblUserInfo.Size = new Size(96, 28);
+            lblUserInfo.TabIndex = 3;
+            lblUserInfo.Text = "User Info";
+            lblUserInfo.TextAlign = ContentAlignment.MiddleRight;
+            // 
             // namebar
             // 
             namebar.Anchor = AnchorStyles.Top;
@@ -277,18 +317,6 @@
             pictureBox1.Size = new Size(995, 669);
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
-            // 
-            // lblUserInfo
-            // 
-            lblUserInfo.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            lblUserInfo.AutoSize = true;
-            lblUserInfo.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblUserInfo.Location = new Point(889, 46);
-            lblUserInfo.Name = "lblUserInfo";
-            lblUserInfo.Size = new Size(96, 28);
-            lblUserInfo.TabIndex = 3;
-            lblUserInfo.Text = "User Info";
-            lblUserInfo.TextAlign = ContentAlignment.MiddleRight;
             // 
             // MainForm
             // 
@@ -333,5 +361,7 @@
         private Label namebar;
         private Button btnEmployee;
         private Label lblUserInfo;
+        private Button btnManageCashier;
+        private Button btnMenuForManager;
     }
 }

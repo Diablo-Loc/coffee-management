@@ -31,8 +31,6 @@ namespace source.UI
                 var user = loginForm.LoggedInUser;
 
                 MessageBox.Show($"Xin chào {user.Name} - Vai trò: {user._Role}");
-
-                // Nếu muốn mở MainForm sau khi đăng nhập:
                 var mainForm = new MainForm(user);
                 mainForm.Show();
                 this.Hide();

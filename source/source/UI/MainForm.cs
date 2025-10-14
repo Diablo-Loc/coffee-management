@@ -25,6 +25,9 @@ namespace source.UI
         private HomeForm homeForm;
         private MenuForm menuForm;
         private OrderForm orderForm;
+        private ManagerForm managerForm;
+        private AdminManage employeeForm;
+        private MenuFormForManager menuForManager;
         private Panel pnlManualPopup;
         private RichTextBox rtbManual;
         private System.Windows.Forms.Timer manualHideTimer;
@@ -34,7 +37,7 @@ namespace source.UI
         private bool isResizing = false;
         private Point resizeStartPoint;
         private Employee currentUser;
-        private AdminManage employeeForm;
+        
 
         public MainForm(Employee user)
         {
@@ -44,6 +47,9 @@ namespace source.UI
             btnHome.BackColor = Color.AntiqueWhite;
             btnMenu.BackColor = Color.AntiqueWhite;
             btnCreatOrder.BackColor = Color.AntiqueWhite;
+            btnEmployee.BackColor = Color.AntiqueWhite;
+            btnManageCashier.BackColor = Color.AntiqueWhite;
+            btnMenuForManager.BackColor = Color.AntiqueWhite;
             this.StartPosition = FormStartPosition.CenterScreen;
 
             pictureBox1 = new DoubleBufferedPictureBox();
@@ -102,6 +108,9 @@ namespace source.UI
             btnHome.BackColor = Color.NavajoWhite;
             btnMenu.BackColor = Color.AntiqueWhite;
             btnCreatOrder.BackColor = Color.AntiqueWhite;
+            btnEmployee.BackColor = Color.AntiqueWhite;
+            btnManageCashier.BackColor = Color.AntiqueWhite;
+            btnMenuForManager.BackColor = Color.AntiqueWhite;
         }
         
         private void btnMenuForm_Click(object sender, EventArgs e)
@@ -112,6 +121,9 @@ namespace source.UI
             btnMenu.BackColor = Color.NavajoWhite;
             btnHome.BackColor = Color.AntiqueWhite;
             btnCreatOrder.BackColor = Color.AntiqueWhite;
+            btnEmployee.BackColor = Color.AntiqueWhite;
+            btnManageCashier.BackColor = Color.AntiqueWhite;
+            btnMenuForManager.BackColor = Color.AntiqueWhite;
         }
 
         private void btnOrderForm_Click(object sender, EventArgs e)
@@ -122,13 +134,43 @@ namespace source.UI
             btnCreatOrder.BackColor = Color.NavajoWhite;
             btnMenu.BackColor = Color.AntiqueWhite;
             btnHome.BackColor = Color.AntiqueWhite;
+            btnEmployee.BackColor = Color.AntiqueWhite;
+            btnManageCashier.BackColor = Color.AntiqueWhite;
+            btnMenuForManager.BackColor = Color.AntiqueWhite;
         }
 
         private void btnEmployee_Click(object sender, EventArgs e)
         {
             employeeForm = new AdminManage(currentUser);
             OpenChildForm(employeeForm, sender);
-
+            btnEmployee.BackColor = Color.NavajoWhite;
+            btnCreatOrder.BackColor = Color.AntiqueWhite;
+            btnMenu.BackColor = Color.AntiqueWhite;
+            btnHome.BackColor = Color.AntiqueWhite;
+            btnManageCashier.BackColor = Color.AntiqueWhite;
+            btnMenuForManager.BackColor = Color.AntiqueWhite;
+        }
+        private void btnManageCashier_Click(object sender, EventArgs e)
+        {
+            managerForm = new ManagerForm();
+            OpenChildForm(managerForm, sender);
+            btnManageCashier.BackColor = Color.NavajoWhite;
+            btnEmployee.BackColor = Color.AntiqueWhite;
+            btnCreatOrder.BackColor = Color.AntiqueWhite;
+            btnMenu.BackColor = Color.AntiqueWhite;
+            btnHome.BackColor = Color.AntiqueWhite;
+            btnMenuForManager.BackColor = Color.AntiqueWhite;
+        }
+        private void btnMenuForManager_Click(object sender, EventArgs e)
+        {
+            menuForManager = new MenuFormForManager();
+            OpenChildForm(menuForManager, sender);
+            btnManageCashier.BackColor = Color.AntiqueWhite;
+            btnEmployee.BackColor = Color.AntiqueWhite;
+            btnCreatOrder.BackColor = Color.AntiqueWhite;
+            btnMenu.BackColor = Color.AntiqueWhite;
+            btnHome.BackColor = Color.AntiqueWhite;
+            btnMenuForManager.BackColor = Color.NavajoWhite;
         }
         private void MainForm_Load(object sender, EventArgs e)
         {
@@ -188,8 +230,6 @@ namespace source.UI
         private void btnMinimize_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
-
-
         }
         private void btn_MouseEnter(object sender, EventArgs e)
         {
@@ -288,10 +328,14 @@ namespace source.UI
                     btnMenu.Visible = true;
                     btnEmployee.Visible = true;
                     btnCreatOrder.Visible=false;
+                    btnManageCashier.Visible = false;
+                    btnMenuForManager.Visible = false;
                     btnMenu.Enabled = true;
                     //btnViewReports.Enabled = true;
                     btnEmployee.Enabled = true;
                     btnCreatOrder.Enabled = false;
+                    btnManageCashier.Enabled = false;
+                    btnMenuForManager.Enabled = true;
                     break;
 
                 case Employee.Role.Manager:
@@ -299,9 +343,13 @@ namespace source.UI
                     btnMenu.Visible=false;
                     btnEmployee.Visible=false;
                     btnCreatOrder.Visible = false;
+                    btnManageCashier.Visible = true;
+                    btnMenuForManager.Visible = true;
                     //btnViewReports.Enabled = true;
                     btnEmployee.Enabled= false;
                     btnCreatOrder.Enabled = false;
+                    btnManageCashier.Enabled = true;
+                    btnMenuForManager.Enabled= true;
                     //tạo thêm form mới
                     break;
 
@@ -309,10 +357,14 @@ namespace source.UI
                     btnMenu.Enabled = false;
                     btnMenu.Visible=false;
                     btnEmployee.Visible=false;
+                    btnManageCashier.Visible= false;
+                    btnMenuForManager.Visible=false;
                     btnCreatOrder.Enabled = true;
                     //btnViewReports.Enabled = false;
                     btnEmployee.Enabled = false;
                     btnCreatOrder.Enabled = true;
+                    btnManageCashier.Enabled = false;
+                    btnMenuForManager.Enabled = false;
                     break;
             }
         }

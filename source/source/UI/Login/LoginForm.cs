@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static source.UI.Controls.Smooth;
 
 namespace source.UI
 {
@@ -20,6 +21,7 @@ namespace source.UI
         public LoginForm()
         {
             InitializeComponent();
+            panel1 = new DoubleBufferedPanel();
             lblError.Visible = false;
             EmployeeAccount.InitializeDatabase();
             //DatabaseSeeder.Seed(); // dùng 1 lần để lưu vào file thôi=))
@@ -32,10 +34,11 @@ namespace source.UI
             string password = txtPassword.Text.Trim();
 
             var user = XácThực.Authenticate(username, password);
+
             if (user != null)
             {
                 LoggedInUser = user;
-                this.DialogResult = DialogResult.OK; // ✅ Cho phép HomeForm biết là đăng nhập thành công
+                this.DialogResult = DialogResult.OK; 
                 this.Close();
             }
             else

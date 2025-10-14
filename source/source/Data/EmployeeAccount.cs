@@ -75,7 +75,34 @@ namespace source.Data
                 }
             }
         }
+        public static void UpdateEmployee(Employee emp)
+        {
+            using (var conn = new SQLiteConnection(connectionString))
+            {
+                conn.Open();
+                string query = @"UPDATE Employees SET 
+            Name = @Name,
+            Email = @Email,
+            Phone = @Phone,
+            Role = @Role,
+            BaseSalary = @BaseSalary,
+            Password = @Password
+            WHERE Username = @Username"; // giả sử Username là duy nhất
 
+                using (var cmd = new SQLiteCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@Name", emp.Name);
+                    cmd.Parameters.AddWithValue("@Email", emp.Email);
+                    cmd.Parameters.AddWithValue("@Phone", emp.Phone);
+                    cmd.Parameters.AddWithValue("@Role", emp._Role);
+                    cmd.Parameters.AddWithValue("@BaseSalary", emp.BaseSalary);
+                    cmd.Parameters.AddWithValue("@Password", emp.Password);
+                    cmd.Parameters.AddWithValue("@Username", emp.Username);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
         public static Employee Authenticate(string username, string hashedPassword)
         {
             using (var conn = new SQLiteConnection(connectionString))

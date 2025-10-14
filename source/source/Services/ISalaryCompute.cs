@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace source.Interfaces
+namespace source.Services
 {
-    internal class IPaymentMethod
+    public interface ISalaryCompute
     {
+        decimal CalculateSalary();
     }
 }

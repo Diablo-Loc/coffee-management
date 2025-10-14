@@ -1,4 +1,5 @@
-﻿using System;
+﻿using source.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace source.Models.PersonModel
 {
-    public class Employee : Person
+    public class Employee : Person, ISalaryCompute
     {
         private decimal _BaseSalary;
         private string _Username;
@@ -44,6 +45,32 @@ namespace source.Models.PersonModel
         {
             list.Add(emp);
         }
+        public static bool operator >(Employee a, Employee b)
+        {
+            return a.BaseSalary > b.BaseSalary;
+        }
+        public static bool operator <(Employee a, Employee b) 
+        {
+            return a.BaseSalary < b.BaseSalary;
+        }
+        public override bool Equals(object obj)
+        {
+            return obj is Employee other && this == other;
+        }
 
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
+        }
+        public static Employee operator +(Employee a, decimal TangLuong)
+        {
+            a.BaseSalary += TangLuong;
+            return a;
+        }
+        public static Employee operator -(Employee a, decimal GiamLuong)
+        {
+            a.BaseSalary = Math.Max(0, a.BaseSalary - GiamLuong);
+            return a;
+        }
     }
 }

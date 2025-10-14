@@ -16,12 +16,12 @@ using static source.UI.Controls.Smooth;
 
 namespace source.UI
 {
-    public partial class MenuForm : Form
+    public partial class MenuFormForManager : Form
     {
         private ProductService service = new ProductService();
         private List<Product> currentList = new List<Product>();
 
-        public MenuForm()
+        public MenuFormForManager()
         {
             InitializeComponent();
             panel1 = new DoubleBufferedPanel();
@@ -60,17 +60,6 @@ namespace source.UI
                 }
             };
 
-            // Thêm món
-            btnadd.Click += (s, e) =>
-            {
-                var form = new ProductForm(); // Form mới dùng Product
-                if (form.ShowDialog() == DialogResult.OK)
-                {
-                    service.Add(form.NewProduct);
-                    LoadMenuToGrid(service.GetAll());
-                }
-            };
-
             // Sửa món
             btnedit.Click += (s, e) =>
             {
@@ -78,7 +67,7 @@ namespace source.UI
                 {
                     int index = dgvMenu.SelectedRows[0].Index;
                     Product selected = currentList[index];
-                    var form = new ProductForm(selected);
+                    var form = new ProductFormForManager(selected);
                     if (form.ShowDialog() == DialogResult.OK)
                     {
                         service.Update(selected, form.NewProduct);
@@ -88,26 +77,6 @@ namespace source.UI
                 else
                 {
                     MessageBox.Show("Vui lòng chọn món để sửa.");
-                }
-            };
-
-            // Xóa món
-            btndelete.Click += (s, e) =>
-            {
-                if (dgvMenu.SelectedRows.Count > 0)
-                {
-                    int index = dgvMenu.SelectedRows[0].Index;
-                    Product selected = currentList[index];
-                    var result = MessageBox.Show("Bạn có chắc muốn xóa?", "Xác nhận", MessageBoxButtons.YesNo);
-                    if (result == DialogResult.Yes)
-                    {
-                        service.Delete(selected);
-                        LoadMenuToGrid(service.GetAll());
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Vui lòng chọn món để xóa.");
                 }
             };
         }
@@ -155,6 +124,7 @@ namespace source.UI
             public decimal Price { get; set; }
             public string Category { get; set; }
             public string Description { get; set; }
+
             public string Size { get; set; }
             public bool? IsHot { get; set; }
             public bool? IsVegetarian { get; set; }
@@ -172,6 +142,7 @@ namespace source.UI
                 Category = p.Category,
                 Description = p.Description
             };
+
             if (p is Drink d)
             {
                 vm.Size = d.Size;
@@ -188,6 +159,7 @@ namespace source.UI
                 vm.Flavor = ds.Flavor;
                 vm.Decoration = ds.Decoration;
             }
+
             return vm;
         }
     }
