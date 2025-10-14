@@ -437,6 +437,7 @@ namespace source.UI
             MessageBox.Show($"Thanh toán và xóa đơn hàng bàn {tableNumber} thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+
         private void btnprint_Click(object sender, EventArgs e) // Sự kiện in hóa đơn và xóa đơn hàng
         {
             btnPrintBill_DeleteOrder();

@@ -390,8 +390,8 @@ namespace source.UI
                     btnCreatOrder.Enabled = true;
                     btnManageCashier.Enabled = false;
                     btnMenuForManager.Enabled = false;
-                    btnReport.Visible = true;
-                    btnReport.Enabled = true;
+                    btnReport.Visible = false;
+                    btnReport.Enabled = false;
                     break;
             }
         }

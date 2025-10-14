@@ -91,9 +91,9 @@
             label1.Font = new Font("Segoe UI", 20F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.Location = new Point(45, 28);
             label1.Name = "label1";
-            label1.Size = new Size(152, 54);
+            label1.Size = new Size(314, 54);
             label1.TabIndex = 7;
-            label1.Text = "Report";
+            label1.Text = "Manage Orders";
             // 
             // panelRight
             // 
@@ -152,12 +152,12 @@
             // 
             lbl_BestSellnigRank.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             lbl_BestSellnigRank.AutoSize = true;
-            lbl_BestSellnigRank.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lbl_BestSellnigRank.Font = new Font("Segoe UI", 16F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbl_BestSellnigRank.Location = new Point(17, 43);
             lbl_BestSellnigRank.Name = "lbl_BestSellnigRank";
-            lbl_BestSellnigRank.Size = new Size(247, 32);
+            lbl_BestSellnigRank.Size = new Size(272, 45);
             lbl_BestSellnigRank.TabIndex = 3;
-            lbl_BestSellnigRank.Text = "Best Selling Ranking";
+            lbl_BestSellnigRank.Text = "Top selling items";
             // 
             // lbl_BestSellingRank1
             // 
@@ -219,11 +219,11 @@
             // 
             label_TotalOrder.AutoSize = true;
             label_TotalOrder.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_TotalOrder.Location = new Point(151, 13);
+            label_TotalOrder.Location = new Point(151, 5);
             label_TotalOrder.Name = "label_TotalOrder";
-            label_TotalOrder.Size = new Size(154, 32);
+            label_TotalOrder.Size = new Size(158, 32);
             label_TotalOrder.TabIndex = 6;
-            label_TotalOrder.Text = "Total Orders";
+            label_TotalOrder.Text = "Active Order";
             // 
             // pictureBox_TotalOrder
             // 
@@ -271,7 +271,7 @@
             // 
             textBox_BestSellerName.BackColor = SystemColors.Control;
             textBox_BestSellerName.BorderStyle = BorderStyle.None;
-            textBox_BestSellerName.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            textBox_BestSellerName.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             textBox_BestSellerName.Location = new Point(156, 38);
             textBox_BestSellerName.Name = "textBox_BestSellerName";
             textBox_BestSellerName.Size = new Size(219, 32);
@@ -282,11 +282,11 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.Location = new Point(150, 3);
+            label2.Location = new Point(150, 8);
             label2.Name = "label2";
-            label2.Size = new Size(132, 32);
+            label2.Size = new Size(192, 32);
             label2.TabIndex = 7;
-            label2.Text = "Best Seller";
+            label2.Text = "Best Seller Now";
             // 
             // pictureBox2
             // 
@@ -305,9 +305,9 @@
             lbl_Dashboard.Font = new Font("Segoe UI", 16F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbl_Dashboard.Location = new Point(0, 2);
             lbl_Dashboard.Name = "lbl_Dashboard";
-            lbl_Dashboard.Size = new Size(245, 45);
+            lbl_Dashboard.Size = new Size(362, 45);
             lbl_Dashboard.TabIndex = 9;
-            lbl_Dashboard.Text = "Sales Overview";
+            lbl_Dashboard.Text = "Selling Items Overview";
             // 
             // panel_ContentDashboard
             // 
