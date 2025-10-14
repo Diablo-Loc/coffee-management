@@ -42,7 +42,7 @@ namespace source.UI
             {
                 Name = "Thanh",
                 Username = "admin",
-                _Role = Employee.Role.Manager
+                _Role = Employee.Role.Cashier
             };
 
 

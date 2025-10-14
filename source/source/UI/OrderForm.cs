@@ -33,7 +33,7 @@ namespace source.UI
             LaytuDataBase();
             RefreshAllTables();
             GenerateTables();
-            LoadMenu();   
+            LoadMenu();
         }
 
         private void TaoBan()
@@ -51,7 +51,7 @@ namespace source.UI
             pnlTableTemplate.Visible = false;
             GenerateTables();
         }
-        
+
         private void LaytuDataBase()
         {
             if (!File.Exists("Menu.db"))
@@ -83,11 +83,11 @@ namespace source.UI
                     );
                 }
             }
-            
+
             GenerateTables(); // render lại bàn
         }
-        
-        
+
+
         private void LoadMenu()
         {
             var rawMenu = productRepo.GetAllRaw(); // trả về List<(string, decimal, string)>
@@ -246,7 +246,7 @@ namespace source.UI
                 return decimal.TryParse(cleaned, out decimal result) ? result : 0;
             }
         }
-        
+
         private void dgvmenu_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if ((int)numericUpDownguest.Value < 1)
@@ -276,8 +276,8 @@ namespace source.UI
                 Product product = category switch
                 {
                     "Drink" => new Drink("Vừa", false, name, price, ""),
-                    "Food" => new Food(true," ",name, price, ""),
-                    "Dessert" => new Dessert(true,"","",name, price, ""),
+                    "Food" => new Food(true, " ", name, price, ""),
+                    "Dessert" => new Dessert(true, "", "", name, price, ""),
                     _ => throw new Exception("Loại món không hợp lệ")
                 };
 
@@ -299,7 +299,7 @@ namespace source.UI
                 MessageBox.Show("Lỗi khi thêm món vào đơn: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-   
+
         private void btncreate_Click(object sender, EventArgs e)
         {
             if (currentOrder == null || !currentOrder.Items.Any())
@@ -336,7 +336,7 @@ namespace source.UI
                     currentOrder.Total()
                 );
             }
-            
+
             MessageBox.Show("Đơn hàng đã được lưu!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
 
@@ -370,7 +370,7 @@ namespace source.UI
             this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
-       
+
 
 
 
@@ -437,11 +437,10 @@ namespace source.UI
             MessageBox.Show($"Thanh toán và xóa đơn hàng bàn {tableNumber} thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-
         private void btnprint_Click(object sender, EventArgs e) // Sự kiện in hóa đơn và xóa đơn hàng
         {
             btnPrintBill_DeleteOrder();
         }
-        
+
     }
 }

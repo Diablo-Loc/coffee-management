@@ -57,7 +57,7 @@ namespace source.Models
 
         ~Report()
         {
-            // Finalizer nếu cần giải phóng tài nguyên
+           
         }
 
         public void Generate(List<Order> orders)
@@ -122,33 +122,7 @@ namespace source.Models
             return null;
         }
 
-        public OrderItem GetLeastSeller()
-        {
-            if (_AllItems.Count == 0) return null;
-
-            Dictionary<string, int> counter = new Dictionary<string, int>();
-            foreach (OrderItem item in _AllItems)
-            {
-                string name = item.Item.Name;
-                if (counter.ContainsKey(name))
-                    counter[name] += item.Quantity;
-                else
-                    counter[name] = item.Quantity;
-            }
-
-            string leastName = null;
-            int minQty = int.MaxValue;
-            foreach (KeyValuePair<string, int> pair in counter)
-            {
-                if (pair.Value < minQty)
-                {
-                    leastName = pair.Key;
-                    minQty = pair.Value;
-                }
-            }
-
-            return _AllItems.Find(i => i.Item.Name == leastName);
-        }
+      
         public List<OrderItem> GetTopSellingItems(int count)
         {
             List<OrderItem> result = new List<OrderItem>();
