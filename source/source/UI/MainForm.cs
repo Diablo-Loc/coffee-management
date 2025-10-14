@@ -13,7 +13,6 @@ using System.Windows.Forms;
 using static source.UI.Controls.FormDragger;
 using static source.UI.Controls.Smooth;
 
-
 namespace source.UI
 {
     public partial class MainForm : Form
@@ -51,6 +50,7 @@ namespace source.UI
             btnEmployee.BackColor = Color.AntiqueWhite;
             btnManageCashier.BackColor = Color.AntiqueWhite;
             btnMenuForManager.BackColor = Color.AntiqueWhite;
+            btnReport.BackColor = Color.AntiqueWhite;
             this.StartPosition = FormStartPosition.CenterScreen;
 
             pictureBox1 = new DoubleBufferedPictureBox();
@@ -154,6 +154,7 @@ namespace source.UI
             btnManageCashier.BackColor = Color.AntiqueWhite;
             btnMenuForManager.BackColor = Color.AntiqueWhite;
             btnReport.BackColor = Color.AntiqueWhite;
+            btnReport.BackColor = Color.AntiqueWhite;
         }
         private void btnManageCashier_Click(object sender, EventArgs e)
         {
@@ -178,6 +179,7 @@ namespace source.UI
             btnMenu.BackColor = Color.AntiqueWhite;
             btnHome.BackColor = Color.AntiqueWhite;
             btnMenuForManager.BackColor = Color.NavajoWhite;
+            btnReport.BackColor = Color.AntiqueWhite;
         }
         private void btnReport_Click(object sender, EventArgs e)
         {
@@ -191,48 +193,16 @@ namespace source.UI
             btnMenu.BackColor = Color.AntiqueWhite;
             btnHome.BackColor = Color.AntiqueWhite;
             btnMenuForManager.BackColor = Color.AntiqueWhite;
+            btnReport.BackColor= Color.NavajoWhite;
 
         }
         private void MainForm_Load(object sender, EventArgs e)
         {
             if (this.WindowState == FormWindowState.Normal)
                 UIHelper.ApplyRoundedCorners(this, 30);
-            //LanguageManager.SetLanguage("en");
-            //ApplyLanguage();
-            cmbLanguage.SelectedItem = "English";
+            
         }
-        /*private void cmbLanguage_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            string lang = cmbLanguage.SelectedItem.ToString();
-            if (lang == "English")
-            {
-                LanguageManager.SetLanguage("en");
-                currentLanguage = "en";
-            }
-            else if (lang == "Tiếng Việt")
-            {
-                LanguageManager.SetLanguage("vi");
-                currentLanguage = "vi";
-            }
-            ApplyLanguage();
-
-            if (homeForm != null && !homeForm.IsDisposed)
-                homeForm.ApplyLanguage();
-
-            if (calculaterForm != null && !calculaterForm.IsDisposed)
-                calculaterForm.ApplyLanguage();
-
-            if (graphForm != null && !graphForm.IsDisposed)
-                graphForm.ApplyLanguage();
-        }*/
-        /*private void ApplyLanguage()
-        {
-            btnCreatOrder.Text = LanguageManager.Get("NavMaxFlowSimulator");
-            btnMenu.Text = LanguageManager.Get("NavTransportation");
-            btnHome.Text = LanguageManager.Get("NavHome");
-            lblmain.Text = LanguageManager.Get("TitleGroup11");
-            lblLanguage.Text = LanguageManager.Get("LabelLanguage");
-        }*/
+        
         //Nút tương tác
         private void btnExit_Click(object sender, EventArgs e)
         {
@@ -395,7 +365,6 @@ namespace source.UI
                     break;
             }
         }
-
 
     }
 }

@@ -30,11 +30,11 @@
         {
             dgvEmployee = new DataGridView();
             cbSapXep = new ComboBox();
-            lblSapXep = new Label();
             btnTangLuong = new Button();
             btnGiamLuong = new Button();
             btnXemChiTiet = new Button();
             btnSort = new Button();
+            lblSapXep = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvEmployee).BeginInit();
             SuspendLayout();
             // 
@@ -60,25 +60,14 @@
             cbSapXep.Size = new Size(151, 28);
             cbSapXep.TabIndex = 1;
             // 
-            // lblSapXep
-            // 
-            lblSapXep.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            lblSapXep.AutoSize = true;
-            lblSapXep.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblSapXep.Location = new Point(717, 33);
-            lblSapXep.Name = "lblSapXep";
-            lblSapXep.Size = new Size(82, 25);
-            lblSapXep.TabIndex = 2;
-            lblSapXep.Text = "Sắp Xếp:";
-            // 
             // btnTangLuong
             // 
             btnTangLuong.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnTangLuong.Location = new Point(89, 574);
             btnTangLuong.Name = "btnTangLuong";
-            btnTangLuong.Size = new Size(94, 29);
+            btnTangLuong.Size = new Size(140, 29);
             btnTangLuong.TabIndex = 4;
-            btnTangLuong.Text = "Tăng Lương";
+            btnTangLuong.Text = "Increase Salary";
             btnTangLuong.UseVisualStyleBackColor = true;
             btnTangLuong.Click += btnTangLuong_Click;
             // 
@@ -87,9 +76,9 @@
             btnGiamLuong.Anchor = AnchorStyles.Bottom;
             btnGiamLuong.Location = new Point(272, 574);
             btnGiamLuong.Name = "btnGiamLuong";
-            btnGiamLuong.Size = new Size(94, 29);
+            btnGiamLuong.Size = new Size(127, 29);
             btnGiamLuong.TabIndex = 5;
-            btnGiamLuong.Text = "Giảm Lương";
+            btnGiamLuong.Text = "Decrease Salary";
             btnGiamLuong.UseVisualStyleBackColor = true;
             btnGiamLuong.Click += btnGiamLuong_Click;
             // 
@@ -100,7 +89,7 @@
             btnXemChiTiet.Name = "btnXemChiTiet";
             btnXemChiTiet.Size = new Size(94, 29);
             btnXemChiTiet.TabIndex = 6;
-            btnXemChiTiet.Text = "Xem chi tiết";
+            btnXemChiTiet.Text = "See details";
             btnXemChiTiet.UseVisualStyleBackColor = true;
             btnXemChiTiet.Click += btnXemChiTiet_Click;
             // 
@@ -114,6 +103,17 @@
             btnSort.Text = "Sort";
             btnSort.UseVisualStyleBackColor = true;
             btnSort.Click += btnSort_Click;
+            // 
+            // lblSapXep
+            // 
+            lblSapXep.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            lblSapXep.AutoSize = true;
+            lblSapXep.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblSapXep.Location = new Point(752, 33);
+            lblSapXep.Name = "lblSapXep";
+            lblSapXep.Size = new Size(49, 25);
+            lblSapXep.TabIndex = 2;
+            lblSapXep.Text = "Sort:";
             // 
             // ManagerForm
             // 
@@ -138,10 +138,10 @@
 
         private DataGridView dgvEmployee;
         private ComboBox cbSapXep;
-        private Label lblSapXep;
         private Button btnTangLuong;
         private Button btnGiamLuong;
         private Button btnXemChiTiet;
         private Button btnSort;
+        private Label lblSapXep;
     }
 }

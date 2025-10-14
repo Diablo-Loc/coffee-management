@@ -32,6 +32,8 @@
             btnsearch = new Button();
             comboBox = new ComboBox();
             dgvMenu = new DataGridView();
+            panel1 = new Panel();
+            btnedit = new Button();
             colname1 = new DataGridViewTextBoxColumn();
             colname3 = new DataGridViewTextBoxColumn();
             colname2 = new DataGridViewTextBoxColumn();
@@ -42,8 +44,6 @@
             IsCold = new DataGridViewTextBoxColumn();
             Flavor = new DataGridViewTextBoxColumn();
             Decoration = new DataGridViewTextBoxColumn();
-            panel1 = new Panel();
-            btnedit = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvMenu).BeginInit();
             panel1.SuspendLayout();
             SuspendLayout();
@@ -92,10 +92,31 @@
             dgvMenu.Size = new Size(1025, 487);
             dgvMenu.TabIndex = 3;
             // 
+            // panel1
+            // 
+            panel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panel1.AutoSize = true;
+            panel1.Controls.Add(dgvMenu);
+            panel1.Location = new Point(29, 72);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(1025, 487);
+            panel1.TabIndex = 4;
+            // 
+            // btnedit
+            // 
+            btnedit.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnedit.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnedit.Location = new Point(216, 578);
+            btnedit.Name = "btnedit";
+            btnedit.Size = new Size(72, 38);
+            btnedit.TabIndex = 6;
+            btnedit.Text = "Edit";
+            btnedit.UseVisualStyleBackColor = true;
+            // 
             // colname1
             // 
             colname1.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            colname1.HeaderText = "Tên món";
+            colname1.HeaderText = "Name";
             colname1.MinimumWidth = 6;
             colname1.Name = "colname1";
             colname1.ReadOnly = true;
@@ -103,7 +124,7 @@
             // colname3
             // 
             colname3.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            colname3.HeaderText = "Mô tả";
+            colname3.HeaderText = "Description";
             colname3.MinimumWidth = 6;
             colname3.Name = "colname3";
             colname3.ReadOnly = true;
@@ -112,7 +133,7 @@
             // colname2
             // 
             colname2.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            colname2.HeaderText = "Giá";
+            colname2.HeaderText = "Price";
             colname2.MinimumWidth = 6;
             colname2.Name = "colname2";
             colname2.ReadOnly = true;
@@ -165,27 +186,6 @@
             Decoration.MinimumWidth = 6;
             Decoration.Name = "Decoration";
             Decoration.ReadOnly = true;
-            // 
-            // panel1
-            // 
-            panel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            panel1.AutoSize = true;
-            panel1.Controls.Add(dgvMenu);
-            panel1.Location = new Point(29, 72);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(1025, 487);
-            panel1.TabIndex = 4;
-            // 
-            // btnedit
-            // 
-            btnedit.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnedit.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnedit.Location = new Point(216, 578);
-            btnedit.Name = "btnedit";
-            btnedit.Size = new Size(72, 38);
-            btnedit.TabIndex = 6;
-            btnedit.Text = "Edit";
-            btnedit.UseVisualStyleBackColor = true;
             // 
             // MenuFormForManager
             // 

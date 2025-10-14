@@ -1,5 +1,4 @@
-﻿using source.Models.PersonModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -23,33 +22,19 @@ namespace source.UI
 
         private void lblRecommend_Click(object sender, EventArgs e)
         {
-            //var loginForm = new LoginForm();
-            //var result = loginForm.ShowDialog();
+            var loginForm = new LoginForm();
+            var result = loginForm.ShowDialog();
 
-            //if (result == DialogResult.OK)
-            //{
-            //    // Lấy thông tin người dùng đã đăng nhập
-            //    var user = loginForm.LoggedInUser;
-
-
-
-            //    MessageBox.Show($"Xin chào {user.Name} - Vai trò: {user._Role}");
-            //    var mainForm = new MainForm(user);
-            //    mainForm.Show();
-            //    this.Hide();
-            //}
-            var fakeuser = new Employee
+            if (result == DialogResult.OK)
             {
-                Name = "Thanh",
-                Username = "admin",
-                _Role = Employee.Role.Cashier
-            };
+                // Lấy thông tin người dùng đã đăng nhập
+                var user = loginForm.LoggedInUser;
 
-
-            MessageBox.Show($"Xin chào {fakeuser.Name} - Vai trò: {fakeuser._Role}");
-            var mainForm = new MainForm(fakeuser);
-            mainForm.Show();
-            this.Hide();
+                MessageBox.Show($"Xin chào {user.Name} - Vai trò: {user._Role}");
+                var mainForm = new MainForm(user);
+                mainForm.Show();
+                this.Hide();
+            }
 
         }
     }

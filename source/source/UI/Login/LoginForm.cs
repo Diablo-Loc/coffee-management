@@ -43,7 +43,7 @@ namespace source.UI
             }
             else
             {
-                lblError.Text = "Sai tài khoản hoặc mật khẩu!";
+                lblError.Text = "Wrong account or password!";
                 lblError.Visible = true;
             }
         }

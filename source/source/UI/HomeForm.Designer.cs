@@ -37,15 +37,16 @@
             // 
             // lblTitle
             // 
+            lblTitle.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             lblTitle.AutoSize = true;
             lblTitle.BackColor = Color.Transparent;
             lblTitle.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblTitle.ForeColor = SystemColors.Menu;
             lblTitle.Location = new Point(124, 38);
             lblTitle.Name = "lblTitle";
-            lblTitle.Size = new Size(647, 38);
+            lblTitle.Size = new Size(680, 38);
             lblTitle.TabIndex = 0;
-            lblTitle.Text = "Chào mừng đến với ứng dụng quản lý quán cà phê";
+            lblTitle.Text = "Welcome to the coffee shop management application";
             // 
             // panel1
             // 
@@ -63,15 +64,16 @@
             // 
             // lblRecommend
             // 
+            lblRecommend.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             lblRecommend.AutoSize = true;
             lblRecommend.BackColor = Color.Transparent;
             lblRecommend.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblRecommend.ForeColor = SystemColors.Menu;
             lblRecommend.Location = new Point(106, 469);
             lblRecommend.Name = "lblRecommend";
-            lblRecommend.Size = new Size(701, 76);
+            lblRecommend.Size = new Size(732, 76);
             lblRecommend.TabIndex = 1;
-            lblRecommend.Text = "Bạn có tài khoản chưa! Nếu chưa thì hãy liên hệ admin!\r\nCó rồi nhấp vào đây! Login";
+            lblRecommend.Text = "Do you have an account yet? If not, please contact admin!\r\nIf you have one, click here! Login";
             lblRecommend.Click += lblRecommend_Click;
             // 
             // HomeForm
