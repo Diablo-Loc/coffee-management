@@ -9,6 +9,8 @@
   </PropertyGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="ScottPlot" Version="5.1.57" />
+	  <PackageReference Include="ScottPlot.WinForms" Version="5.1.57" />
 	  <PackageReference Include="System.Data.SQLite" Version="1.0.117" />
 	  <PackageReference Include="System.Data.SQLite.Core" Version="1.0.119" />
 	</ItemGroup>

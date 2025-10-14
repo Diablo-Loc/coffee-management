@@ -65,7 +65,7 @@
             labelCoffeeManagement.Location = new Point(393, 5);
             labelCoffeeManagement.Margin = new Padding(0, 0, 10, 0);
             labelCoffeeManagement.Name = "labelCoffeeManagement";
-            labelCoffeeManagement.Size = new Size(375, 50);
+            labelCoffeeManagement.Size = new Size(448, 60);
             labelCoffeeManagement.TabIndex = 0;
             labelCoffeeManagement.Text = "Coffee Management";
             labelCoffeeManagement.TextAlign = ContentAlignment.MiddleCenter;
@@ -169,7 +169,7 @@
             label1.AutoSize = true;
             label1.Location = new Point(116, 59);
             label1.Name = "label1";
-            label1.Size = new Size(62, 28);
+            label1.Size = new Size(77, 32);
             label1.TabIndex = 2;
             label1.Text = "Menu";
             label1.Click += label1_Click_4;
@@ -283,7 +283,7 @@
             // 
             // MainForm_bỏ
             // 
-            AutoScaleDimensions = new SizeF(11F, 28F);
+            AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;

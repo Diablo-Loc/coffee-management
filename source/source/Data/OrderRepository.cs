@@ -232,5 +232,31 @@ namespace source.Data
 
             return orders;
         }
+        public List<Order> GetAllOrders()
+        {
+            var orders = new List<Order>();
+            using var conn = new SQLiteConnection(connectionString);
+            conn.Open();
+
+            string query = "SELECT Id, Date, GuestCount, TableNumber FROM Orders ORDER BY Date DESC";
+            var cmd = new SQLiteCommand(query, conn);
+            var reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                var order = new Order
+                {
+                    Id = reader.GetInt32(0),
+                    CreatedAt = DateTime.Parse(reader.GetString(1)),
+                    GuestCount = reader.GetInt32(2),
+                    TableNumber = reader.GetInt32(3)
+                };
+
+                order.Items.AddRange(GetItemsByOrderId(order.Id));
+                orders.Add(order);
+            }
+
+            return orders;
+        }
     }
 }

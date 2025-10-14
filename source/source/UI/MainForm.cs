@@ -28,6 +28,7 @@ namespace source.UI
         private ManagerForm managerForm;
         private AdminManage employeeForm;
         private MenuFormForManager menuForManager;
+        private ReportForm reportForm;
         private Panel pnlManualPopup;
         private RichTextBox rtbManual;
         private System.Windows.Forms.Timer manualHideTimer;
@@ -111,6 +112,7 @@ namespace source.UI
             btnEmployee.BackColor = Color.AntiqueWhite;
             btnManageCashier.BackColor = Color.AntiqueWhite;
             btnMenuForManager.BackColor = Color.AntiqueWhite;
+            btnReport.BackColor = Color.AntiqueWhite;
         }
         
         private void btnMenuForm_Click(object sender, EventArgs e)
@@ -124,6 +126,7 @@ namespace source.UI
             btnEmployee.BackColor = Color.AntiqueWhite;
             btnManageCashier.BackColor = Color.AntiqueWhite;
             btnMenuForManager.BackColor = Color.AntiqueWhite;
+            btnReport.BackColor = Color.AntiqueWhite;
         }
 
         private void btnOrderForm_Click(object sender, EventArgs e)
@@ -137,6 +140,7 @@ namespace source.UI
             btnEmployee.BackColor = Color.AntiqueWhite;
             btnManageCashier.BackColor = Color.AntiqueWhite;
             btnMenuForManager.BackColor = Color.AntiqueWhite;
+            btnReport.BackColor = Color.AntiqueWhite;
         }
 
         private void btnEmployee_Click(object sender, EventArgs e)
@@ -149,6 +153,7 @@ namespace source.UI
             btnHome.BackColor = Color.AntiqueWhite;
             btnManageCashier.BackColor = Color.AntiqueWhite;
             btnMenuForManager.BackColor = Color.AntiqueWhite;
+            btnReport.BackColor = Color.AntiqueWhite;
         }
         private void btnManageCashier_Click(object sender, EventArgs e)
         {
@@ -160,17 +165,33 @@ namespace source.UI
             btnMenu.BackColor = Color.AntiqueWhite;
             btnHome.BackColor = Color.AntiqueWhite;
             btnMenuForManager.BackColor = Color.AntiqueWhite;
+            btnReport.BackColor = Color.AntiqueWhite;
         }
         private void btnMenuForManager_Click(object sender, EventArgs e)
         {
             menuForManager = new MenuFormForManager();
             OpenChildForm(menuForManager, sender);
             btnManageCashier.BackColor = Color.AntiqueWhite;
+            btnReport.BackColor = Color.AntiqueWhite;
             btnEmployee.BackColor = Color.AntiqueWhite;
             btnCreatOrder.BackColor = Color.AntiqueWhite;
             btnMenu.BackColor = Color.AntiqueWhite;
             btnHome.BackColor = Color.AntiqueWhite;
             btnMenuForManager.BackColor = Color.NavajoWhite;
+        }
+        private void btnReport_Click(object sender, EventArgs e)
+        {
+            reportForm = new ReportForm();
+            OpenChildForm(reportForm, sender);
+
+            btnReport.BackColor = Color.NavajoWhite;
+            btnManageCashier.BackColor = Color.AntiqueWhite;
+            btnEmployee.BackColor = Color.AntiqueWhite;
+            btnCreatOrder.BackColor = Color.AntiqueWhite;
+            btnMenu.BackColor = Color.AntiqueWhite;
+            btnHome.BackColor = Color.AntiqueWhite;
+            btnMenuForManager.BackColor = Color.AntiqueWhite;
+
         }
         private void MainForm_Load(object sender, EventArgs e)
         {
@@ -336,6 +357,8 @@ namespace source.UI
                     btnCreatOrder.Enabled = false;
                     btnManageCashier.Enabled = false;
                     btnMenuForManager.Enabled = true;
+                    btnReport.Visible = true;
+                    btnReport.Enabled = true;
                     break;
 
                 case Employee.Role.Manager:
@@ -350,6 +373,8 @@ namespace source.UI
                     btnCreatOrder.Enabled = false;
                     btnManageCashier.Enabled = true;
                     btnMenuForManager.Enabled= true;
+                    btnReport.Visible = true;
+                    btnReport.Enabled = true;
                     //tạo thêm form mới
                     break;
 
@@ -365,6 +390,8 @@ namespace source.UI
                     btnCreatOrder.Enabled = true;
                     btnManageCashier.Enabled = false;
                     btnMenuForManager.Enabled = false;
+                    btnReport.Visible = true;
+                    btnReport.Enabled = true;
                     break;
             }
         }
