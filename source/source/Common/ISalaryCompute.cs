@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace source.Services
+namespace source.Common
 {
     public interface ISalaryCompute
     {

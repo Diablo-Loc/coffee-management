@@ -60,5 +60,14 @@ namespace source.Models.OrderModel
         {
             Console.WriteLine($"{Item?.Name} x{Quantity} = {TotalPrice()}đ");
         }
+        public static bool operator >(OrderItem a, OrderItem b)
+        {
+            return a.Quantity > b.Quantity;
+        }
+
+        public static bool operator <(OrderItem a, OrderItem b)
+        {
+            return a.Quantity < b.Quantity;
+        }
     }
 }

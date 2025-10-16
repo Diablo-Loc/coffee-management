@@ -1,7 +1,8 @@
-﻿using source.Services;
+﻿using source.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -45,19 +46,12 @@ namespace source.Models.PersonModel
         {
             list.Add(emp);
         }
-        public static bool operator >(Employee a, Employee b)
-        {
-            return a.BaseSalary > b.BaseSalary;
-        }
-        public static bool operator <(Employee a, Employee b) 
-        {
-            return a.BaseSalary < b.BaseSalary;
-        }
+
         public override bool Equals(object obj)
         {
             return obj is Employee other && this == other;
         }
-
+        //overide để hỗ trợ so sánh với dùng hashset, sau này mở rộng mới dùng tới
         public override int GetHashCode()
         {
             return Id.GetHashCode();
@@ -71,6 +65,14 @@ namespace source.Models.PersonModel
         {
             a.BaseSalary = Math.Max(0, a.BaseSalary - GiamLuong);
             return a;
+        }
+        public void TangLuong(decimal amount)
+        {
+            this.BaseSalary += amount;
+        }
+        public void GiamLuong(decimal amount)
+        {
+            this.BaseSalary -= amount;
         }
     }
 }

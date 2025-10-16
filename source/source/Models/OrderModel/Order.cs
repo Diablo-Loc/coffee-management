@@ -1,6 +1,5 @@
 ﻿using source.Models.Catalog;
 using source.Models.PersonModel;
-using source.Temp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +11,6 @@ namespace source.Models.OrderModel
     public class Order : EntityBase
     {
         public List<OrderItem> Items { get; private set; } = new List<OrderItem>();
-        public Customer Buyer { get; set; }
         public Employee Staff { get; set; }
         public int TableNumber { get; set; }
         public int GuestCount { get; set; } = 0;
@@ -28,16 +26,15 @@ namespace source.Models.OrderModel
         {
             if (product == null || quantity <= 0) return;
 
-            var existing = Items.FirstOrDefault(i => i.Item.Name == product.Name);
-            if (existing != null)
+            var exist = Items.FirstOrDefault(i => i.Item.Name == product.Name);
+            if (exist != null)
             {
-                existing.Quantity += quantity;
+                exist.Quantity += quantity;
             }
             else
             {
                 Items.Add(new OrderItem(product, quantity));
             }
-
             Touch();
         }
 
@@ -74,6 +71,37 @@ namespace source.Models.OrderModel
             }
             return total;
         }
-        
+        //trong OrderForm
+        // chuẩn bị đơn cho bàn thôi
+        public Order PrepareOrder(Order dataOrder, int tablenumber)
+        {
+            if (dataOrder != null) { return dataOrder; }
+            this.TableNumber = tablenumber;
+            this.CreatedAtOrder = DateTime.Now;
+            this.GuestCount = 0;
+            this.Status = "New";
+            return this;
+        }
+        public string FormatDate()
+        {
+            return this.CreatedAtOrder!=DateTime.MinValue ? $"Date: {this.CreatedAt:dd/MM/yyyy HH:mm}" : "Date: ---";
+        }
+        public void Complete(int guestCount)
+        {
+            this.GuestCount = guestCount;
+            this.ChangeStatus("Occupied");
+        }
+        public (int TableNumber, string Status, int GuestCount, decimal Total) ToTableData()
+        {
+            return (this.TableNumber, this.Status, this.GuestCount, this.Total());
+        }
+        public void ResetOrder(int tableNumber)
+        {
+            this.TableNumber = tableNumber;
+            this.CreatedAtOrder = DateTime.Now;
+            this.GuestCount = 0;
+            this.Status = "New";
+            this.Items.Clear();
+        }
     }
 }

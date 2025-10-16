@@ -1,6 +1,7 @@
 ﻿using source.Data;
 using source.Models.Catalog;
 using source.Models.PersonModel;
+using source.Services;
 using source.UI.Login;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,7 @@ namespace source.UI
         private List<Employee> employees = new List<Employee>();
         private bool isEditMode = false;
         private Employee editingEmployee;
+        private readonly AdminService adminService=new AdminService();
         public AdminManage(Employee user)
         {
             InitializeComponent();
@@ -34,12 +36,6 @@ namespace source.UI
             }
             LoadEmployees();
         }
-        private void btnAdd_Click(object sender, EventArgs e)
-        {
-            var addForm = new AddEmployeeForm(currentUser, employees, LoadEmployees);
-            addForm.StartPosition = FormStartPosition.CenterParent;
-            addForm.ShowDialog(this);
-        }
         private void btnDelete_Click(object sender, EventArgs e)
         {
             if (dgvEmployee.SelectedRows.Count > 0)
@@ -49,8 +45,40 @@ namespace source.UI
                 var confirm = MessageBox.Show($"Bạn có chắc muốn xóa nhân viên {selected.Name}?", "Xác nhận", MessageBoxButtons.YesNo);
                 if (confirm == DialogResult.Yes)
                 {
-                    EmployeeAccount.DeleteEmployee(selected.Id); // Xóa khỏi SQLite
-                    LoadEmployees();
+                    try
+                    {
+                        adminService.DeleteEmploy(selected.Id);
+                        MessageBox.Show("Xóa thành công!");
+                        LoadEmployees();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Lỗi: " + ex.Message);
+                    }
+                }
+            }
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            using (var addForm = new AddEmployeeForm())
+            {
+                if (addForm.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        Employee newEmployee = addForm.ResultEmployee;
+
+                        // Ra lệnh cho Service xử lý nghiệp vụ
+                        adminService.AddEmploy(newEmployee);
+
+                        MessageBox.Show("Thêm nhân viên thành công!");
+                        LoadEmployees();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Lỗi: " + ex.Message);
+                    }
                 }
             }
         }
@@ -60,13 +88,25 @@ namespace source.UI
             if (dgvEmployee.SelectedRows.Count > 0)
             {
                 var selected = (Employee)dgvEmployee.SelectedRows[0].DataBoundItem;
-                var editForm = new AddEmployeeForm(currentUser, employees, LoadEmployees, selected);
-                editForm.ShowDialog();
-            }
-            
-            else
-            {
-                MessageBox.Show("Vui lòng chọn nhân viên để sửa.");
+
+                using (var editForm = new AddEmployeeForm(selected))
+                {
+                    if (editForm.ShowDialog() == DialogResult.OK)
+                    {
+                        try
+                        {
+                            Employee updatedEmployee = editForm.ResultEmployee;
+                            adminService.UpdateEmploy(updatedEmployee);
+
+                            MessageBox.Show("Cập nhật thành công!");
+                            LoadEmployees();
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Lỗi: " + ex.Message);
+                        }
+                    }
+                }
             }
         }
         private void btnCancel_Click(object sender, EventArgs e)
@@ -76,8 +116,7 @@ namespace source.UI
         }
         private void LoadEmployees()
         {
-            employees = EmployeeAccount.GetAllEmployees(); // Lấy từ SQLite
-
+            employees = adminService.GetAllEmployeesForAdmin();
             dgvEmployee.DataSource = null;
             dgvEmployee.DataSource = employees;
 

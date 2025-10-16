@@ -41,7 +41,7 @@ namespace source.UI
             lblBillID.Text = $"BILL #{currentBill.ID}";
             lblTable.Text = $"Table: {currentBill.TableNumber}";
             lblDate.Text = $"Date: {currentBill.CreatedAt}";
-            lblTotal.Text = $"Total: {currentBill.TotalAmount}";
+            lblTotal.Text = $"Total: {currentBill.TotalAmount:N0} VND";
 
             // clear list trước khi load
             listViewItem.Items.Clear();
@@ -148,9 +148,5 @@ namespace source.UI
         }
 
     }
-
-
-
-
 
 }

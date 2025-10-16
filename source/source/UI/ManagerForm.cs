@@ -16,22 +16,23 @@ namespace source.UI
 {
     public partial class ManagerForm : Form
     {
+        private readonly EmployeeService employeeservice = new EmployeeService();
         private List<Employee> employeeList;
         public ManagerForm()
         {
             InitializeComponent();
-            employeeList = EmployeeAccount.GetAllEmployees()
-                .Where(emp => emp._Role != Employee.Role.Admin)
-                .Where(emp => emp._Role != Employee.Role.Manager)
-                .ToList();
+            employeeList = employeeservice.GetManagableEmployees();
             UpdateGrid(employeeList);
         }
         private void btnSort_Click(object sender, EventArgs e)
         {
+            if (cbSapXep.SelectedItem == null)
+            {
+                MessageBox.Show("Vui lòng chọn tiêu chí sắp xếp.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             string criteria = cbSapXep.SelectedItem.ToString();
-            if (criteria == "Tên") employeeList.Sort(new EmployeeCompare.ByName());
-            else if (criteria == "Lương") employeeList.Sort(new EmployeeCompare.BySalaryDescending());
-
+            employeeList = employeeservice.SortEmployees(employeeList, criteria);
             UpdateGrid(employeeList);
         }
 
@@ -40,53 +41,45 @@ namespace source.UI
             var select = GetSelectedEmployee();
             if (select == null)
             {
-                MessageBox.Show("Vui lòng chọn nhân viên.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Please select an employee.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             string input = Microsoft.VisualBasic.Interaction.InputBox(
-                "Nhập số tiền cần tăng:",
-                "Giảm lương",
+                "Enter the amount to increase:",
+                "Decrease salary",
                 "1000000 VND"
             );
             if (!decimal.TryParse(input.Replace(" VND", "").Replace(",", "").Trim(), out decimal amount))
             {
-                MessageBox.Show("Giá trị nhập không hợp lệ!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Invalid input value!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            TangLuong(select, amount);
+            employeeservice.IncreaseSalary(select, amount);
+            employeeList = employeeservice.GetManagableEmployees();
+            UpdateGrid(employeeList);
         }
         private void btnGiamLuong_Click(object sender, EventArgs e)
         {
             var select = GetSelectedEmployee();
             if (select == null)
             {
-                MessageBox.Show("Vui lòng chọn nhân viên.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Please select an employee.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             string input = Microsoft.VisualBasic.Interaction.InputBox(
-                "Nhập số tiền cần giảm:",
-                "Giảm lương",
+                "Enter the amount to increase:",
+                "Increase salary",
                 "1000000 VND"
             );
             if (!decimal.TryParse(input.Replace(" VND", "").Replace(",", "").Trim(), out decimal amount))
             {
-                MessageBox.Show("Giá trị nhập không hợp lệ!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Please select an employee.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            GiamLuong(select, amount);
-        }
-        private void TangLuong(Employee e, decimal amount)
-        {
-            e += amount;
+            employeeservice.DecreaseSalary(select, amount);
+            employeeList = employeeservice.GetManagableEmployees();
             UpdateGrid(employeeList);
-            EmployeeAccount.UpdateEmployee(e);
-        }
-        private void GiamLuong(Employee e, decimal amount)
-        {
-            e -= amount;
-            UpdateGrid(employeeList);
-            EmployeeAccount.UpdateEmployee(e);
         }
         private void UpdateGrid(List<Employee> list)
         {
@@ -130,7 +123,7 @@ namespace source.UI
             var selected = GetSelectedEmployee();
             if (selected == null)
             {
-                MessageBox.Show("Vui lòng chọn nhân viên.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Please select an employee.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             var detailForm = new EmployeeDetailForm(selected);

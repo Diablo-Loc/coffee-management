@@ -10,7 +10,6 @@ namespace source.Models.PersonModel
     public abstract class Person:EntityBase
     {
         private string _Name;
-        private string _Password;
         private string _Email;
         private string _Phone;
         public string Name { get { return _Name; } set { _Name = value; } }

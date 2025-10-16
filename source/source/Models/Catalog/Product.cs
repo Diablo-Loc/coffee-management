@@ -30,6 +30,6 @@ namespace source.Models.Catalog
         public virtual string Describe()
         {
             return $"{Name} ({Category}) - {Price}đ";
-        }
+        }        
     }
 }

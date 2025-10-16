@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace source.Models
 {
-    internal class Report : EntityBase
+   public class Report : EntityBase
     {
         private DateTime _ReportDate;
         private decimal _TotalRevenue;
@@ -32,7 +32,8 @@ namespace source.Models
             get { return this._TotalOrders; }
             set { this._TotalOrders = value; }
         }
-
+        public OrderItem BestSeller { get; set; }
+        public List<OrderItem> TopSelling { get; set; }
         public List<OrderItem> AllItems
         {
             get { return this._AllItems; }
@@ -59,140 +60,18 @@ namespace source.Models
         {
            
         }
-
-        public void Generate(List<Order> orders)
-        {
-            if (orders == null || orders.Count == 0) return;
-
-            _TotalOrders = orders.Count;
-            _TotalRevenue = 0;
-            _AllItems.Clear();
-
-            foreach (var order in orders)
-            {
-                foreach (var item in order.Items)
-                {
-                    _TotalRevenue += item.Item.Price * item.Quantity;
-                    _AllItems.Add(item);
-                }
-            }
-        }
-
-        public OrderItem GetBestSeller()
-        {
-            if (_AllItems.Count == 0) return null;
-
-            List<string> names = new List<string>();
-            List<int> quantities = new List<int>();
-            List<Product> products = new List<Product>();
-
-            // Gom nhóm theo tên món
-            foreach (OrderItem item in _AllItems)
-            {
-                string name = item.Item.Name;
-                int index = names.IndexOf(name);
-
-                if (index >= 0)
-                {
-                    quantities[index] += item.Quantity;
-                }
-                else
-                {
-                    names.Add(name);
-                    quantities.Add(item.Quantity);
-                    products.Add(item.Item);
-                }
-            }
-
-            // Tìm món có số lượng lớn nhất
-            int maxIndex = -1;
-            int maxQty = -1;
-            for (int i = 0; i < quantities.Count; i++)
-            {
-                if (quantities[i] > maxQty)
-                {
-                    maxQty = quantities[i];
-                    maxIndex = i;
-                }
-            }
-
-            if (maxIndex >= 0)
-                return new OrderItem(products[maxIndex], quantities[maxIndex]);
-
-            return null;
-        }
-
-      
-        public List<OrderItem> GetTopSellingItems(int count)
-        {
-            List<OrderItem> result = new List<OrderItem>();
-            List<string> names = new List<string>();
-            List<int> quantities = new List<int>();
-            List<Product> products = new List<Product>();
-
-            // Gom nhóm theo tên món
-            foreach (OrderItem item in _AllItems)
-            {
-                string name = item.Item.Name;
-                int index = names.IndexOf(name);
-
-                if (index >= 0)
-                {
-                    quantities[index] += item.Quantity;
-                }
-                else
-                {
-                    names.Add(name);
-                    quantities.Add(item.Quantity);
-                    products.Add(item.Item);
-                }
-            }
-
-            // Sắp xếp theo số lượng giảm dần
-            for (int i = 0; i < quantities.Count - 1; i++)
-            {
-                for (int j = i + 1; j < quantities.Count; j++)
-                {
-                    if (quantities[j] > quantities[i])
-                    {
-                        // Đổi chỗ
-                        int tempQty = quantities[i];
-                        quantities[i] = quantities[j];
-                        quantities[j] = tempQty;
-
-                        string tempName = names[i];
-                        names[i] = names[j];
-                        names[j] = tempName;
-
-                        Product tempProd = products[i];
-                        products[i] = products[j];
-                        products[j] = tempProd;
-                    }
-                }
-            }
-
-            // Lấy top N
-            for (int i = 0; i < count && i < names.Count; i++)
-            {
-                result.Add(new OrderItem(products[i], quantities[i]));
-            }
-
-            return result;
-        }
-
         public void Xuat()
         {
-            Console.WriteLine("Ngày báo cáo: " + _ReportDate.ToString("dd/MM/yyyy"));
-            Console.WriteLine("Tổng đơn hàng: " + _TotalOrders);
-            Console.WriteLine("Tổng doanh thu: " + _TotalRevenue.ToString("C"));
+            var builder = new StringBuilder();
+            builder.AppendLine($"Ngày báo cáo: {ReportDate:dd/MM/yyyy}");
+            builder.AppendLine($"Tổng đơn hàng: {TotalOrders}");
+            builder.AppendLine($"Tổng doanh thu: {TotalRevenue:N0} VND");
 
-            OrderItem best = GetBestSeller();
-
-
-            if (best != null)
-                Console.WriteLine("Bán chạy nhất: " + best.Item.Name + " (" + best.Quantity + " món)");
-
-
+            if (BestSeller != null)
+            {
+                builder.AppendLine($"Bán chạy nhất: {BestSeller.Item.Name} ({BestSeller.Quantity} món)");
+            }
+            Console.WriteLine(builder.ToString());
         }
     }
 }

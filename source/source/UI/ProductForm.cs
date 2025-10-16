@@ -76,19 +76,19 @@ namespace source.UI
 
             if (string.IsNullOrWhiteSpace(name))
             {
-                MessageBox.Show("Tên món không được để trống!");
+                MessageBox.Show("Dish name cannot be blank!");
                 return;
             }
 
             if (!decimal.TryParse(txtprice.Text, out decimal price) || price <= 0)
             {
-                MessageBox.Show("Giá phải là số hợp lệ và lớn hơn 0!");
+                MessageBox.Show("Price must be a valid number and greater than 0!");
                 return;
             }
 
             if (comboBoxcategory.SelectedIndex == 0 || string.IsNullOrEmpty(selected))
             {
-                MessageBox.Show("Vui lòng chọn loại món!");
+                MessageBox.Show("Please select dish type!");
                 return;
             }
 
@@ -121,7 +121,7 @@ namespace source.UI
             }
             catch
             {
-                MessageBox.Show("Dữ liệu nhập không hợp lệ cho loại món đã chọn.");
+                MessageBox.Show("Invalid input for the selected dish type.");
             }
         }
 

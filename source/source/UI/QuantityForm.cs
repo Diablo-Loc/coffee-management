@@ -16,6 +16,7 @@ namespace source.UI
         public QuantityForm()
         {
             InitializeComponent();
+            this.StartPosition = FormStartPosition.CenterScreen;
         }
 
         private void btnOk_Click(object sender, EventArgs e)

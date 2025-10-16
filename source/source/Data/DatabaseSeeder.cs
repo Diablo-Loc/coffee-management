@@ -20,7 +20,7 @@ namespace source.Data
                 Phone = "0123456789",
                 _Role = Employee.Role.Admin,
                 Username = "admin",
-                Password = SecurityHelper.HashPassword("123")
+                Password = "123"
             };
 
             if (EmployeeAccount.Authenticate(admin.Username, "123") == null)

@@ -145,18 +145,6 @@ namespace source.Data
             return null;
         }
 
-        public static class SecurityHelper
-        {
-            public static string HashPassword(string password)
-            {
-                using (var sha = SHA256.Create())
-                {
-                    var bytes = Encoding.UTF8.GetBytes(password);
-                    var hash = sha.ComputeHash(bytes);
-                    return BitConverter.ToString(hash).Replace("-", "").ToLower();
-                }
-            }
-        }
         public static List<Employee> GetAllEmployees()
         {
             var list = new List<Employee>();

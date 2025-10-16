@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.InteropServices.JavaScript;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace source.Models.Catalog
 {
@@ -34,6 +35,10 @@ namespace source.Models.Catalog
         public override string Describe()
         {
             return $"{Name} -{Flavor} - {(IsCold ? "Cold" : "Warm")}-{Decoration} - {GetPrice():N0} đ";
+        }
+        public static Dessert Create(string Name, decimal Price)
+        {
+            return new Dessert(true, "", "", Name, Price, "");
         }
     }
 }

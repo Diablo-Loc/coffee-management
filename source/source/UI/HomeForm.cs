@@ -16,6 +16,7 @@ namespace source.UI
         public HomeForm()
         {
             InitializeComponent();
+            this.DoubleBuffered = true;
             panel1 = new DoubleBufferedPanel();
             this.StartPosition = FormStartPosition.CenterScreen;
         }
@@ -30,7 +31,7 @@ namespace source.UI
                 // Lấy thông tin người dùng đã đăng nhập
                 var user = loginForm.LoggedInUser;
 
-                MessageBox.Show($"Xin chào {user.Name} - Vai trò: {user._Role}");
+                MessageBox.Show($"Hello {user.Name} - Role: {user._Role}");
                 var mainForm = new MainForm(user);
                 mainForm.Show();
                 this.Hide();

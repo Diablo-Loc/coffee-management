@@ -64,7 +64,7 @@ namespace source.UI
             this.Load += MainForm_Load;
             currentUser = user;
             ApplyRolePermissions();
-            lblUserInfo.Text = $"👤 Đăng nhập: {user.Name} ({user._Role})";
+            lblUserInfo.Text = $"👤 : {user.Name} ({user._Role})";
 
 
         }
@@ -238,6 +238,7 @@ namespace source.UI
             Button btn = sender as Button;
             btn.BackColor = Color.Transparent; // hoặc màu gốc của bạn
         }
+        //kéo thả resize cửa sổ
         protected override void WndProc(ref Message m)
         {
             const int WM_NCHITTEST = 0x84;
@@ -327,8 +328,8 @@ namespace source.UI
                     btnCreatOrder.Enabled = false;
                     btnManageCashier.Enabled = false;
                     btnMenuForManager.Enabled = true;
-                    btnReport.Visible = true;
-                    btnReport.Enabled = true;
+                    btnReport.Visible = false;
+                    btnReport.Enabled = false;
                     break;
 
                 case Employee.Role.Manager:

@@ -28,5 +28,9 @@ namespace source.Models.Catalog
         {
             return $"{Name} {(IsVegetarian ? "(Vegan)" : "")} {(!string.IsNullOrEmpty(Topping) ? $"[Topping: {Topping}]" : "")} - {GetPrice():N0}đ";
         }
+        public static Food Create(string Name, decimal Price)
+        {
+            return new Food(true,"",Name, Price,""); 
+        }
     }
 }

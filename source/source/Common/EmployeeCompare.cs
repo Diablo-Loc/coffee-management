@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static source.Models.PersonModel.Employee;
 
-namespace source.Services
+namespace source.Common
 {
     public class EmployeeCompare
     {

@@ -87,7 +87,7 @@ namespace source.UI
                 }
                 else
                 {
-                    MessageBox.Show("Vui lòng chọn món để sửa.");
+                    MessageBox.Show("Please select an item to edit.");
                 }
             };
 
@@ -98,7 +98,7 @@ namespace source.UI
                 {
                     int index = dgvMenu.SelectedRows[0].Index;
                     Product selected = currentList[index];
-                    var result = MessageBox.Show("Bạn có chắc muốn xóa?", "Xác nhận", MessageBoxButtons.YesNo);
+                    var result = MessageBox.Show("Are you sure you want to delete?", "Confirm", MessageBoxButtons.YesNo);
                     if (result == DialogResult.Yes)
                     {
                         service.Delete(selected);
@@ -107,7 +107,7 @@ namespace source.UI
                 }
                 else
                 {
-                    MessageBox.Show("Vui lòng chọn món để xóa.");
+                    MessageBox.Show("Please select an item to delete.");
                 }
             };
         }

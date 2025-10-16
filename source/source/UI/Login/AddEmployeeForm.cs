@@ -15,7 +15,13 @@ namespace source.UI.Login
         private Action reloadCallback;
         private bool isEditMode = false;
         private Employee editingEmployee;
-
+        public Employee ResultEmployee { get; private set; }
+        public AddEmployeeForm()
+        {
+            InitializeComponent();
+            cboRole.DataSource = Enum.GetValues(typeof(Role));
+            this.StartPosition = FormStartPosition.CenterScreen;
+        }
         public AddEmployeeForm(Employee user, List<Employee> empList, Action reload)
         {
             InitializeComponent();
@@ -24,20 +30,18 @@ namespace source.UI.Login
             reloadCallback = reload;
 
             cboRole.DataSource = Enum.GetValues(typeof(Role));
-            this.StartPosition = FormStartPosition.CenterScreen;
             // Kiểm tra quyền
             if (currentUser._Role != Role.Admin)
             {
-                MessageBox.Show("Bạn không có quyền thêm nhân viên.");
+                MessageBox.Show("You do not have permission!");
                 this.Close();
             }
         }
 
-        public AddEmployeeForm(Employee user, List<Employee> empList, Action reload, Employee toEdit)
-            : this(user, empList, reload)
+        public AddEmployeeForm(Employee toEdit) : this()
         {
             isEditMode = true;
-            editingEmployee = toEdit;
+            ResultEmployee = toEdit;
 
             txtName.Text = toEdit.Name;
             txtEmail.Text = toEdit.Email;
@@ -61,53 +65,45 @@ namespace source.UI.Login
                 string.IsNullOrWhiteSpace(email) ||
                 string.IsNullOrWhiteSpace(phone) ||
                 string.IsNullOrWhiteSpace(username) ||
-                string.IsNullOrWhiteSpace(password))
+                (!isEditMode && string.IsNullOrWhiteSpace(password)))
             {
-                MessageBox.Show("Vui lòng điền đầy đủ thông tin!");
+                MessageBox.Show("Vui lòng điền đầy đủ các thông tin bắt buộc!");
                 return;
             }
-
             if (!decimal.TryParse(txtSalary.Text, out decimal salary) || salary <= 0)
             {
-                MessageBox.Show("Lương phải là số hợp lệ và lớn hơn 0!");
+                MessageBox.Show("Lương phải là một số hợp lệ và lớn hơn 0!");
                 return;
             }
-            if (!isEditMode && EmployeeAccount.UsernameExists(username))
+            try
             {
-                MessageBox.Show("Tên đăng nhập đã tồn tại!");
-                return;
-            }
-            if (isEditMode && editingEmployee != null)
-            {
-                editingEmployee.Name = name;
-                editingEmployee.Email = email;
-                editingEmployee.Phone = phone;
-                editingEmployee.BaseSalary = salary;
-                editingEmployee._Role = selectedRole;
-
-                MessageBox.Show("Cập nhật nhân viên thành công!");
-            }
-            else
-            {
-                // Kiểm tra trùng username
-                var exists = employees.Find(e => e.Username == username);
-                if (exists != null)
+                if (isEditMode)
                 {
-                    MessageBox.Show("Tên đăng nhập đã tồn tại!");
-                    return;
+                    // Cập nhật thông tin cho đối tượng Employee đang được chỉnh sửa
+                    ResultEmployee.Name = name;
+                    ResultEmployee.Email = email;
+                    ResultEmployee.Phone = phone;
+                    ResultEmployee.BaseSalary = salary;
+                    ResultEmployee._Role = selectedRole;
+                    // Chỉ cập nhật mật khẩu nếu người dùng nhập mật khẩu mới
+                    if (!string.IsNullOrWhiteSpace(password))
+                    {
+                        ResultEmployee.Password = password;
+                    }
+                }
+                else
+                {
+                    // Tạo một đối tượng Employee hoàn toàn mới
+                    ResultEmployee = new Employee(name, email, phone, salary, selectedRole, username, password);
                 }
 
-                string hashedPassword = SecurityHelper.HashPassword(password);
-                var emp = new Employee(name, email, phone, salary, selectedRole, username, hashedPassword);
-
-                employees.Add(emp); // danh sách tạm
-                EmployeeAccount.AddEmployee(emp); // lưu vào SQLite
-
-                MessageBox.Show("Thêm nhân viên thành công!");
+                this.DialogResult = DialogResult.OK;
+                this.Close();
             }
-
-            reloadCallback?.Invoke();
-            this.Close();
+            catch (Exception ex)
+            {
+                MessageBox.Show("Đã có lỗi xảy ra: " + ex.Message);
+            }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)

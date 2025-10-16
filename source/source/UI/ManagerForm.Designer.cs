@@ -54,7 +54,7 @@
             // 
             cbSapXep.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             cbSapXep.FormattingEnabled = true;
-            cbSapXep.Items.AddRange(new object[] { "Tên", "Lương" });
+            cbSapXep.Items.AddRange(new object[] { "Name", "Salary" });
             cbSapXep.Location = new Point(818, 34);
             cbSapXep.Name = "cbSapXep";
             cbSapXep.Size = new Size(151, 28);
@@ -73,7 +73,7 @@
             // 
             // btnGiamLuong
             // 
-            btnGiamLuong.Anchor = AnchorStyles.Bottom;
+            btnGiamLuong.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnGiamLuong.Location = new Point(272, 574);
             btnGiamLuong.Name = "btnGiamLuong";
             btnGiamLuong.Size = new Size(127, 29);
@@ -84,7 +84,7 @@
             // 
             // btnXemChiTiet
             // 
-            btnXemChiTiet.Anchor = AnchorStyles.Bottom;
+            btnXemChiTiet.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnXemChiTiet.Location = new Point(467, 574);
             btnXemChiTiet.Name = "btnXemChiTiet";
             btnXemChiTiet.Size = new Size(94, 29);

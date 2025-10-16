@@ -1,4 +1,5 @@
-﻿using source.Data;
+﻿using source.Common;
+using source.Data;
 using source.Models.PersonModel;
 using source.Services;
 using System;
@@ -16,6 +17,7 @@ namespace source.UI
 {
     public partial class LoginForm : Form
     {
+        private AuthService authService=new AuthService();
         public Employee LoggedInUser { get; private set; }
 
         public LoginForm()
@@ -23,27 +25,25 @@ namespace source.UI
             InitializeComponent();
             panel1 = new DoubleBufferedPanel();
             lblError.Visible = false;
-            EmployeeAccount.InitializeDatabase();
-            //DatabaseSeeder.Seed(); // dùng 1 lần để lưu vào file thôi=))
+            authService.InitialDataforLogin();
+            DatabaseSeeder.Seed(); // dùng 1 lần để lưu vào file thôi=))
             this.StartPosition = FormStartPosition.CenterScreen;
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            string username = txtUserName.Text.Trim();
-            string password = txtPassword.Text.Trim();
-
-            var user = XácThực.Authenticate(username, password);
-
-            if (user != null)
+            try
             {
-                LoggedInUser = user;
-                this.DialogResult = DialogResult.OK; 
+                string username = txtUserName.Text.Trim();
+                string password = txtPassword.Text.Trim();
+                Employee user = authService.Login(username, password);
+                this.LoggedInUser = user;
+                this.DialogResult = DialogResult.OK;
                 this.Close();
             }
-            else
+            catch (Exception ex)
             {
-                lblError.Text = "Wrong account or password!";
+                lblError.Text = ex.Message;
                 lblError.Visible = true;
             }
         }

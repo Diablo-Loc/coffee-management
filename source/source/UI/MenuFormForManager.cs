@@ -76,7 +76,7 @@ namespace source.UI
                 }
                 else
                 {
-                    MessageBox.Show("Vui lòng chọn món để sửa.");
+                    MessageBox.Show("Please select an item to edit.");
                 }
             };
         }

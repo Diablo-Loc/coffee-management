@@ -13,16 +13,5 @@ namespace source.Models.PersonModel
         {
             
         }
-        public void AddEmployee(List<Employee> employees, Employee newE)
-        {
-            employees.Add(newE);
-        }
-        public void RemoveEmployee(List<Employee> employees, string username)
-        {
-            employees.RemoveAll(e => e.Username == username);
-            Touch();
-        }
-
-
     }
 }

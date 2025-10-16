@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace source.Models.Catalog
 {
@@ -31,6 +32,10 @@ namespace source.Models.Catalog
         public override string Describe()
         {
             return $"{Name} - {Size} - {(IsHot ? "Hot" : "Iced")} - {GetPrice():N0} đ";
+        }
+        public static Drink Create(string Name, decimal Price)
+        {
+            return new Drink("Vừa", false, Name, Price, "");
         }
     }
 }

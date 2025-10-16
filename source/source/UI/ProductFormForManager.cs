@@ -57,7 +57,7 @@ namespace source.UI
                     break;
             }
 
-            UpdatePanels(); // Hiện đúng panel
+            UpdatePanels();
         }
         private void UpdatePanels()
         {

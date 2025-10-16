@@ -4,6 +4,7 @@ using source.Data;
 using source.Models;
 using source.Models.OrderModel;
 using source.Models.PersonModel;
+using source.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,22 +20,25 @@ namespace source.UI
 {
     public partial class ReportForm : Form
     {
+        private readonly ReportService reportService = new ReportService();
         private Report report;
         public ReportForm()
         {
             InitializeComponent(); 
-            GenerateClassReport();
-            LoadReportData();
-            RenderChart();
+            LoadAndDisplayReport();
         }
-        private void GenerateClassReport()
+        private void LoadAndDisplayReport()
         {
-            var repo = new OrderRepository();
-            var orders = repo.GetAllOrders();
-            report = new Report();
-            report.Generate(orders);
+            report = reportService.TotalComprehensiveReport();
+
+            // 2. Ra lệnh cho Service chuẩn bị dữ liệu cho biểu đồ
+            var chartData = reportService.ChartData(report);
+
+            // 3. Dùng kết quả để hiển thị lên giao diện
+            LoadReportDataToControls();
+            RenderChart(chartData);
         }
-        private void LoadReportData()
+        private void LoadReportDataToControls()
         {
             // Tổng đơn hàng
             textBox_TotalOrder.Text = report.TotalOrders.ToString();
@@ -43,7 +47,7 @@ namespace source.UI
             label5.Text = $"Revenue: {report.TotalRevenue:N0}đ";
 
             // Món bán chạy nhất
-            var best = report.GetBestSeller();
+            var best = report.BestSeller;
             if (best != null)
             {
                 textBox_BestSellerName.Text = best.Item.Name;
@@ -51,29 +55,18 @@ namespace source.UI
             }
 
             // Top 3 món bán chạy
-            var top3 = report.GetTopSellingItems(3);
+            var top3 = report.TopSelling;
             lbl_BestSellingRank1.Text = top3.Count > 0 ? $"1. {top3[0].Item.Name}: {top3[0].Quantity}" : "1. None: 0";
             lbl_BestSellingRank2.Text = top3.Count > 1 ? $"2. {top3[1].Item.Name}: {top3[1].Quantity}" : "2. None: 0";
             lbl_BestSellingRank3.Text = top3.Count > 2 ? $"3. {top3[2].Item.Name}: {top3[2].Quantity}" : "3. None: 0";
         }
 
       
-        private void RenderChart()
+        private void RenderChart(Dictionary<string, int> data)
         {
-            // Đếm số lượng món ăn
-            Dictionary<string, int> counter = new Dictionary<string, int>();
-            foreach (OrderItem item in report.AllItems)
-            {
-                string name = item.Item.Name;
-                if (counter.ContainsKey(name))
-                    counter[name] += item.Quantity;
-                else
-                    counter[name] = item.Quantity;
-            }
-
-            // Dữ liệu
-            string[] labels = counter.Keys.ToArray();
-            double[] values = counter.Values.Select(v => (double)v).ToArray();
+            // Form chỉ nhận dữ liệu đã được xử lý sẵn và vẽ
+            string[] labels = data.Keys.ToArray();
+            double[] values = data.Values.Select(v => (double)v).ToArray();
 
             // Xóa biểu đồ cũ
             formsPlot1.Plot.Clear();
