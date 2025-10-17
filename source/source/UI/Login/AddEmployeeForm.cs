@@ -1,10 +1,13 @@
-﻿using source.Data;
+﻿using ScottPlot.Statistics;
+using source.Data;
+using source.Models.Catalog;
 using source.Models.PersonModel;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using static source.Data.EmployeeAccount;
 using static source.Models.PersonModel.Employee;
+using static System.ComponentModel.Design.ObjectSelectorEditor;
 
 namespace source.UI.Login
 {
@@ -50,8 +53,22 @@ namespace source.UI.Login
             txtUserName.Text = toEdit.Username;
             txtPassword.Text = ""; // không hiển thị mật khẩu cũ
             cboRole.SelectedItem = toEdit._Role;
+            if (toEdit is Manager manager)
+            {
+                txtAllowance.Text = manager.Allowance.ToString();
+                txtReponsible.Text = manager.ReponsibleRate.ToString();
+            }
         }
+        private void cboRole_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Role selected = (Role)cboRole.SelectedItem;
+            bool isManager = selected == Role.Manager;
 
+            lblAllowance.Visible = isManager;
+            txtAllowance.Visible = isManager;
+            lblReponsible.Visible = isManager;
+            txtReponsible.Visible = isManager;
+        }
         private void btnOk_Click(object sender, EventArgs e)
         {
             string name = txtName.Text.Trim();
@@ -61,6 +78,7 @@ namespace source.UI.Login
             string password = txtPassword.Text.Trim();
             Role selectedRole = (Role)cboRole.SelectedItem;
 
+            // Kiểm tra dữ liệu đầu vào
             if (string.IsNullOrWhiteSpace(name) ||
                 string.IsNullOrWhiteSpace(email) ||
                 string.IsNullOrWhiteSpace(phone) ||
@@ -70,31 +88,60 @@ namespace source.UI.Login
                 MessageBox.Show("Vui lòng điền đầy đủ các thông tin bắt buộc!");
                 return;
             }
+
             if (!decimal.TryParse(txtSalary.Text, out decimal salary) || salary <= 0)
             {
-                MessageBox.Show("Lương phải là một số hợp lệ và lớn hơn 0!");
+                MessageBox.Show("Lương phải là số hợp lệ và lớn hơn 0!");
                 return;
             }
+
             try
             {
                 if (isEditMode)
                 {
-                    // Cập nhật thông tin cho đối tượng Employee đang được chỉnh sửa
+                    // Cập nhật thông tin nhân viên đang chỉnh sửa
                     ResultEmployee.Name = name;
                     ResultEmployee.Email = email;
                     ResultEmployee.Phone = phone;
                     ResultEmployee.BaseSalary = salary;
                     ResultEmployee._Role = selectedRole;
-                    // Chỉ cập nhật mật khẩu nếu người dùng nhập mật khẩu mới
+
                     if (!string.IsNullOrWhiteSpace(password))
-                    {
                         ResultEmployee.Password = password;
+
+                    if (ResultEmployee is Manager manager)
+                    {
+                        if (!decimal.TryParse(txtAllowance.Text, out decimal allowance) ||
+                            !decimal.TryParse(txtReponsible.Text, out decimal rate))
+                        {
+                            MessageBox.Show("Allowance và Responsibility Rate phải là số hợp lệ!");
+                            return;
+                        }
+
+                        manager.Allowance = allowance;
+                        manager.ReponsibleRate = rate;
                     }
                 }
                 else
                 {
-                    // Tạo một đối tượng Employee hoàn toàn mới
-                    ResultEmployee = new Employee(name, email, phone, salary, selectedRole, username, password);
+                    // Tạo mới nhân viên theo Role
+                    switch (selectedRole)
+                    {
+                        case Role.Manager:
+                            if (!decimal.TryParse(txtAllowance.Text, out decimal allowance) ||
+                                !decimal.TryParse(txtReponsible.Text, out decimal rate))
+                            {
+                                MessageBox.Show("Allowance và Responsibility Rate phải là số hợp lệ!");
+                                return;
+                            }
+
+                            ResultEmployee = new Manager(name, email, phone, salary, Role.Manager, username, password, allowance, rate);
+                            break;
+
+                        default:
+                            ResultEmployee = new Employee(name, email, phone, salary, selectedRole, username, password);
+                            break;
+                    }
                 }
 
                 this.DialogResult = DialogResult.OK;
@@ -105,7 +152,6 @@ namespace source.UI.Login
                 MessageBox.Show("Đã có lỗi xảy ra: " + ex.Message);
             }
         }
-
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;

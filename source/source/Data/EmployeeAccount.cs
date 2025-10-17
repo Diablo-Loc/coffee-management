@@ -32,7 +32,12 @@ namespace source.Data
                 Role TEXT,
                 BaseSalary REAL,
                 Username TEXT UNIQUE,
-                Password TEXT
+                Password TEXT,
+                Allowance REAL,
+                ResponsibilityRate REAL,
+                WorkingHours INTEGER,
+                HourRate REAL
+
             );";
                 using (var cmd = new SQLiteCommand(query, conn))
                 {
@@ -60,8 +65,8 @@ namespace source.Data
             {
                 conn.Open();
                 string query = @"INSERT INTO Employees 
-                (Name, Email, Phone, Role, BaseSalary, Username, Password) 
-                VALUES (@Name, @Email, @Phone, @Role, @BaseSalary, @Username, @Password)";
+                (Name, Email, Phone, Role, BaseSalary, Username, Password, Allowance, ResponsibilityRate, WorkingHours, HourRate) 
+          VALUES (@Name, @Email, @Phone, @Role, @BaseSalary, @Username, @Password, @Allowance, @ResponsibilityRate, @WorkingHours, @HourRate)";
                 using (var cmd = new SQLiteCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@Name", emp.Name);
@@ -71,6 +76,10 @@ namespace source.Data
                     cmd.Parameters.AddWithValue("@BaseSalary", emp.BaseSalary);
                     cmd.Parameters.AddWithValue("@Username", emp.Username);
                     cmd.Parameters.AddWithValue("@Password", emp.Password);
+                    cmd.Parameters.AddWithValue("@Allowance", emp is Manager m ? m.Allowance : DBNull.Value);
+                    cmd.Parameters.AddWithValue("@ResponsibilityRate", emp is Manager m2 ? m2.ReponsibleRate : DBNull.Value);
+                    cmd.Parameters.AddWithValue("@WorkingHours", emp is Cashier c ? c.WorkHours : DBNull.Value);
+                    cmd.Parameters.AddWithValue("@HourRate", emp is Cashier c2 ? c2.HourRate : DBNull.Value);
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -86,8 +95,12 @@ namespace source.Data
             Phone = @Phone,
             Role = @Role,
             BaseSalary = @BaseSalary,
-            Password = @Password
-            WHERE Username = @Username"; // giả sử Username là duy nhất
+            Password = @Password,
+            Allowance = @Allowance,
+            ResponsibilityRate = @ResponsibilityRate,
+            WorkingHours = @WorkingHours,
+            HourRate = @HourRate
+            WHERE Username = @Username";
 
                 using (var cmd = new SQLiteCommand(query, conn))
                 {
@@ -98,7 +111,10 @@ namespace source.Data
                     cmd.Parameters.AddWithValue("@BaseSalary", emp.BaseSalary);
                     cmd.Parameters.AddWithValue("@Password", emp.Password);
                     cmd.Parameters.AddWithValue("@Username", emp.Username);
-
+                    cmd.Parameters.AddWithValue("@Allowance", emp is Manager m ? m.Allowance : DBNull.Value);
+                    cmd.Parameters.AddWithValue("@ResponsibilityRate", emp is Manager m2 ? m2.ReponsibleRate : DBNull.Value);
+                    cmd.Parameters.AddWithValue("@WorkingHours", emp is Cashier c ? c.WorkHours : DBNull.Value);
+                    cmd.Parameters.AddWithValue("@HourRate", emp is Cashier c2 ? c2.HourRate : DBNull.Value);
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -121,12 +137,25 @@ namespace source.Data
                             Role role = Enum.Parse<Role>(reader["Role"].ToString());
 
                             Employee emp;
+
                             if (role == Role.Manager)
-                                emp = new Manager();
+                            {
+                                var manager = new Manager();
+                                manager.Allowance = Convert.ToDecimal(reader["Allowance"]);
+                                manager.ReponsibleRate = Convert.ToDecimal(reader["ResponsibilityRate"]);
+                                emp = manager;
+                            }
                             else if (role == Role.Cashier)
-                                emp = new Cashier();
+                            {
+                                var cashier = new Cashier();
+                                cashier.WorkHours = Convert.ToInt32(reader["WorkingHours"]);
+                                cashier.HourRate = Convert.ToDecimal(reader["HourRate"]);
+                                emp = cashier;
+                            }
                             else
+                            {
                                 emp = new Employee();
+                            }
 
                             emp.Id = Convert.ToInt32(reader["Id"]);
                             emp.Name = reader["Name"].ToString();
@@ -136,7 +165,6 @@ namespace source.Data
                             emp.BaseSalary = Convert.ToDecimal(reader["BaseSalary"]);
                             emp.Username = reader["Username"].ToString();
                             emp.Password = reader["Password"].ToString();
-
                             return emp;
                         }
                     }
@@ -160,12 +188,25 @@ namespace source.Data
                         Role role = Enum.Parse<Role>(reader["Role"].ToString());
 
                         Employee emp;
+
                         if (role == Role.Manager)
-                            emp = new Manager();
+                        {
+                            var manager = new Manager();
+                            manager.Allowance = reader["Allowance"] != DBNull.Value ? Convert.ToDecimal(reader["Allowance"]) : 0;
+                            manager.ReponsibleRate = reader["ResponsibilityRate"] != DBNull.Value ? Convert.ToDecimal(reader["ResponsibilityRate"]) : 0;
+                            emp = manager;
+                        }
                         else if (role == Role.Cashier)
-                            emp = new Cashier();
+                        {
+                            var cashier = new Cashier();
+                            cashier.WorkHours = reader["WorkingHours"] != DBNull.Value ? Convert.ToInt32(reader["WorkingHours"]) : 0;
+                            cashier.HourRate = reader["HourRate"] != DBNull.Value ? Convert.ToDecimal(reader["HourRate"]) : 0;
+                            emp = cashier;
+                        }
                         else
-                            emp = new Employee();
+                        {
+                            emp = new Employee(); // ✅ fix lỗi ở đây
+                        }
 
                         emp.Id = Convert.ToInt32(reader["Id"]);
                         emp.Name = reader["Name"].ToString();
@@ -182,17 +223,31 @@ namespace source.Data
             }
             return list;
         }
-        public static void DeleteEmployee(int id)
+        public static bool DeleteEmployee(int id)
         {
             using (var conn = new SQLiteConnection(connectionString))
             {
                 conn.Open();
-                string query = "DELETE FROM Employees WHERE Id = @Id";
-                using (var cmd = new SQLiteCommand(query, conn))
+
+                // Kiểm tra tồn tại
+                string checkQuery = "SELECT COUNT(*) FROM Employees WHERE Id = @Id";
+                using (var checkCmd = new SQLiteCommand(checkQuery, conn))
                 {
-                    cmd.Parameters.AddWithValue("@Id", id);
-                    cmd.ExecuteNonQuery();
+                    checkCmd.Parameters.AddWithValue("@Id", id);
+                    long count = (long)checkCmd.ExecuteScalar();
+                    if (count == 0)
+                        return false; // Không tồn tại
                 }
+
+                // Thực hiện xóa
+                string deleteQuery = "DELETE FROM Employees WHERE Id = @Id";
+                using (var deleteCmd = new SQLiteCommand(deleteQuery, conn))
+                {
+                    deleteCmd.Parameters.AddWithValue("@Id", id);
+                    deleteCmd.ExecuteNonQuery();
+                }
+
+                return true;
             }
         }
     }

@@ -46,5 +46,11 @@ namespace source.Services
             }
             return employees;
         }
+        //tính lương
+        public decimal ComputeSalary(Employee employee)
+        {
+            if (employee == null) return 0;
+            return employee.CalculateSalary();
+        }
     }
 }

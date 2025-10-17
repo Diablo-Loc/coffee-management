@@ -37,14 +37,6 @@ namespace source.UI
             // Hiển thị danh sách ban đầu
             LoadMenuToGrid(service.GetAll());
 
-            // Tìm kiếm
-            btnsearch.Click += (s, e) =>
-            {
-                string keyword = txtsearch.Text.ToLower();
-                var filtered = service.Search(keyword);
-                LoadMenuToGrid(filtered);
-            };
-
             // Lọc theo danh mục
             comboBox.SelectedIndexChanged += (s, e) =>
             {

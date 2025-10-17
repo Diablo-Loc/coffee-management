@@ -32,6 +32,7 @@
             btndelete = new Button();
             btnedit = new Button();
             btnadd = new Button();
+            btnTinhLuong = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvEmployee).BeginInit();
             SuspendLayout();
             // 
@@ -50,7 +51,7 @@
             // 
             btndelete.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btndelete.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btndelete.Location = new Point(323, 523);
+            btndelete.Location = new Point(339, 523);
             btndelete.Name = "btndelete";
             btndelete.Size = new Size(72, 38);
             btndelete.TabIndex = 10;
@@ -82,11 +83,24 @@
             btnadd.UseVisualStyleBackColor = true;
             btnadd.Click += btnAdd_Click;
             // 
+            // btnTinhLuong
+            // 
+            btnTinhLuong.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnTinhLuong.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnTinhLuong.Location = new Point(467, 523);
+            btnTinhLuong.Name = "btnTinhLuong";
+            btnTinhLuong.Size = new Size(253, 38);
+            btnTinhLuong.TabIndex = 11;
+            btnTinhLuong.Text = "ComputeSalary for manager";
+            btnTinhLuong.UseVisualStyleBackColor = true;
+            btnTinhLuong.Click += btnTinhLuong_Click;
+            // 
             // AdminManage
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(984, 592);
+            Controls.Add(btnTinhLuong);
             Controls.Add(btndelete);
             Controls.Add(btnedit);
             Controls.Add(btnadd);
@@ -103,5 +117,6 @@
         private Button btndelete;
         private Button btnedit;
         private Button btnadd;
+        private Button btnTinhLuong;
     }
 }

@@ -22,7 +22,7 @@ namespace source.Models.PersonModel
         ~Cashier() { }
         public override decimal CalculateSalary()
         {
-            return _WorkingHours * _HourRate;
+            return BaseSalary +(_WorkingHours * _HourRate);
         }
         public override void Xuat()
         {

@@ -28,12 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            txtsearch = new TextBox();
             btnsearch = new Button();
             comboBox = new ComboBox();
             dgvMenu = new DataGridView();
-            panel1 = new Panel();
-            btnedit = new Button();
             colname1 = new DataGridViewTextBoxColumn();
             colname3 = new DataGridViewTextBoxColumn();
             colname2 = new DataGridViewTextBoxColumn();
@@ -44,17 +41,11 @@
             IsCold = new DataGridViewTextBoxColumn();
             Flavor = new DataGridViewTextBoxColumn();
             Decoration = new DataGridViewTextBoxColumn();
+            panel1 = new Panel();
+            btnedit = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvMenu).BeginInit();
             panel1.SuspendLayout();
             SuspendLayout();
-            // 
-            // txtsearch
-            // 
-            txtsearch.Location = new Point(29, 31);
-            txtsearch.Margin = new Padding(5);
-            txtsearch.Name = "txtsearch";
-            txtsearch.Size = new Size(202, 27);
-            txtsearch.TabIndex = 0;
             // 
             // btnsearch
             // 
@@ -91,27 +82,6 @@
             dgvMenu.RowHeadersWidth = 51;
             dgvMenu.Size = new Size(1025, 487);
             dgvMenu.TabIndex = 3;
-            // 
-            // panel1
-            // 
-            panel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            panel1.AutoSize = true;
-            panel1.Controls.Add(dgvMenu);
-            panel1.Location = new Point(29, 72);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(1025, 487);
-            panel1.TabIndex = 4;
-            // 
-            // btnedit
-            // 
-            btnedit.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnedit.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnedit.Location = new Point(216, 578);
-            btnedit.Name = "btnedit";
-            btnedit.Size = new Size(72, 38);
-            btnedit.TabIndex = 6;
-            btnedit.Text = "Edit";
-            btnedit.UseVisualStyleBackColor = true;
             // 
             // colname1
             // 
@@ -187,6 +157,27 @@
             Decoration.Name = "Decoration";
             Decoration.ReadOnly = true;
             // 
+            // panel1
+            // 
+            panel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panel1.AutoSize = true;
+            panel1.Controls.Add(dgvMenu);
+            panel1.Location = new Point(29, 72);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(1025, 487);
+            panel1.TabIndex = 4;
+            // 
+            // btnedit
+            // 
+            btnedit.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnedit.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnedit.Location = new Point(216, 578);
+            btnedit.Name = "btnedit";
+            btnedit.Size = new Size(72, 38);
+            btnedit.TabIndex = 6;
+            btnedit.Text = "Edit";
+            btnedit.UseVisualStyleBackColor = true;
+            // 
             // MenuFormForManager
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -196,7 +187,6 @@
             Controls.Add(panel1);
             Controls.Add(comboBox);
             Controls.Add(btnsearch);
-            Controls.Add(txtsearch);
             Margin = new Padding(2);
             Name = "MenuFormForManager";
             Text = "MenuForm";
@@ -207,8 +197,6 @@
         }
 
         #endregion
-
-        private TextBox txtsearch;
         private Button btnsearch;
         private ComboBox comboBox;
         private DataGridView dgvMenu;

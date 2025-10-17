@@ -23,7 +23,7 @@ namespace source.UI
         private List<Employee> employees = new List<Employee>();
         private bool isEditMode = false;
         private Employee editingEmployee;
-        private readonly AdminService adminService=new AdminService();
+        private readonly AdminService adminService = new AdminService();
         public AdminManage(Employee user)
         {
             InitializeComponent();
@@ -124,15 +124,21 @@ namespace source.UI
             dgvEmployee.Columns["Email"].DisplayIndex = 1;
             dgvEmployee.Columns["Phone"].DisplayIndex = 2;
             dgvEmployee.Columns["BaseSalary"].DisplayIndex = 3;
+            if (!dgvEmployee.Columns.Contains("Salary"))
+                dgvEmployee.Columns.Add("Salary", "Lương");
+        }
 
-            if (!dgvEmployee.Columns.Contains("Role"))
-                dgvEmployee.Columns.Add("Role", "Vai trò");
-
+        private void btnTinhLuong_Click(object sender, EventArgs e)
+        {
             foreach (DataGridViewRow row in dgvEmployee.Rows)
             {
+                var empService = new EmployeeService();
                 var emp = row.DataBoundItem as Employee;
                 if (emp != null)
-                    row.Cells["Role"].Value = emp._Role.ToString();
+                {
+                    decimal salary = empService.ComputeSalary(emp);
+                    row.Cells["Salary"].Value = salary.ToString("N0") + " VND";
+                }
             }
         }
     }

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static source.Models.PersonModel.Employee;
 
+
 namespace source.Common
 {
     public class EmployeeCompare
@@ -22,7 +23,7 @@ namespace source.Common
         {
             public int Compare(Employee x, Employee y)
             {
-                return y.BaseSalary.CompareTo(x.BaseSalary);
+                return y.CalculateSalary().CompareTo(x.CalculateSalary());
             }
         }
     }

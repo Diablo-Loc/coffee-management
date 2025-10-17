@@ -9,25 +9,25 @@ namespace source.Models.OrderModel
 {
     public class OrderItem
     {
-        private Product sItem;
-        private int sQuantity;
+        private Product _Item;
+        private int _Quantity;
 
         public Product Item
         {
-            get { return sItem; }
+            get { return _Item; }
             set
             {
                 if (value == null) throw new ArgumentNullException(nameof(Item));
-                sItem = value;
+                _Item = value;
             }
         }
         public int Quantity
         {
-            get { return sQuantity; }
+            get { return _Quantity; }
             set
             {
                 if (value <= 0) throw new ArgumentException("ERROR! Quantity must be > 0!");
-                sQuantity = value;
+                _Quantity = value;
             }
         }
 
@@ -37,16 +37,16 @@ namespace source.Models.OrderModel
         }
         public OrderItem(Product item, int quanity)
         {
-            this.sItem = item;
-            this.sQuantity = quanity;
+            this._Item = item;
+            this._Quantity = quanity;
         }
         ~OrderItem() { }
         //method
         //Tổng tiền sp order
         public decimal TotalPrice()
         {
-            if (sItem == null) return 0;
-            return sItem.Price * this.sQuantity;
+            if (_Item == null) return 0;
+            return _Item.Price * this._Quantity;
         }
         public void Increase(int add = 1)
         {

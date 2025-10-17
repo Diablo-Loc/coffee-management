@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            ToolTip toolTip = new ToolTip();
             lblName = new Label();
             lblEmail = new Label();
             lblPhone = new Label();
@@ -44,6 +45,10 @@
             lblUserName = new Label();
             txtPassword = new TextBox();
             lblPassword = new Label();
+            lblAllowance = new Label();
+            lblReponsible = new Label();
+            txtAllowance = new TextBox();
+            txtReponsible = new TextBox();
             SuspendLayout();
             // 
             // lblName
@@ -127,7 +132,7 @@
             // btncancel
             // 
             btncancel.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btncancel.Location = new Point(252, 435);
+            btncancel.Location = new Point(254, 467);
             btncancel.Name = "btncancel";
             btncancel.Size = new Size(82, 35);
             btncancel.TabIndex = 11;
@@ -138,7 +143,7 @@
             // btnOK
             // 
             btnOK.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnOK.Location = new Point(107, 435);
+            btnOK.Location = new Point(109, 467);
             btnOK.Name = "btnOK";
             btnOK.Size = new Size(82, 35);
             btnOK.TabIndex = 10;
@@ -188,11 +193,51 @@
             lblPassword.TabIndex = 15;
             lblPassword.Text = "Password";
             // 
+            // lblAllowance
+            // 
+            lblAllowance.AutoSize = true;
+            lblAllowance.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblAllowance.Location = new Point(12, 415);
+            lblAllowance.Name = "lblAllowance";
+            lblAllowance.Size = new Size(87, 23);
+            lblAllowance.TabIndex = 17;
+            lblAllowance.Text = "Allowance";
+            // 
+            // lblReponsible
+            // 
+            lblReponsible.AutoSize = true;
+            lblReponsible.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblReponsible.Location = new Point(218, 415);
+            lblReponsible.Name = "lblReponsible";
+            lblReponsible.Size = new Size(145, 23);
+            lblReponsible.TabIndex = 18;
+            lblReponsible.Text = "Reponsibility Rate";
+            // 
+            // txtAllowance
+            // 
+            txtAllowance.Location = new Point(105, 411);
+            txtAllowance.Name = "txtAllowance";
+            txtAllowance.Size = new Size(107, 27);
+            txtAllowance.TabIndex = 19;
+            toolTip.SetToolTip(txtAllowance, "A fixed allowance for management, usually to support administrative costs");
+            // 
+            // txtReponsible
+            // 
+            txtReponsible.Location = new Point(360, 415);
+            txtReponsible.Name = "txtReponsible";
+            txtReponsible.Size = new Size(101, 27);
+            txtReponsible.TabIndex = 20;
+            toolTip.SetToolTip(txtReponsible, "Responsibility rewards for managers (0.2 = 2%)");
+            // 
             // AddEmployeeForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(463, 514);
+            Controls.Add(txtReponsible);
+            Controls.Add(txtAllowance);
+            Controls.Add(lblReponsible);
+            Controls.Add(lblAllowance);
             Controls.Add(txtPassword);
             Controls.Add(lblPassword);
             Controls.Add(txtUserName);
@@ -233,5 +278,10 @@
         private Label lblUserName;
         private TextBox txtPassword;
         private Label lblPassword;
+        private Label lblAllowance;
+        private Label lblReponsible;
+        private TextBox txtAllowance;
+        private TextBox txtReponsible;
+        private ToolTip tooltip;
     }
 }

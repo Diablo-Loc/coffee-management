@@ -150,7 +150,7 @@
             btnReport.Name = "btnReport";
             btnReport.Size = new Size(200, 75);
             btnReport.TabIndex = 9;
-            btnReport.Text = "Manage Order";
+            btnReport.Text = "Report";
             btnReport.UseVisualStyleBackColor = true;
             btnReport.Click += btnReport_Click;
             // 

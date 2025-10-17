@@ -25,14 +25,14 @@ namespace source.Services
         {
             if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
             {
-                throw new System.Exception("Tên đăng nhập và mật khẩu không được để trống.");
+                throw new System.Exception("Username and password cannot be blank.");
             }
 
             var user = Authenticate(username, password);
 
             if (user == null)
             {
-                throw new System.Exception("Sai tài khoản hoặc mật khẩu!");
+                throw new System.Exception("Wrong account or password!!!");
             }
 
             return user;

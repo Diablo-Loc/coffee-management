@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.ComponentModel.Design.ObjectSelectorEditor;
-
+using source.Data;
 namespace source.UI
 {
     public partial class ManagerForm : Form
@@ -92,20 +92,25 @@ namespace source.UI
                 dgvEmployee.Columns.Add("Username", "Tài khoản");
                 dgvEmployee.Columns.Add("Role", "Vai trò");
                 dgvEmployee.Columns.Add("BaseSalary", "Lương cơ bản");
+                if (!dgvEmployee.Columns.Contains("Salary"))
+                    dgvEmployee.Columns.Add("Salary", "Lương");
                 foreach (DataGridViewColumn column in dgvEmployee.Columns)
                 {
                     column.SortMode = DataGridViewColumnSortMode.NotSortable;
                 }
+                
             }
 
             foreach (var emp in list)
             {
+                decimal salary = employeeservice.ComputeSalary(emp);
                 dgvEmployee.Rows.Add(
                     emp.Id,
                     emp.Name,
                     emp.Username,
                     emp._Role.ToString(),
-                    emp.BaseSalary.ToString("N0") + " VND"
+                    emp.BaseSalary.ToString("N0") + " VND",
+                    salary.ToString("N0") + " VND"
                 );
             }
         }
@@ -126,8 +131,23 @@ namespace source.UI
                 MessageBox.Show("Please select an employee.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+
             var detailForm = new EmployeeDetailForm(selected);
-            detailForm.ShowDialog();
+            if (detailForm.ShowDialog() == DialogResult.OK)
+            {
+                var updated = detailForm.ResultEmployee;
+
+                // Cập nhật vào danh sách
+                int index = employeeList.FindIndex(e => e.Id == updated.Id);
+                if (index >= 0)
+                    employeeList[index] = updated;
+
+                // Lưu vào DB
+                EmployeeAccount.UpdateEmployee(updated);
+
+                // Hiển thị lại
+                UpdateGrid(employeeList);
+            }
         }
     }
 }

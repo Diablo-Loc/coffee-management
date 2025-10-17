@@ -23,7 +23,7 @@ namespace source.Models.PersonModel
         ~Manager() { }
         public override decimal CalculateSalary()
         {
-            return BaseSalary + Allowance * ReponsibleRate;
+            return BaseSalary + Allowance + (BaseSalary * ReponsibleRate*10);
         }
         public override void Xuat()
         {
