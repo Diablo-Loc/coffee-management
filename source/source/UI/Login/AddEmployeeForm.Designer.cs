@@ -28,7 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            ToolTip toolTip = new ToolTip();
+            components = new System.ComponentModel.Container();
+            toolTip = new ToolTip(components);
+            txtAllowance = new TextBox();
+            txtReponsible = new TextBox();
             lblName = new Label();
             lblEmail = new Label();
             lblPhone = new Label();
@@ -47,9 +50,23 @@
             lblPassword = new Label();
             lblAllowance = new Label();
             lblReponsible = new Label();
-            txtAllowance = new TextBox();
-            txtReponsible = new TextBox();
             SuspendLayout();
+            // 
+            // txtAllowance
+            // 
+            txtAllowance.Location = new Point(105, 411);
+            txtAllowance.Name = "txtAllowance";
+            txtAllowance.Size = new Size(107, 27);
+            txtAllowance.TabIndex = 19;
+            toolTip.SetToolTip(txtAllowance, "A fixed allowance for management, usually to support administrative costs");
+            // 
+            // txtReponsible
+            // 
+            txtReponsible.Location = new Point(360, 415);
+            txtReponsible.Name = "txtReponsible";
+            txtReponsible.Size = new Size(101, 27);
+            txtReponsible.TabIndex = 20;
+            toolTip.SetToolTip(txtReponsible, "Responsibility rewards for managers (0.2 = 2%)");
             // 
             // lblName
             // 
@@ -158,6 +175,7 @@
             cboRole.Name = "cboRole";
             cboRole.Size = new Size(207, 28);
             cboRole.TabIndex = 12;
+            cboRole.SelectedIndexChanged += cboRole_SelectedIndexChanged;
             // 
             // txtUserName
             // 
@@ -213,22 +231,6 @@
             lblReponsible.TabIndex = 18;
             lblReponsible.Text = "Reponsibility Rate";
             // 
-            // txtAllowance
-            // 
-            txtAllowance.Location = new Point(105, 411);
-            txtAllowance.Name = "txtAllowance";
-            txtAllowance.Size = new Size(107, 27);
-            txtAllowance.TabIndex = 19;
-            toolTip.SetToolTip(txtAllowance, "A fixed allowance for management, usually to support administrative costs");
-            // 
-            // txtReponsible
-            // 
-            txtReponsible.Location = new Point(360, 415);
-            txtReponsible.Name = "txtReponsible";
-            txtReponsible.Size = new Size(101, 27);
-            txtReponsible.TabIndex = 20;
-            toolTip.SetToolTip(txtReponsible, "Responsibility rewards for managers (0.2 = 2%)");
-            // 
             // AddEmployeeForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -283,5 +285,6 @@
         private TextBox txtAllowance;
         private TextBox txtReponsible;
         private ToolTip tooltip;
+        private ToolTip toolTip;
     }
 }

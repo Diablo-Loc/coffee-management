@@ -12,8 +12,33 @@ namespace source.Models.PersonModel
         private string _Name;
         private string _Email;
         private string _Phone;
-        public string Name { get { return _Name; } set { _Name = value; } }
-        public string Email { get { return _Email; } set { _Email = value; } }
+        public string Name 
+        { 
+            get { return _Name; } 
+            set 
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("Product name cannot be blank.");
+                }
+                _Name = value; 
+            } 
+        }
+        public string Email 
+        { 
+            get { return _Email; } 
+            set {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("Email cannot be blank.");
+                }
+                if (!value.Contains("@") && !string.IsNullOrWhiteSpace(value))
+                {
+                    throw new FormatException("Invalid Email format (must contain '@').");
+                }
+                _Email = value; 
+            } 
+        }
         public string Phone { get { return _Phone; } set { _Phone = value; } }
         protected Person():base() { }
         protected Person(string fullName, string email, string phone) : base()

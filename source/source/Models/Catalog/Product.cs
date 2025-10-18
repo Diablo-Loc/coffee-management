@@ -13,8 +13,30 @@ namespace source.Models.Catalog
         private string _Category;
         private string _Description;
 
-        public string Name { get { return _Name; } set { _Name = value; } }
-        public decimal Price { get { return _Price; } set { _Price = value; } }
+        public string Name 
+        { 
+            get { return _Name; } 
+            set 
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("Product name cannot be blank.");
+                }
+                _Name = value;
+            } 
+        }
+        public decimal Price 
+        { 
+            get { return _Price; } 
+            set 
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentException("Product price cannot be negative.");
+                }
+                _Price = value; 
+            } 
+        }
         public string Category { get { return _Category; } set { _Category = value; } }
         public string Description { get { return _Description; } set { _Description = value; } }
         public Product() { }

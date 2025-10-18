@@ -12,14 +12,12 @@ namespace source.Common
         {
             if (string.IsNullOrWhiteSpace(raw))
                 return 0;
-
             string clean = raw.Replace("đ", "")
                                 .Replace("VND", "")
                                 .Replace("VD", "")
                                 .Replace(",", "")
                                 .Replace(".", "")
                                 .Trim();
-
             return decimal.TryParse(clean, out decimal result) ? result : 0;
         }
     }

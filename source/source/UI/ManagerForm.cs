@@ -68,7 +68,7 @@ namespace source.UI
             }
 
             string input = Microsoft.VisualBasic.Interaction.InputBox(
-                "Enter the amount to increase:",
+                "Enter the amount to decrease: ",
                 "Increase salary",
                 "1000000 VND"
             );

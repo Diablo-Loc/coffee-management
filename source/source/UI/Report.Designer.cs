@@ -364,7 +364,7 @@
             Controls.Add(panel_Content);
             Margin = new Padding(2, 2, 2, 2);
             Name = "ReportForm";
-            Text = "ListOrder";
+            Text = "Report";
             panelTop.ResumeLayout(false);
             panelTop.PerformLayout();
             panelRight.ResumeLayout(false);

@@ -22,6 +22,7 @@ namespace source.UI.Login
         public AddEmployeeForm()
         {
             InitializeComponent();
+
             cboRole.DataSource = Enum.GetValues(typeof(Role));
             this.StartPosition = FormStartPosition.CenterScreen;
         }
@@ -55,6 +56,7 @@ namespace source.UI.Login
             cboRole.SelectedItem = toEdit._Role;
             if (toEdit is Manager manager)
             {
+
                 txtAllowance.Text = manager.Allowance.ToString();
                 txtReponsible.Text = manager.ReponsibleRate.ToString();
             }
@@ -62,13 +64,27 @@ namespace source.UI.Login
         private void cboRole_SelectedIndexChanged(object sender, EventArgs e)
         {
             Role selected = (Role)cboRole.SelectedItem;
-            bool isManager = selected == Role.Manager;
-
-            lblAllowance.Visible = isManager;
-            txtAllowance.Visible = isManager;
-            lblReponsible.Visible = isManager;
-            txtReponsible.Visible = isManager;
-        }
+            if( selected == Role.Manager) {
+                lblAllowance.Visible = true;
+                txtAllowance.Visible = true;
+                lblReponsible.Visible = true;
+                txtReponsible.Visible = true;
+            }
+            else if (selected == Role.Admin)
+            {
+                lblAllowance.Visible = false;
+                txtAllowance.Visible = false;
+                lblReponsible.Visible = false;
+                txtReponsible.Visible = false;
+            }
+            else if (selected == Role.Cashier)
+            {
+                lblAllowance.Visible = false;
+                txtAllowance.Visible = false;
+                lblReponsible.Visible = false;
+                txtReponsible.Visible = false;
+            }
+            }
         private void btnOk_Click(object sender, EventArgs e)
         {
             string name = txtName.Text.Trim();

@@ -13,7 +13,17 @@ namespace source.Models.PersonModel
         private decimal _BaseSalary;
         private string _Username;
         private string _Password;
-        public decimal BaseSalary { get { return _BaseSalary; } set { _BaseSalary = value; } }
+        public decimal BaseSalary 
+        { 
+            get { return _BaseSalary; } 
+            set {
+                if (value < 0)
+                {
+                    throw new ArgumentException("The base salary cannot be a negative number.");
+                }
+                _BaseSalary = value; 
+            } 
+        }
         public string Username { get { return _Username; } set { _Username = value; } }
         public string Password { get { return _Password; } set { _Password = value; } }
         public enum Role
