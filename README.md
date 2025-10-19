@@ -59,6 +59,7 @@ The Cashier is the primary user of the POS. The interface is optimized for speed
 To experience the different roles, please use the following default accounts.
 
 | Role | Username | Password |
+| :--- | :--- | :--- |
 | **Admin**   | `admin`   | `123` |
 | **Manager** | `Loc`     | `222` |
 | **Manager** | `Thanh`   | `111` |
